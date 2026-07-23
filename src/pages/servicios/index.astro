@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import PageHero from '../../components/sections/PageHero.astro'
+import ServiceHighlights from '../../components/sections/ServiceHighlights.astro'
+import FinalCta from '../../components/sections/FinalCta.astro'
+import { services } from '../../data/services'
+
+const metaDescription =
+  'Reparación integral, instalaciones, mantenimiento y repuestos oleohidráulicos en Colonia Barón, La Pampa. Conocé todos los servicios de EAD Oleohidráulica.'
+
+const serviceItems = services.map(({ title, summary, slug, icon }) => ({
+  title,
+  summary,
+  href: `/servicios/${slug}`,
+  icon,
+}))
+---
+
+<BaseLayout
+  title="Servicios"
+  description={metaDescription}
+  currentPath="/servicios"
+  crumbs={[
+    { label: 'Servicios' },
+  ]}
+>
+  <PageHero
+    eyebrow="Servicios"
+    title="Servicios oleohidráulicos"
+    description="Organizamos cada consulta según el equipo y la necesidad. El alcance se confirma antes de iniciar el trabajo."
+    visual="services"
+  />
+
+  <ServiceHighlights
+    heading="Áreas de trabajo"
+    intro="Reparación, instalación, mantenimiento y provisión de componentes con alcance definido para cada caso."
+    items={serviceItems}
+    showAllLink={false}
+  />
+
+  <FinalCta
+    heading="Cuéntenos qué necesita resolver"
+    text="Envíenos los datos del equipo para orientar la consulta y definir el próximo paso."
+    cta={{ label: 'Solicitar presupuesto', href: '/contacto' }}
+  />
+</BaseLayout>

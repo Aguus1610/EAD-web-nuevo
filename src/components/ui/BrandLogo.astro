@@ -1,0 +1,40 @@
+---
+import { withBase } from '../../lib/url'
+
+interface Props {
+  brand: 'ead' | 'hidro-grubert' | 'palfinger'
+  variant?: 'light' | 'dark'
+  class?: string
+  alt?: string
+  loading?: 'eager' | 'lazy'
+}
+
+const { brand, variant = 'dark', class: className, alt, loading = 'eager' } = Astro.props
+
+interface LogoEntry {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
+const logos: Record<string, LogoEntry> = {
+  'ead-light': { src: '/assets/brand/ead-logo-on-dark.png', alt: 'EAD Oleohidráulica', width: 2048, height: 2048 },
+  'ead-dark': { src: '/assets/brand/ead-logo-on-light.png', alt: 'EAD Oleohidráulica', width: 2048, height: 1231 },
+  'hidro-grubert': { src: '/assets/brand/hidro-grubert-logo.png', alt: 'Hidro-Grubert', width: 2048, height: 354 },
+  palfinger: { src: '/assets/brand/palfinger-logo.png', alt: 'Palfinger', width: 2048, height: 438 },
+}
+
+const key = brand === 'ead' ? `${brand}-${variant}` : brand
+const entry = logos[key]
+---
+
+<img
+  src={withBase(entry.src)}
+  alt={alt ?? entry.alt}
+  width={entry.width}
+  height={entry.height}
+  class={`h-12 w-auto object-contain ${className ?? ''}`}
+  loading={loading}
+  decoding="async"
+/>

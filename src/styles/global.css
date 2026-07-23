@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #06101f;
+  --color-navy-900: #0a1628;
+  --color-navy-800: #0f1f3a;
+  --color-navy-700: #142a4e;
+  --color-navy-100: #dce8f0;
+  --color-steel-600: #246585;
+  --color-steel-500: #327fa6;
+  --color-steel-400: #55a1c5;
+  --color-steel-300: #8bc7df;
+  --color-steel-100: #dcedf4;
+  --color-gold-600: #956a08;
+  --color-gold-500: #b8860b;
+  --color-gold-400: #d4a017;
+  --color-gold-300: #f0c54a;
+  --color-gold-100: #fff2bf;
+  --color-gray-950: #0d0f12;
+  --color-gray-900: #1a1d23;
+  --color-gray-800: #2d3138;
+  --color-gray-600: #5a5f69;
+  --color-gray-400: #9499a3;
+  --color-gray-200: #cfd2d8;
+  --color-gray-100: #e8eaed;
+  --color-gray-50: #f5f6f7;
+
+  --font-sans: Aptos, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Arial Narrow", "Liberation Sans Narrow", "Nimbus Sans Narrow", Arial, sans-serif;
+  --font-technical: "Cascadia Mono", "Segoe UI Mono", Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-relaxed: 1.65;
+
+  --spacing-section: 5rem;
+  --spacing-section-sm: 3rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+
+  --content-max: 72rem;
+  --content-narrow: 48rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-gray-900);
+  background-color: var(--color-gray-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  background-color: white;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: var(--color-steel-500);
+  color: white;
+}
+
+:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-steel-600);
+}
+
+.technical-label {
+  font-family: var(--font-technical);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.section-title {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.section-title::before {
+  position: absolute;
+  top: 0.08em;
+  bottom: 0.08em;
+  left: 0;
+  width: 0.25rem;
+  background: linear-gradient(180deg, var(--color-gold-300), var(--color-gold-500));
+  content: '';
+}
+
+.paper-grid {
+  background-color: var(--color-gray-50);
+  background-image:
+    linear-gradient(rgba(50, 127, 166, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(50, 127, 166, 0.07) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+.industrial-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #cad8e0;
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f6fafc 100%);
+  box-shadow: 0 1rem 2.5rem -2rem rgba(10, 22, 40, 0.55);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.industrial-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.25rem;
+  background: linear-gradient(90deg, var(--color-steel-500), var(--color-gold-400));
+  content: '';
+}
+
+.industrial-card:hover {
+  border-color: var(--color-steel-400);
+  box-shadow: 0 1.25rem 3rem -2rem rgba(10, 22, 40, 0.7);
+  transform: translateY(-0.25rem);
+}
+
+.dark-technical-grid {
+  background-color: var(--color-navy-900);
+  background-image:
+    linear-gradient(rgba(139, 199, 223, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 199, 223, 0.075) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(50, 127, 166, 0.24), transparent 38%);
+  background-size: 3rem 3rem, 3rem 3rem, 100% 100%;
+}
+
+.cut-corner {
+  border-radius: 0.25rem;
+}
+
+.text-balance {
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+@media (hover: none) {
+  .industrial-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

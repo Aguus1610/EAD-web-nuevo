@@ -1,0 +1,36 @@
+---
+import { mainNav } from '../../data/navigation'
+import { withBase } from '../../lib/url'
+
+interface Props {
+  currentPath?: string
+}
+
+const { currentPath = '/' } = Astro.props
+
+function isActive(linkHref: string): boolean {
+  if (linkHref === '/') return currentPath === '/'
+  return currentPath.startsWith(linkHref)
+}
+---
+
+<nav aria-label="Principal" class="hidden md:block">
+  <ul class="flex items-center gap-1">
+    {mainNav.map((link) => (
+      <li>
+        <a
+          href={withBase(link.href)}
+          class={`relative px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300
+            ${isActive(link.href)
+              ? 'text-white after:absolute after:inset-x-3 after:-bottom-1 after:h-0.5 after:bg-gold-300'
+              : 'text-gray-300 hover:text-white'
+            }
+          `}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

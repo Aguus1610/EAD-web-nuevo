@@ -1,0 +1,52 @@
+---
+import Container from '../ui/Container.astro'
+import SectionHeading from '../ui/SectionHeading.astro'
+import { siteConfig } from '../../data/site'
+import { telUrl } from '../../lib/contact'
+
+interface Props {
+  heading: string
+  paragraphs: string[]
+}
+
+const { heading, paragraphs } = Astro.props
+---
+
+<section class="paper-grid py-16 sm:py-24">
+  <Container>
+    <SectionHeading>{heading}</SectionHeading>
+
+    <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1fr]">
+      <div class="rounded-xl bg-navy-900 p-7 text-white shadow-2xl shadow-navy-900/15 sm:p-9">
+        <p class="technical-label text-gold-300">Base operativa</p>
+        {paragraphs.map((p) => (
+          <p class="mt-4 text-lg leading-relaxed text-gray-200">{p}</p>
+        ))}
+      </div>
+
+      <div class="industrial-card p-6 sm:p-8">
+        <dl class="space-y-4 text-sm">
+          <div>
+            <dt class="technical-label text-steel-600">Dirección</dt>
+            <dd class="mt-1 text-gray-600">{siteConfig.address}, {siteConfig.locality}</dd>
+          </div>
+          <div>
+            <dt class="technical-label text-steel-600">Provincia</dt>
+            <dd class="mt-1 text-gray-600">{siteConfig.province}, {siteConfig.country}</dd>
+          </div>
+          <div>
+            <dt class="technical-label text-steel-600">Horario</dt>
+            <dd class="mt-1 text-gray-600">{siteConfig.hours}</dd>
+          </div>
+          <div>
+            <dt class="technical-label text-steel-600">Teléfonos</dt>
+            <dd class="mt-1 space-y-1">
+              <a href={telUrl(siteConfig.phone)} class="block text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{siteConfig.phone}</a>
+              <a href={telUrl(siteConfig.phoneSecondary)} class="block text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{siteConfig.phoneSecondary}</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </Container>
+</section>

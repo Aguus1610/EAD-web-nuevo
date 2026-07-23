@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Container from '../../components/ui/Container.astro'
+import SectionHeading from '../../components/ui/SectionHeading.astro'
+import ButtonLink from '../../components/ui/ButtonLink.astro'
+import PageHero from '../../components/sections/PageHero.astro'
+import { getCollection } from 'astro:content'
+import { withBase } from '../../lib/url'
+
+const allProjects = await getCollection('projects')
+const approved = allProjects
+  .filter((p) => p.data.publicationApproved)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+const categories = [...new Set(approved.map((project) => project.data.category))].sort()
+---
+
+<BaseLayout
+  title="Trabajos realizados"
+  description="Archivo de trabajos oleohidráulicos autorizados para publicación por EAD Oleohidráulica."
+  currentPath="/trabajos"
+  crumbs={[
+    { label: 'Trabajos' },
+  ]}
+>
+  <PageHero
+    eyebrow="Trabajos"
+    title="Trabajos realizados"
+    description="Este espacio reunirá intervenciones reales autorizadas para publicación. Cada registro se incorporará después de revisar su contenido e imágenes."
+    visual="work"
+  />
+
+  <section class="paper-grid py-16 sm:py-24">
+    <Container>
+      {approved.length > 0 ? (
+        <>
+        <SectionHeading>Archivo publicado</SectionHeading>
+        <div class="mt-8 flex flex-wrap gap-2" aria-label="Filtrar trabajos por categoría">
+          <button type="button" data-project-filter="all" aria-pressed="true" class="project-filter">Todos</button>
+          {categories.map((category) => (
+            <button type="button" data-project-filter={category} aria-pressed="false" class="project-filter">{category}</button>
+          ))}
+        </div>
+        <p id="project-filter-status" class="sr-only" aria-live="polite"></p>
+        <div id="project-list" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {approved.map((p) => (
+            <article data-project-card data-category={p.data.category} class="industrial-card p-6">
+              <span class="technical-label text-steel-600">{p.data.category}</span>
+              <h3 class="mt-3 text-xl font-bold text-navy-900">
+                <a href={withBase(`/trabajos/${p.id}`)} class="text-inherit no-underline hover:text-steel-600">
+                  {p.data.title}
+                </a>
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">{p.data.summary}</p>
+              <div class="mt-4">
+                <ButtonLink href={`/trabajos/${p.id}`} variant="ghost">
+                  Ver trabajo →
+                </ButtonLink>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p id="project-empty-filter" class="mt-8 hidden rounded-lg border border-steel-500/30 bg-white p-6 text-center text-gray-600">No hay trabajos publicados en esta categoría.</p>
+        </>
+      ) : (
+        <div class="industrial-card mx-auto max-w-3xl px-6 py-12 text-center sm:px-10 sm:py-16">
+          <p class="technical-label text-steel-600">Archivo en preparación</p>
+          <h2 class="mt-3 text-3xl font-bold text-navy-900">Portfolio de trabajos reales</h2>
+          <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-gray-600">
+            Estamos preparando el portfolio con imágenes de trabajos reales. Mientras tanto, conocé nuestros servicios o consultanos directamente.
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-4">
+            <ButtonLink href="/servicios" variant="secondary">
+              Ver servicios
+            </ButtonLink>
+            <ButtonLink href="/contacto" variant="primary">
+              Consultar
+            </ButtonLink>
+          </div>
+        </div>
+      )}
+    </Container>
+  </section>
+</BaseLayout>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-project-filter]')
+  const cards = document.querySelectorAll<HTMLElement>('[data-project-card]')
+  const empty = document.querySelector<HTMLElement>('#project-empty-filter')
+  const status = document.querySelector<HTMLElement>('#project-filter-status')
+
+  for (const button of filterButtons) {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.projectFilter ?? 'all'
+      let visible = 0
+      for (const card of cards) {
+        const show = filter === 'all' || card.dataset.category === filter
+        card.hidden = !show
+        if (show) visible += 1
+      }
+      for (const current of filterButtons) current.setAttribute('aria-pressed', String(current === button))
+      empty?.classList.toggle('hidden', visible > 0)
+      if (status) status.textContent = `${visible} trabajo${visible === 1 ? '' : 's'} visible${visible === 1 ? '' : 's'}.`
+    })
+  }
+</script>
+
+<style>
+  .project-filter {
+    border: 1px solid var(--color-steel-400);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    color: var(--color-navy-800);
+    font-weight: 600;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .project-filter[aria-pressed='true'] {
+    border-color: var(--color-navy-900);
+    background: var(--color-navy-900);
+    color: white;
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import { services } from '../../data/services'
+import { withBase } from '../../lib/url'
+
+interface Props {
+  slugs: string[]
+}
+
+const { slugs } = Astro.props
+const related = services.filter((service) => slugs.includes(service.slug))
+---
+
+{related.length > 0 && (
+  <section aria-labelledby="related-services-title" class="mt-14 border-t border-steel-500/30 pt-10">
+    <p class="technical-label text-steel-600">Continuar explorando</p>
+    <h2 id="related-services-title" class="mt-2 text-2xl font-bold text-navy-900">Servicios relacionados</h2>
+    <ul class="mt-5 flex flex-wrap gap-3">
+      {related.map((service) => (
+        <li><a href={withBase(`/servicios/${service.slug}`)} class="cut-corner inline-flex border border-steel-500/40 bg-white px-4 py-2 text-sm font-bold text-navy-800 no-underline transition-colors hover:border-steel-500 hover:bg-navy-800 hover:text-white">{service.title}</a></li>
+      ))}
+    </ul>
+  </section>
+)}

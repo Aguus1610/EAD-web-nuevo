@@ -1,0 +1,72 @@
+---
+interface Props {
+  variant: 'repair' | 'installation' | 'maintenance' | 'parts'
+  class?: string
+}
+
+const { variant, class: className } = Astro.props
+---
+
+<svg class={className} viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
+  <rect x="1" y="1" width="62" height="62" rx="12" class="icon-panel" />
+  <path d="M8 50H21V42H32" class="icon-pipe" />
+  <circle cx="8" cy="50" r="3" class="icon-node" />
+  {variant === 'repair' && (
+    <>
+      <path d="M42 18A16 16 0 1020 42M42 18V30M42 18H30" class="icon-main" />
+      <path d="M27 25L39 37M39 25L27 37" class="icon-accent" />
+    </>
+  )}
+  {variant === 'installation' && (
+    <>
+      <rect x="14" y="19" width="29" height="24" rx="3" class="icon-main" />
+      <path d="M29 19V43M29 31H52M43 27V35" class="icon-main" />
+      <circle cx="52" cy="31" r="4" class="icon-accent-fill" />
+    </>
+  )}
+  {variant === 'maintenance' && (
+    <>
+      <circle cx="33" cy="31" r="17" class="icon-main" />
+      <path d="M33 31L43 22M19 31H23M43 31H47" class="icon-accent" />
+      <circle cx="33" cy="31" r="3" class="icon-accent-fill" />
+    </>
+  )}
+  {variant === 'parts' && (
+    <>
+      <path d="M17 20H47V42H17Z" class="icon-main" />
+      <path d="M32 20V42M17 31H47M22 25L28 29M37 34L43 38" class="icon-accent" />
+      <circle cx="22" cy="37" r="3" class="icon-accent-fill" />
+      <circle cx="42" cy="25" r="3" class="icon-accent-fill" />
+    </>
+  )}
+</svg>
+
+<style>
+  .icon-panel {
+    fill: #0f1f3a;
+    stroke: rgba(139, 199, 223, 0.4);
+  }
+
+  .icon-main,
+  .icon-accent,
+  .icon-pipe {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.5;
+  }
+
+  .icon-main,
+  .icon-pipe {
+    stroke: #8bc7df;
+  }
+
+  .icon-accent {
+    stroke: #f0c54a;
+  }
+
+  .icon-accent-fill,
+  .icon-node {
+    fill: #f0c54a;
+  }
+</style>

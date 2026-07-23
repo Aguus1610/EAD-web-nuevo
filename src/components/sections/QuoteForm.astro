@@ -1,0 +1,330 @@
+---
+import { siteConfig } from '../../data/site'
+---
+
+<section class="bg-white py-16 sm:py-24" aria-labelledby="quote-form-heading">
+  <div class="mx-auto w-full max-w-(--content-max) px-4 sm:px-6 lg:px-8">
+    <div class="grid items-start gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
+      <div class="lg:sticky lg:top-24">
+        <p class="technical-label text-steel-600">Consulta guiada</p>
+        <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-navy-900 sm:text-5xl">Solicitar presupuesto</h2>
+        <p class="mt-5 text-sm leading-relaxed text-gray-600">
+          Complete los datos y se abrirá WhatsApp con un mensaje listo para revisar. La apertura de
+          WhatsApp no confirma el envío, el diagnóstico ni la aceptación del trabajo.
+        </p>
+        <div class="mt-8 rounded-xl bg-navy-900 p-6 text-white shadow-xl">
+          <p class="technical-label text-gold-300">Datos útiles</p>
+          <ul class="mt-4 space-y-3 text-sm text-gray-200">
+            <li class="border-l-2 border-steel-400 pl-3">Equipo o producto</li>
+            <li class="border-l-2 border-steel-400 pl-3">Marca y modelo, si están disponibles</li>
+            <li class="border-l-2 border-steel-400 pl-3">Descripción de la necesidad</li>
+          </ul>
+        </div>
+      </div>
+
+      <form id="quote-form" data-whatsapp={siteConfig.whatsapp} class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8" novalidate>
+      <div>
+        <label for="quote-name" class="block text-sm font-medium text-navy-900">Nombre *</label>
+        <input id="quote-name" name="name" type="text" autocomplete="name" required class="form-control" />
+        <p id="error-name" data-error-for="name" class="form-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="quote-locality" class="block text-sm font-medium text-navy-900">Localidad *</label>
+          <input id="quote-locality" name="locality" type="text" autocomplete="address-level2" required class="form-control" />
+          <p id="error-locality" data-error-for="locality" class="form-error hidden" aria-live="polite"></p>
+        </div>
+        <div>
+          <label for="quote-company" class="block text-sm font-medium text-navy-900">Empresa <span class="text-gray-500">(opcional)</span></label>
+          <input id="quote-company" name="company" type="text" autocomplete="organization" class="form-control" />
+        </div>
+      </div>
+
+      <fieldset>
+        <legend class="text-sm font-medium text-navy-900">Medio de contacto preferido *</legend>
+        <div class="mt-2 flex flex-wrap gap-5">
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="WhatsApp" checked /> WhatsApp</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Teléfono" /> Teléfono</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Correo" /> Correo</label>
+        </div>
+        <p id="error-contactMethod" data-error-for="contactMethod" class="form-error hidden" aria-live="polite"></p>
+      </fieldset>
+
+      <div>
+        <label for="quote-contact-detail" class="block text-sm font-medium text-navy-900">Teléfono o correo de contacto *</label>
+        <input id="quote-contact-detail" name="contactDetail" type="text" autocomplete="tel" required class="form-control" aria-describedby="contact-detail-help" />
+        <p id="contact-detail-help" class="mt-1 text-xs text-gray-500">Ingrese el dato por el que prefiere recibir la respuesta.</p>
+        <p id="error-contactDetail" data-error-for="contactDetail" class="form-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="quote-equipment" class="block text-sm font-medium text-navy-900">Equipo o producto *</label>
+          <input id="quote-equipment" name="equipmentType" type="text" required class="form-control" placeholder="Ej.: hidrogrúa, repuesto, sistema hidráulico" />
+          <p id="error-equipmentType" data-error-for="equipmentType" class="form-error hidden" aria-live="polite"></p>
+        </div>
+        <div>
+          <label for="quote-need" class="block text-sm font-medium text-navy-900">Necesidad principal *</label>
+          <select id="quote-need" name="need" required class="form-control">
+            <option value="">Seleccione una opción</option>
+            <option>Reparación</option>
+            <option>Instalación</option>
+            <option>Mantenimiento o diagnóstico</option>
+            <option>Repuesto o componente</option>
+            <option>Otra consulta</option>
+          </select>
+          <p id="error-need" data-error-for="need" class="form-error hidden" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="quote-brand" class="block text-sm font-medium text-navy-900">Marca <span class="text-gray-500">(opcional)</span></label>
+          <input id="quote-brand" name="brand" type="text" class="form-control" />
+        </div>
+        <div>
+          <label for="quote-model" class="block text-sm font-medium text-navy-900">Modelo <span class="text-gray-500">(opcional)</span></label>
+          <input id="quote-model" name="model" type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div>
+        <label for="quote-part-number" class="block text-sm font-medium text-navy-900">Número de pieza <span class="text-gray-500">(opcional)</span></label>
+        <input id="quote-part-number" name="partNumber" type="text" class="form-control" />
+        <p class="mt-1 text-xs text-gray-500">Si dispone de fotografías, podrá adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
+      </div>
+
+      <div>
+        <label for="quote-description" class="block text-sm font-medium text-navy-900">Descripción *</label>
+        <textarea id="quote-description" name="description" rows="5" required class="form-control" placeholder="Describa el problema, la pieza buscada o el trabajo que necesita."></textarea>
+        <p id="error-description" data-error-for="description" class="form-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div>
+        <label for="quote-urgency" class="block text-sm font-medium text-navy-900">Urgencia <span class="text-gray-500">(opcional)</span></label>
+        <select id="quote-urgency" name="urgency" class="form-control">
+          <option value="">Sin especificar</option>
+          <option>Equipo detenido</option>
+          <option>Esta semana</option>
+          <option>Este mes</option>
+          <option>Sin urgencia</option>
+        </select>
+      </div>
+
+      <div class="rounded-md border border-gold-400/60 bg-gold-100/50 p-4">
+        <label class="flex items-start gap-3 text-sm text-amber-950">
+          <input name="consent" type="checkbox" class="mt-1" required />
+          <span>Acepto abrir WhatsApp con los datos ingresados. Entiendo que la web no almacena la solicitud y que debo revisar y enviar el mensaje desde WhatsApp.</span>
+        </label>
+        <p id="error-consent" data-error-for="consent" class="form-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div id="quote-status" class="hidden rounded-md border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
+
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-gold-300 bg-gold-300 px-6 py-3 text-sm font-bold tracking-wide text-navy-950 shadow-lg shadow-black/10 transition-colors hover:border-gold-400 hover:bg-gold-400">
+          Abrir mensaje en WhatsApp
+        </button>
+        <button id="copy-quote" type="button" class="cut-corner hidden border-2 border-navy-800 px-6 py-3 text-sm font-bold text-navy-800 transition-colors hover:bg-navy-800 hover:text-white">
+          Copiar mensaje
+        </button>
+      </div>
+
+      <div id="quote-preview-wrapper" class="hidden">
+        <label for="quote-preview" class="block text-sm font-medium text-navy-900">Vista previa del mensaje</label>
+        <textarea id="quote-preview" rows="9" readonly class="form-control"></textarea>
+      </div>
+
+      <p id="quote-fallback" class="hidden text-sm text-gray-600">
+        También puede escribir a <a href={`mailto:${siteConfig.email}`} class="underline hover:text-steel-500">{siteConfig.email}</a>
+        o llamar al <a href={`tel:+${siteConfig.phone.replace(/\D/g, '')}`} class="underline hover:text-steel-500">{siteConfig.phone}</a>.
+      </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { generateQuoteMessage, validateQuoteRequest, type QuoteRequest } from '../../lib/contact'
+
+  const form = document.querySelector<HTMLFormElement>('#quote-form')
+
+  if (form) {
+    const preview = form.querySelector<HTMLTextAreaElement>('#quote-preview')
+    const previewWrapper = form.querySelector<HTMLElement>('#quote-preview-wrapper')
+    const copyButton = form.querySelector<HTMLButtonElement>('#copy-quote')
+    const fallback = form.querySelector<HTMLElement>('#quote-fallback')
+    const status = form.querySelector<HTMLElement>('#quote-status')
+
+    const fieldValue = (data: FormData, name: string) => String(data.get(name) ?? '').trim()
+
+    const clearError = (name: string) => {
+      const error = form.querySelector<HTMLElement>(`[data-error-for="${name}"]`)
+      const control = form.elements.namedItem(name)
+      error?.classList.add('hidden')
+
+      if (control instanceof RadioNodeList) {
+        for (const item of Array.from(control)) {
+          if (item instanceof HTMLElement) item.removeAttribute('aria-invalid')
+        }
+      } else if (control instanceof HTMLElement) {
+        control.removeAttribute('aria-invalid')
+        if (name === 'contactDetail') control.setAttribute('aria-describedby', 'contact-detail-help')
+        else control.removeAttribute('aria-describedby')
+      }
+    }
+
+    const showError = (name: string, message: string) => {
+      const error = form.querySelector<HTMLElement>(`[data-error-for="${name}"]`)
+      const control = form.elements.namedItem(name)
+      if (error) {
+        error.textContent = message
+        error.classList.remove('hidden')
+      }
+
+      const describedBy = name === 'contactDetail' ? 'contact-detail-help error-contactDetail' : `error-${name}`
+      if (control instanceof RadioNodeList) {
+        for (const item of Array.from(control)) {
+          if (item instanceof HTMLElement) {
+            item.setAttribute('aria-invalid', 'true')
+            item.setAttribute('aria-describedby', describedBy)
+          }
+        }
+      } else if (control instanceof HTMLElement) {
+        control.setAttribute('aria-invalid', 'true')
+        control.setAttribute('aria-describedby', describedBy)
+      }
+    }
+
+    const getRequest = (): QuoteRequest => {
+      const data = new FormData(form)
+      return {
+        name: fieldValue(data, 'name'),
+        locality: fieldValue(data, 'locality'),
+        contactMethod: fieldValue(data, 'contactMethod'),
+        contactDetail: fieldValue(data, 'contactDetail'),
+        equipmentType: fieldValue(data, 'equipmentType'),
+        need: fieldValue(data, 'need'),
+        description: fieldValue(data, 'description'),
+        company: fieldValue(data, 'company'),
+        brand: fieldValue(data, 'brand'),
+        model: fieldValue(data, 'model'),
+        partNumber: fieldValue(data, 'partNumber'),
+        urgency: fieldValue(data, 'urgency'),
+        consent: data.get('consent') === 'on',
+      }
+    }
+
+    const focusControl = (name: string) => {
+      const control = form.elements.namedItem(name)
+      if (control instanceof RadioNodeList) {
+        const first = Array.from(control)[0]
+        first?.focus()
+      } else if (control instanceof HTMLElement) {
+        control.focus()
+      }
+    }
+
+    const params = new URLSearchParams(window.location.search)
+    const prefill: Record<string, string | null> = {
+      need: params.get('tipo'),
+      equipmentType: params.get('equipo'),
+      brand: params.get('marca'),
+      description: params.get('proyecto') ? `Consulta relacionada con el trabajo: ${params.get('proyecto')}` : null,
+    }
+    for (const [name, value] of Object.entries(prefill)) {
+      const control = form.elements.namedItem(name)
+      if (value && (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement || control instanceof HTMLSelectElement)) {
+        control.value = value
+      }
+    }
+
+    form.addEventListener('input', (event) => {
+      const target = event.target
+      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) {
+        if (target.name) clearError(target.name)
+      }
+    })
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const request = getRequest()
+      const errors = validateQuoteRequest(request)
+
+      for (const name of Object.keys(request)) clearError(name)
+      const firstError = Object.entries(errors)[0]
+      for (const [name, message] of Object.entries(errors)) showError(name, message)
+
+      if (firstError) {
+        focusControl(firstError[0])
+        return
+      }
+
+      const message = generateQuoteMessage(request)
+      if (preview) preview.value = message
+      previewWrapper?.classList.remove('hidden')
+      copyButton?.classList.remove('hidden')
+      fallback?.classList.remove('hidden')
+
+      const whatsappNumber = form.dataset.whatsapp?.trim()
+      if (!whatsappNumber) {
+        if (status) {
+          status.textContent = 'WhatsApp no está disponible. Use el mensaje generado por correo o teléfono.'
+          status.className = 'rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950'
+        }
+        return
+      }
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+      if (status) {
+        status.textContent = 'Se abrió WhatsApp. Revise el mensaje y envíelo desde la aplicación.'
+        status.className = 'rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-950'
+      }
+    })
+
+    copyButton?.addEventListener('click', async () => {
+      if (!preview?.value) return
+      try {
+        await navigator.clipboard.writeText(preview.value)
+        copyButton.textContent = 'Mensaje copiado'
+      } catch {
+        preview.focus()
+        preview.select()
+        if (status) {
+          status.textContent = 'No se pudo copiar automáticamente. Seleccione y copie el mensaje.'
+          status.className = 'rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950'
+        }
+      }
+    })
+  }
+</script>
+
+<style>
+  .form-control {
+    margin-top: 0.25rem;
+    display: block;
+    width: 100%;
+    border-radius: 0.25rem;
+    border: 1px solid #b8cad5;
+    background: #f8fbfc;
+    padding: 0.75rem 0.875rem;
+    color: var(--color-gray-900);
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .form-control:focus {
+    border-color: var(--color-steel-500);
+    background: white;
+  }
+
+  .form-control[aria-invalid='true'] {
+    border-color: #dc2626;
+  }
+
+  .form-error {
+    margin-top: 0.25rem;
+    color: #b91c1c;
+    font-size: 0.75rem;
+  }
+</style>

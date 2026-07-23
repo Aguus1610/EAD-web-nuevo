@@ -1,0 +1,73 @@
+---
+import { siteConfig } from '../data/site'
+import { breadcrumbJsonLd, defaultSocialImage, localBusinessJsonLd, resolveCanonical } from '../lib/seo'
+import SkipLink from '../components/navigation/SkipLink.astro'
+import Header from '../components/navigation/Header.astro'
+import Footer from '../components/navigation/Footer.astro'
+import Breadcrumbs from '../components/navigation/Breadcrumbs.astro'
+import '../styles/global.css'
+import { withBase } from '../lib/url'
+
+interface Crumb {
+  label: string
+  href?: string
+}
+
+interface Props {
+  title: string
+  description?: string
+  canonical?: string
+  image?: string
+  noindex?: boolean
+  currentPath?: string
+  crumbs?: Crumb[]
+  jsonLd?: Record<string, unknown>
+}
+
+const { title, description, canonical, image, noindex, currentPath = '/', crumbs, jsonLd } = Astro.props
+
+const fullTitle = `${title} | ${siteConfig.name}`
+const canonicalUrl = canonical ?? resolveCanonical(currentPath)
+const socialImage = image ?? defaultSocialImage()
+const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs, currentPath) : null, jsonLd].filter(Boolean)
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <link rel="icon" type="image/png" href={withBase('/assets/brand/ead-logo-on-light.png')} />
+    <script is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+  </head>
+  <body>
+    <SkipLink href="#main" />
+
+    <Header currentPath={currentPath} logoVariant="light" />
+
+    {crumbs && <Breadcrumbs crumbs={crumbs} />}
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

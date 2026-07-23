@@ -1,0 +1,54 @@
+---
+import Container from '../ui/Container.astro'
+import SectionHeading from '../ui/SectionHeading.astro'
+import ButtonLink from '../ui/ButtonLink.astro'
+import { siteConfig } from '../../data/site'
+
+interface Props {
+  heading: string
+  text: string
+}
+
+const { heading, text } = Astro.props
+---
+
+<section class="paper-grid border-t border-steel-500/20 py-section-sm sm:py-section">
+  <Container>
+    <div class="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div class="relative min-h-72 overflow-hidden rounded-xl bg-navy-900 p-8 shadow-2xl shadow-navy-900/20" aria-hidden="true">
+        <div class="absolute inset-0 opacity-50" style="background-image: linear-gradient(rgba(139,199,223,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(139,199,223,.12) 1px, transparent 1px); background-size: 32px 32px;"></div>
+        <svg class="relative mx-auto h-56 w-full max-w-sm" viewBox="0 0 360 220" fill="none">
+          <path d="M25 177C95 177 70 73 151 73C219 73 214 155 298 155" stroke="#327FA6" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 12" />
+          <circle cx="25" cy="177" r="8" fill="#8BC7DF" />
+          <circle cx="298" cy="155" r="8" fill="#F0C54A" />
+          <path d="M151 20C121 20 98 43 98 72C98 112 151 157 151 157C151 157 204 112 204 72C204 43 181 20 151 20Z" fill="#D4A017" />
+          <circle cx="151" cy="72" r="18" fill="#0A1628" />
+          <path d="M286 42H336M311 17V67" stroke="#8BC7DF" stroke-width="2" />
+        </svg>
+        <p class="technical-label relative text-center text-gold-300">Base operativa · Colonia Barón</p>
+      </div>
+
+      <div>
+        <SectionHeading>{heading}</SectionHeading>
+        <address class="mt-6 not-italic text-gray-600">
+          <p class="text-xl font-bold text-navy-900">{siteConfig.name}</p>
+          <p class="mt-2">{siteConfig.address}</p>
+          <p>{siteConfig.locality}, {siteConfig.province}</p>
+          <p>{siteConfig.country}</p>
+        </address>
+        <p class="mt-5 max-w-xl leading-relaxed text-gray-600">{text}</p>
+        {siteConfig.hours && (
+          <p class="mt-3 border-l-2 border-gold-400 pl-3 text-sm font-medium text-gray-600">Horario: {siteConfig.hours}</p>
+        )}
+        <div class="mt-7 flex flex-wrap gap-4">
+          <ButtonLink href="/contacto" variant="primary">Contactarnos</ButtonLink>
+          {siteConfig.mapUrl !== 'PENDING_CONFIRMATION' && (
+            <a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer" class="cut-corner inline-flex items-center border-2 border-navy-800 px-6 py-3 text-sm font-bold text-navy-800 no-underline transition-colors hover:bg-navy-800 hover:text-white">
+              Abrir ubicación
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

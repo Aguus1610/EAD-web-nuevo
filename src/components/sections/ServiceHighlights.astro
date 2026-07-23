@@ -1,0 +1,57 @@
+---
+import Container from '../ui/Container.astro'
+import SectionHeading from '../ui/SectionHeading.astro'
+import ButtonLink from '../ui/ButtonLink.astro'
+import ServiceIcon from '../ui/ServiceIcon.astro'
+import { withBase } from '../../lib/url'
+
+interface ServiceItem {
+  title: string
+  summary: string
+  href: string
+  icon: 'repair' | 'installation' | 'maintenance' | 'parts'
+}
+
+interface Props {
+  heading: string
+  items: ServiceItem[]
+  intro?: string
+  showAllLink?: boolean
+}
+
+const { heading, items, intro, showAllLink = true } = Astro.props
+---
+
+<section class="paper-grid py-section-sm sm:py-section">
+  <Container>
+    <SectionHeading>{heading}</SectionHeading>
+    {intro && <p class="mt-5 max-w-2xl text-lg text-gray-600">{intro}</p>}
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {items.map((item) => (
+        <a href={withBase(item.href)} class="industrial-card group block no-underline focus-visible:outline-offset-4">
+          <article class="grid h-full gap-5 p-6 sm:grid-cols-[4.5rem_1fr] sm:p-8">
+            <ServiceIcon variant={item.icon} class="h-16 w-16 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105" />
+            <div class="flex min-w-0 flex-col">
+              <p class="technical-label text-steel-600">Área de servicio</p>
+              <h3 class="mt-2 text-2xl font-bold text-navy-900 transition-colors group-hover:text-steel-600">{item.title}</h3>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-gray-600">{item.summary}</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-navy-800">
+                Conocer servicio
+                <svg class="h-4 w-4 text-gold-500 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+    {showAllLink && (
+      <div class="mt-10 text-center">
+        <ButtonLink href="/servicios" variant="secondary">
+          Ver todos los servicios
+        </ButtonLink>
+      </div>
+    )}
+  </Container>
+</section>

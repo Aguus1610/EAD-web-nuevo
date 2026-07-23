@@ -1,0 +1,47 @@
+---
+import Container from '../ui/Container.astro'
+import ButtonLink from '../ui/ButtonLink.astro'
+import TechnicalVisual from '../ui/TechnicalVisual.astro'
+
+interface Props {
+  title: string
+  subtitle: string
+  ctaPrimary: { label: string; href: string }
+  ctaSecondary: { label: string; href: string }
+}
+
+const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props
+---
+
+<section class="dark-technical-grid relative overflow-hidden border-b border-steel-500/30 py-16 sm:py-24">
+  <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
+  <Container>
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
+      <div class="relative z-10">
+        <p class="technical-label text-gold-300">Oleohidráulica · Colonia Barón</p>
+        <h1 class="text-balance mt-4 text-5xl font-bold leading-[0.98] text-white sm:text-6xl lg:text-7xl">
+          {title}
+        </h1>
+        <p class="mt-6 max-w-2xl border-l border-steel-400/60 pl-5 text-lg leading-relaxed text-gray-200 sm:text-xl">
+          {subtitle}
+        </p>
+        <div class="mt-7 flex flex-wrap gap-4">
+          <ButtonLink href={ctaPrimary.href} variant="primary">
+            {ctaPrimary.label}
+          </ButtonLink>
+          <ButtonLink href={ctaSecondary.href} variant="secondary" class="border-steel-300 text-white hover:border-white hover:bg-white hover:text-navy-900">
+            {ctaSecondary.label}
+          </ButtonLink>
+        </div>
+        <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-5 text-sm text-steel-100" aria-label="Áreas principales">
+          <li>Reparación</li>
+          <li>Instalación</li>
+          <li>Mantenimiento</li>
+          <li>Repuestos</li>
+        </ul>
+      </div>
+
+      <TechnicalVisual variant="home" class="lg:justify-self-end" />
+    </div>
+  </Container>
+</section>

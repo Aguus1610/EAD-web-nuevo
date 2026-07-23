@@ -1,0 +1,28 @@
+---
+import { withBase } from '../../lib/url'
+
+interface ProjectImage {
+  src: string
+  alt: string
+}
+
+interface Props {
+  images: ProjectImage[]
+}
+
+const { images } = Astro.props
+---
+
+{images.length > 0 && (
+  <section aria-labelledby="project-gallery-title" class="mt-12">
+    <h2 id="project-gallery-title" class="text-2xl font-semibold text-navy-900">Galería</h2>
+    <div class="mt-5 grid gap-5 sm:grid-cols-2">
+      {images.map((image) => (
+        <a href={withBase(image.src)} target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-lg border border-gray-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-steel-500">
+          <img src={withBase(image.src)} alt={image.alt} loading="lazy" decoding="async" class="aspect-4/3 h-auto w-full object-cover" />
+        </a>
+      ))}
+    </div>
+    <p class="mt-3 text-xs text-gray-500">Seleccione una imagen para abrirla en tamaño completo.</p>
+  </section>
+)}

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/sections/Hero.astro'
+import TrustBar from '../components/sections/TrustBar.astro'
+import ServiceHighlights from '../components/sections/ServiceHighlights.astro'
+import BrandRepresentation from '../components/sections/BrandRepresentation.astro'
+import FeaturedProjects from '../components/sections/FeaturedProjects.astro'
+import LocationSummary from '../components/sections/LocationSummary.astro'
+import FinalCta from '../components/sections/FinalCta.astro'
+import { homeContent } from '../data/home'
+import { getCollection } from 'astro:content'
+
+const { hero, trust, services, brands, projects, location, finalCta } = homeContent
+
+const allProjects = await getCollection('projects')
+const featured = allProjects
+  .filter((p) => p.data.publicationApproved && p.data.featured)
+  .slice(0, 3)
+  .map((p) => ({
+    slug: p.id,
+    title: p.data.title,
+    summary: p.data.summary,
+    category: p.data.category,
+  }))
+---
+
+<BaseLayout
+  title="Inicio"
+  description={hero.subtitle}
+  currentPath="/"
+>
+  <Hero
+    title={hero.title}
+    subtitle={hero.subtitle}
+    ctaPrimary={hero.ctaPrimary}
+    ctaSecondary={hero.ctaSecondary}
+  />
+
+  <TrustBar text={trust.text} />
+
+  <ServiceHighlights heading={services.heading} items={services.items} />
+
+  <BrandRepresentation heading={brands.heading} note={brands.note} />
+
+  <FeaturedProjects
+    heading={projects.heading}
+    emptyMessage={projects.emptyMessage}
+    projects={featured}
+  />
+
+  <LocationSummary heading={location.heading} text={location.text} />
+
+  <FinalCta heading={finalCta.heading} text={finalCta.text} cta={finalCta.cta} />
+</BaseLayout>

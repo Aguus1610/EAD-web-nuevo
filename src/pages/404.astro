@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Container from '../components/ui/Container.astro'
+import ButtonLink from '../components/ui/ButtonLink.astro'
+import PageHero from '../components/sections/PageHero.astro'
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="La página solicitada no está disponible."
+  currentPath="/404"
+  noindex
+>
+  <PageHero
+    eyebrow="Error 404"
+    title="Página no encontrada"
+    description="La dirección puede haber cambiado o no existir. El circuito puede continuar desde el inicio o por contacto."
+    visual="error"
+  />
+  <section class="paper-grid py-12 sm:py-16">
+    <Container narrow>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <ButtonLink href="/">Volver al inicio</ButtonLink>
+        <ButtonLink href="/contacto" variant="secondary">Ir a contacto</ButtonLink>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

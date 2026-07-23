@@ -1,0 +1,31 @@
+---
+import Container from '../ui/Container.astro'
+import SectionHeading from '../ui/SectionHeading.astro'
+
+interface Props {
+  heading: string
+  steps: { title: string; description: string }[]
+}
+
+const { heading, steps } = Astro.props
+---
+
+<section class="dark-technical-grid border-y border-steel-500/30 py-16 sm:py-24">
+  <Container>
+    <p class="technical-label text-gold-300">Proceso de trabajo</p>
+    <SectionHeading light class="mt-3">{heading}</SectionHeading>
+
+    <ol class="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step, i) => (
+        <li class="relative overflow-hidden rounded-xl border border-white/15 bg-navy-800/85 p-6 shadow-xl">
+          <span class="technical-label text-gold-300">
+            Etapa {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="my-5 h-px bg-gradient-to-r from-gold-300 via-steel-400 to-transparent" aria-hidden="true"></div>
+          <h3 class="text-xl font-bold text-white">{step.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-gray-300">{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </Container>
+</section>

@@ -1,0 +1,23 @@
+---
+import { withBase } from '../../lib/url'
+
+interface Props {
+  href: string
+  variant?: 'primary' | 'secondary' | 'ghost'
+  class?: string
+}
+
+const { href, variant = 'primary', class: className } = Astro.props
+
+const base = 'cut-corner inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold tracking-wide transition-all no-underline'
+
+const variants: Record<string, string> = {
+  primary: 'border-2 border-gold-300 bg-gold-300 text-navy-950 shadow-lg shadow-black/15 hover:border-gold-400 hover:bg-gold-400',
+  secondary: 'border-2 border-navy-800 text-navy-800 hover:border-steel-500 hover:bg-navy-800 hover:text-white',
+  ghost: 'text-navy-800 underline decoration-steel-400 decoration-2 underline-offset-4 hover:text-steel-600',
+}
+---
+
+<a href={withBase(href)} class={`${base} ${variants[variant]} ${className ?? ''}`}>
+  <slot />
+</a>
