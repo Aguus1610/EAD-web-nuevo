@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aguus1610.github.io/EAD-web/sitemap.xml
+Sitemap: https://aguus1610.github.io/EAD-web-nuevo/sitemap.xml
