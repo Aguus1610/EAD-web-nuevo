@@ -4,24 +4,25 @@ import { withBase } from '../../lib/url'
 
 interface Props {
   text: string
+  class?: string
 }
 
-const { text } = Astro.props
+const { text, class: className } = Astro.props
 ---
 
-<aside class="relative overflow-hidden border-b border-gold-300/30 bg-steel-600 py-6" aria-label="Experiencia y cobertura">
+<aside class={`relative overflow-hidden border-b border-gold-300/30 bg-steel-600 py-6 ${className ?? ''}`} aria-label="Experiencia y cobertura">
   <div class="absolute inset-y-0 left-0 w-24 bg-gold-300/15 [clip-path:polygon(0_0,100%_0,55%_100%,0_100%)]" aria-hidden="true"></div>
   <Container>
-    <div class="relative flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+    <div class="reveal relative flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
       <div class="flex items-start gap-4">
-        <svg class="mt-1 h-9 w-9 shrink-0 text-gold-300" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <svg class="mt-1 h-9 w-9 shrink-0 text-gold-300 animate-float" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="2" />
           <path d="M20 20L29 12M10 22H14M26 22H30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           <circle cx="20" cy="20" r="3" fill="currentColor" />
         </svg>
         <p class="max-w-4xl text-base font-medium leading-relaxed text-white sm:text-lg">{text}</p>
       </div>
-      <a href={withBase('/empresa')} class="shrink-0 text-sm font-bold text-white underline decoration-gold-300 decoration-2 underline-offset-4 transition-colors hover:text-gold-100">
+      <a href={withBase('/empresa')} class="shrink-0 text-sm font-bold text-white underline decoration-gold-300 decoration-2 underline-offset-4 transition-all duration-300 hover:text-gold-100 hover:decoration-gold-400">
         Conocer EAD
       </a>
     </div>

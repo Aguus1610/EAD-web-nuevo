@@ -69,4 +69,31 @@ const { variant, class: className } = Astro.props
   .icon-node {
     fill: #f0c54a;
   }
+
+  .service-icon-draw .icon-main,
+  .service-icon-draw .icon-accent {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    transition: stroke-dashoffset 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-icon-draw.icon-drawn .icon-main,
+  .service-icon-draw.icon-drawn .icon-accent {
+    stroke-dashoffset: 0;
+  }
+
+  .service-icon-draw .icon-accent-fill,
+  .service-icon-draw .icon-node {
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      opacity 0.4s ease 0.6s,
+      transform 0.4s ease 0.6s;
+  }
+
+  .service-icon-draw.icon-drawn .icon-accent-fill,
+  .service-icon-draw.icon-drawn .icon-node {
+    opacity: 1;
+    transform: scale(1);
+  }
 </style>

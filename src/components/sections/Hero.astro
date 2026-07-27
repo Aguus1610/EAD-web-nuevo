@@ -10,24 +10,28 @@ interface Props {
   subtitle: string
   ctaPrimary: { label: string; href: string }
   ctaSecondary: { label: string; href: string }
+  class?: string
 }
 
-const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props
+const { title, subtitle, ctaPrimary, ctaSecondary, class: className } = Astro.props
 ---
 
-<section class="dark-technical-grid relative overflow-hidden border-b border-steel-500/30 py-16 sm:py-24">
+<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 py-16 sm:py-24 ${className ?? ''}`}>
   <div
-    class="absolute inset-0 bg-center bg-no-repeat opacity-[0.035]"
+    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.07]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 40rem auto;`}
     aria-hidden="true"
   ></div>
-  <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
+  <div class="pressure-line absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
   <Container>
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
-      <div class="relative z-10">
+      <div class="reveal relative z-10">
         <BrandLogo brand="ead" variant="light" class="mb-5 h-20 sm:h-24" />
         <p class="technical-label text-gold-300">Oleohidráulica · Colonia Barón</p>
-        <h1 class="text-balance mt-4 text-5xl font-bold leading-[0.98] text-white sm:text-6xl lg:text-7xl">
+        <h1 class="hero-title-glow text-balance mt-4 text-5xl font-bold leading-[0.98] text-white sm:text-6xl lg:text-7xl">
           {title}
         </h1>
         <p class="mt-6 max-w-2xl border-l border-steel-400/60 pl-5 text-lg leading-relaxed text-gray-200 sm:text-xl">
@@ -49,7 +53,9 @@ const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props
         </ul>
       </div>
 
-      <CraneVisual class="lg:justify-self-end" />
+      <div class="reveal-right lg:justify-self-end">
+        <CraneVisual />
+      </div>
     </div>
   </Container>
 </section>

@@ -7,8 +7,13 @@ import SocialLinks from './SocialLinks.astro'
 import { withBase } from '../../lib/url'
 ---
 
-<footer class="dark-technical-grid relative overflow-hidden border-t border-steel-500/30 bg-navy-950">
-  <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-steel-500 via-gold-300 to-steel-500" aria-hidden="true"></div>
+<footer class="dark-technical-grid industrial-grain relative overflow-hidden border-t border-steel-500/30 bg-navy-950">
+  <div
+    class="brand-watermark bg-center bg-no-repeat opacity-[0.04]"
+    style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 24rem auto;`}
+    aria-hidden="true"
+  ></div>
+  <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-steel-500 via-gold-300 to-steel-500 shadow-[0_0_12px_rgba(240,197,74,0.25)]" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-(--content-max) px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       <div>
@@ -27,7 +32,7 @@ import { withBase } from '../../lib/url'
               <li>
                 <a
                   href={withBase(link.href)}
-                  class="text-sm text-gray-400 hover:text-white transition-colors"
+                  class="inline-block text-sm text-gray-400 transition-all duration-200 hover:translate-x-1 hover:text-white"
                 >
                   {link.label}
                 </a>
@@ -53,7 +58,7 @@ import { withBase } from '../../lib/url'
       </div>
     </div>
 
-    <div class="mt-10 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+    <div class="mt-10 border-t border-gray-800/60 pt-6 text-center text-xs text-gray-500">
       &copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
     </div>
   </div>

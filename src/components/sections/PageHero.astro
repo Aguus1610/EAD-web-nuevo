@@ -1,6 +1,7 @@
 ---
 import Container from '../ui/Container.astro'
 import TechnicalVisual from '../ui/TechnicalVisual.astro'
+import { withBase } from '../../lib/url'
 
 type VisualVariant = 'company' | 'services' | 'products' | 'work' | 'contact' | 'error'
 
@@ -15,11 +16,19 @@ interface Props {
 const { eyebrow, title, description, visual, compact = false } = Astro.props
 ---
 
-<section class={`dark-technical-grid relative overflow-hidden border-b border-steel-500/30 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
-  <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
+<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
+  <div
+    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.06]"
+    style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
+    aria-hidden="true"
+  ></div>
+  <div class="pressure-line absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
   <Container>
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
-      <div class="relative z-10">
+      <div class="reveal relative z-10">
         <p class="technical-label text-gold-300">{eyebrow}</p>
         <h1 class={`text-balance mt-4 font-bold leading-[0.98] text-white ${compact ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl lg:text-7xl'}`}>
           {title}
@@ -29,7 +38,7 @@ const { eyebrow, title, description, visual, compact = false } = Astro.props
         </p>
       </div>
 
-      <TechnicalVisual variant={visual} class={compact ? 'max-w-lg lg:justify-self-end' : 'lg:justify-self-end'} />
+      <TechnicalVisual variant={visual} class={`reveal-right ${compact ? 'max-w-lg lg:justify-self-end' : 'lg:justify-self-end'}`} />
     </div>
   </Container>
 </section>

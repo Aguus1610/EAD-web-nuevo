@@ -9,6 +9,7 @@ export interface SiteConfig {
   phoneSecondary: string
   whatsapp: string
   email: string
+  adminEmail: string
   hours: string
   instagram: string
   yearsExperience: number
@@ -32,6 +33,7 @@ export const siteConfig: SiteConfig = {
   phoneSecondary: '+54 2302 592703',
   whatsapp: '5492302672827',
   email: 'hydropampa@hotmail.com',
+  adminEmail: 'adm201364@gmail.com',
   hours: 'Lun–Vie 8:00–12:00 y 15:00–19:00',
   instagram: 'https://instagram.com/oleohidraulica_ead',
   yearsExperience: 15,

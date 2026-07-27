@@ -13,10 +13,10 @@ interface Props {
 const { currentPath = '/', logoVariant = 'dark' } = Astro.props
 ---
 
-<header class="sticky top-0 z-30 border-b border-steel-500/35 bg-navy-950/95 shadow-lg shadow-navy-950/20 backdrop-blur-md">
-  <div class="mx-auto flex h-24 lg:h-28 max-w-(--content-max) items-center justify-between px-4 sm:px-6 lg:px-8">
+<header id="site-header" class="sticky top-0 z-50 border-b border-steel-500/35 bg-navy-950/95 shadow-lg shadow-navy-950/20 backdrop-blur-md transition-all duration-300">
+  <div class="mx-auto flex h-24 lg:h-28 max-w-(--content-max) items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300 is-scrolled:h-[4.5rem] lg:is-scrolled:h-20">
     <a href={withBase('/')} class="flex-shrink-0" aria-label="Ir al inicio">
-      <BrandLogo brand="ead" variant={logoVariant} class="h-20 lg:h-24" />
+      <BrandLogo brand="ead" variant={logoVariant} class="header-logo h-20 lg:h-24 transition-all duration-300 is-scrolled:h-14 lg:is-scrolled:h-16" />
     </a>
 
     <DesktopNav currentPath={currentPath} />

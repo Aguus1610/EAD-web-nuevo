@@ -8,32 +8,46 @@ import { withBase } from '../../lib/url'
 interface Props {
   heading: string
   note: string
+  class?: string
 }
 
-const { heading, note } = Astro.props
+const { heading, note, class: className } = Astro.props
 ---
 
-<section class="dark-technical-grid border-y border-steel-500/30 py-section-sm sm:py-section">
+<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-y border-steel-500/30 py-section-sm sm:py-section ${className ?? ''}`}>
+  <div class="section-pressure-gauge" aria-hidden="true"></div>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <div
+    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.05]"
+    style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 32rem auto;`}
+    aria-hidden="true"
+  ></div>
+  <div class="sticky-content-wrapper relative">
   <Container>
-    <p class="technical-label text-gold-300">Marcas representadas</p>
-    <SectionHeading light class="mt-3">{heading}</SectionHeading>
-    <p class="mt-5 max-w-2xl text-lg text-gray-200">{siteConfig.commercialRelationshipText}</p>
-    <div class="mt-10 grid gap-5 sm:grid-cols-2">
-      <a
-        href={withBase('/productos')}
-        class="group flex min-h-32 items-center justify-center rounded-xl border border-white/20 bg-white px-6 py-8 shadow-2xl shadow-black/20 transition-transform hover:-translate-y-1 sm:px-10"
-        aria-label="Ver repuestos Hidro-Grubert"
-      >
-        <BrandLogo brand="hidro-grubert" class="h-auto max-h-16 max-w-full transition-transform group-hover:scale-[1.02]" loading="lazy" />
-      </a>
-      <a
-        href={withBase('/productos')}
-        class="group flex min-h-32 items-center justify-center rounded-xl border border-white/20 bg-white px-6 py-8 shadow-2xl shadow-black/20 transition-transform hover:-translate-y-1 sm:px-10"
-        aria-label="Ver repuestos Palfinger"
-      >
-        <BrandLogo brand="palfinger" class="h-auto max-h-16 max-w-full transition-transform group-hover:scale-[1.02]" loading="lazy" />
-      </a>
+    <div class="reveal relative">
+      <p class="technical-label text-gold-300">Marcas representadas</p>
+      <SectionHeading light class="mt-3">{heading}</SectionHeading>
+      <p class="mt-5 max-w-2xl text-lg text-gray-200">{siteConfig.commercialRelationshipText}</p>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2">
+        <a
+          href={withBase('/productos')}
+          class="group flex min-h-32 items-center justify-center rounded-xl border border-white/20 bg-white px-6 py-8 shadow-2xl shadow-black/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-400/50 hover:shadow-gold-300/10 sm:px-10"
+          aria-label="Ver repuestos Hidro-Grubert"
+        >
+          <BrandLogo brand="hidro-grubert" class="h-auto max-h-16 max-w-full transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
+        </a>
+        <a
+          href={withBase('/productos')}
+          class="group flex min-h-32 items-center justify-center rounded-xl border border-white/20 bg-white px-6 py-8 shadow-2xl shadow-black/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-400/50 hover:shadow-gold-300/10 sm:px-10"
+          aria-label="Ver repuestos Palfinger"
+        >
+          <BrandLogo brand="palfinger" class="h-auto max-h-16 max-w-full transition-transform duration-300 group-hover:scale-[1.04]" loading="lazy" />
+        </a>
+      </div>
+      <p class="mt-6 border-l-2 border-gold-300 pl-4 text-sm text-steel-100">{note}</p>
     </div>
-    <p class="mt-6 border-l-2 border-gold-300 pl-4 text-sm text-steel-100">{note}</p>
   </Container>
+  </div>
 </section>

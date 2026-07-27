@@ -8,18 +8,21 @@ import { telUrl, whatsappUrl } from '../../lib/contact'
 interface Props {
   heading: string
   text: string
+  class?: string
 }
 
-const { heading, text } = Astro.props
+const { heading, text, class: className } = Astro.props
 
 const mapEmbedUrl = `https://www.google.com/maps?q=${siteConfig.latitude},${siteConfig.longitude}&z=15&output=embed`
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${siteConfig.latitude},${siteConfig.longitude}`
 ---
 
-<section class="border-t border-steel-500/20 py-section-sm sm:py-section bg-white">
+<section class={`border-t border-steel-500/20 py-section-sm sm:py-section bg-white ${className ?? ''}`}>
+  <div class="section-pressure-gauge" aria-hidden="true"></div>
+  <div class="sticky-content-wrapper">
   <Container>
     <div class="grid items-stretch gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-      <div class="group relative overflow-hidden rounded-xl border border-steel-500/20 bg-navy-950 shadow-lg shadow-navy-900/10">
+      <div class="reveal-left group relative overflow-hidden rounded-xl border border-steel-500/20 bg-navy-950 shadow-lg shadow-navy-900/10">
         <iframe
           title="Ubicación de EAD Oleohidráulica en Colonia Barón, La Pampa"
           src={mapEmbedUrl}
@@ -34,7 +37,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="absolute bottom-4 left-4 right-4 flex items-center justify-center gap-2 rounded-lg bg-gold-300 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-lg transition-colors hover:bg-gold-400"
+          class="absolute bottom-4 left-4 right-4 flex items-center justify-center gap-2 rounded-lg bg-gold-300 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-lg transition-all duration-300 hover:bg-gold-400 hover:scale-[1.02]"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M6 12h12m-3-3l3 3-3 3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -43,7 +46,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
         </a>
       </div>
 
-      <div class="flex flex-col justify-center">
+      <div class="reveal-right flex flex-col justify-center">
         <SectionHeading>{heading}</SectionHeading>
 
         <address class="mt-6 not-italic space-y-3">
@@ -107,4 +110,5 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
       </div>
     </div>
   </Container>
+  </div>
 </section>

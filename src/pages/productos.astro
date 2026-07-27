@@ -28,17 +28,21 @@ import { siteConfig } from '../data/site'
 
   <section class="bg-white py-16 sm:py-24">
     <Container>
+      <div class="reveal">
       <p class="technical-label text-steel-600">Marcas</p>
       <SectionHeading class="mt-3">Representaciones oficiales</SectionHeading>
       <p class="mt-5 max-w-2xl text-lg text-gray-600">{siteConfig.commercialRelationshipText}</p>
+      </div>
       <div class="mt-10 grid gap-6 sm:grid-cols-2">
-        {brands.map((b) => (
+        {brands.map((b, i) => (
+          <div class={`reveal reveal-delay-${i + 1}`}>
           <BrandCard
             brandId={b.id}
             name={b.name}
             description={b.description}
             href={`/contacto?tipo=Repuesto%20o%20componente&marca=${encodeURIComponent(b.name)}`}
           />
+          </div>
         ))}
       </div>
     </Container>
@@ -46,21 +50,25 @@ import { siteConfig } from '../data/site'
 
   <section class="paper-grid py-16 sm:py-24">
     <Container>
+      <div class="reveal">
       <p class="technical-label text-steel-600">Líneas de consulta</p>
       <SectionHeading class="mt-3">Categorías de productos</SectionHeading>
       <p class="mt-4 text-sm text-gray-500">
         La disponibilidad de cada producto se confirma al momento de la consulta.
         No comercializamos en línea; trabajamos con presupuesto personalizado.
       </p>
+      </div>
 
       <div class="mt-10 grid gap-6 sm:grid-cols-2">
-        {productCategories.map((cat) => (
+        {productCategories.map((cat, i) => (
+          <div class={`reveal reveal-delay-${i + 1}`}>
           <ProductCategoryCard
             title={cat.title}
             summary={cat.summary}
             examples={cat.examples}
             href={`/contacto?tipo=Repuesto%20o%20componente&equipo=${encodeURIComponent(cat.title)}`}
           />
+          </div>
         ))}
       </div>
     </Container>

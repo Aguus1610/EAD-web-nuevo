@@ -58,6 +58,21 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
     />
   </head>
   <body>
+    <div
+      id="scroll-pressure"
+      class="fixed inset-x-0 top-0 z-50 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-gold-300 via-gold-400 to-steel-300"
+      role="progressbar"
+      aria-valuenow="0"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-label="Progreso de lectura"
+    ></div>
+    <div
+      id="scroll-pressure-bg"
+      class="fixed inset-x-0 top-0 z-40 h-[3px] bg-navy-900/60"
+      aria-hidden="true"
+    ></div>
+
     <SkipLink href="#main" />
 
     <Header currentPath={currentPath} logoVariant="light" />
@@ -69,5 +84,176 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
     </main>
 
     <Footer />
+
+    <script is:inline>
+      const pressureBar = document.getElementById('scroll-pressure')
+      const pressureBg = document.getElementById('scroll-pressure-bg')
+      const watermarks = document.querySelectorAll('.brand-watermark')
+      const pressureLines = document.querySelectorAll('.pressure-line')
+      const header = document.getElementById('site-header')
+      const gauges = document.querySelectorAll('.sticky-stack > .section-pressure-gauge')
+
+      function onScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight
+        const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0
+        const viewHeight = window.innerHeight
+
+        if (pressureBar) {
+          pressureBar.style.transform = `scaleX(${progress})`
+          pressureBar.setAttribute('aria-valuenow', String(Math.round(progress * 100)))
+        }
+
+        if (pressureBg && pressureBar) {
+          const visible = scrollTop > 10 ? '1' : '0'
+          pressureBg.style.opacity = visible
+          pressureBar.style.opacity = visible
+        }
+
+        if (header) {
+          if (scrollTop > 100) {
+            header.classList.add('is-scrolled')
+          } else {
+            header.classList.remove('is-scrolled')
+          }
+          if (scrollTop > 10) {
+            header.style.boxShadow = `0 4px 30px rgba(10, 22, 40, 0.4), 0 1px 0 rgba(240, 197, 74, ${Math.min(scrollTop / 200, 0.35)})`
+          } else {
+            header.style.boxShadow = ''
+          }
+        }
+
+        if (watermarks.length > 0) {
+          const offset = scrollTop * 0.12
+          for (const wm of watermarks) {
+            if (wm instanceof HTMLElement) {
+              wm.style.transform = `translateY(${offset}px)`
+            }
+          }
+        }
+
+        if (pressureLines.length > 0) {
+          for (const line of pressureLines) {
+            const rect = line.getBoundingClientRect()
+            const center = rect.top + rect.height / 2
+            const dist = Math.abs(center - viewHeight / 2)
+            const intensity = Math.max(0, 1 - dist / viewHeight)
+            line.style.opacity = String(0.4 + intensity * 0.6)
+            line.style.filter = `drop-shadow(0 0 ${intensity * 8}px rgba(240, 197, 74, ${intensity * 0.6}))`
+          }
+        }
+
+        for (const gauge of gauges) {
+          if (gauge instanceof HTMLElement) {
+            const section = gauge.closest('.sticky-stack')
+            if (!section) continue
+            const rect = section.getBoundingClientRect()
+            const sectionHeight = rect.height
+            if (sectionHeight <= 0) continue
+            const consumed = Math.max(0, Math.min(1, (viewHeight - rect.top) / sectionHeight))
+            const fill = Math.round(consumed * 100)
+            let fillEl = gauge.querySelector('[data-gauge-fill]')
+            if (!fillEl) {
+              fillEl = document.createElement('div')
+              fillEl.setAttribute('data-gauge-fill', '')
+              fillEl.style.cssText = 'position:absolute;right:0;top:0;width:100%;pointer-events:none;background:linear-gradient(180deg,#f0c54a,#55a1c5);transition:height 0.15s linear;'
+              gauge.appendChild(fillEl)
+            }
+            /** @type {HTMLElement} */ (fillEl).style.height = `${fill}%`
+          }
+        }
+      }
+
+      let ticking = false
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            onScroll()
+            ticking = false
+          })
+          ticking = true
+        }
+      }, { passive: true })
+
+      onScroll()
+
+      const crossingObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const isNearTop = entry.boundingClientRect.top <= 4 && entry.boundingClientRect.top >= -4
+            entry.target.classList.toggle('is-crossing', isNearTop && entry.isIntersecting)
+          }
+        },
+        { threshold: [0, 0.02], rootMargin: '-4px 0px 0px 0px' }
+      )
+
+      for (const el of document.querySelectorAll('.sticky-stack-top')) {
+        crossingObserver.observe(el)
+      }
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible')
+              revealObserver.unobserve(entry.target)
+            }
+          }
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      )
+
+      for (const el of document.querySelectorAll('.reveal, .reveal-left, .reveal-right')) {
+        revealObserver.observe(el)
+      }
+
+      const serviceIcons = document.querySelectorAll('.service-icon-draw')
+      const iconObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('icon-drawn')
+              iconObserver.unobserve(entry.target)
+            }
+          }
+        },
+        { threshold: 0.3 }
+      )
+
+      for (const el of serviceIcons) {
+        iconObserver.observe(el)
+      }
+
+      const counters = document.querySelectorAll('[data-count-target]')
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const el = /** @type {HTMLElement} */ (entry.target)
+              const target = parseInt(el.dataset.countTarget || '0')
+              const duration = 1500
+              const start = performance.now()
+              function tick(now) {
+                const elapsed = now - start
+                const progress = Math.min(elapsed / duration, 1)
+                const eased = 1 - Math.pow(1 - progress, 3)
+                const current = Math.round(target * eased)
+                el.textContent = String(current)
+                if (progress < 1) {
+                  requestAnimationFrame(tick)
+                }
+              }
+              requestAnimationFrame(tick)
+              counterObserver.unobserve(el)
+            }
+          }
+        },
+        { threshold: 0.5 }
+      )
+
+      for (const el of counters) {
+        counterObserver.observe(el)
+      }
+    </script>
   </body>
 </html>

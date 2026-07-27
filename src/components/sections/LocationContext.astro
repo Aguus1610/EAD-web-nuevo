@@ -17,14 +17,14 @@ const { heading, paragraphs } = Astro.props
     <SectionHeading>{heading}</SectionHeading>
 
     <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1fr]">
-      <div class="rounded-xl bg-navy-900 p-7 text-white shadow-2xl shadow-navy-900/15 sm:p-9">
+      <div class="reveal-left rounded-xl bg-navy-900 p-7 text-white shadow-2xl shadow-navy-900/15 sm:p-9">
         <p class="technical-label text-gold-300">Base operativa</p>
         {paragraphs.map((p) => (
           <p class="mt-4 text-lg leading-relaxed text-gray-200">{p}</p>
         ))}
       </div>
 
-      <div class="industrial-card p-6 sm:p-8">
+      <div class="reveal-right industrial-card p-6 sm:p-8">
         <dl class="space-y-4 text-sm">
           <div>
             <dt class="technical-label text-steel-600">Dirección</dt>

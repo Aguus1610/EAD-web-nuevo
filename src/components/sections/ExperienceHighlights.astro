@@ -21,7 +21,7 @@ const { heading, years, yearsLabel, highlights } = Astro.props
         <div class="relative flex min-h-72 flex-col justify-center overflow-hidden rounded-xl bg-navy-900 p-8 text-white shadow-2xl shadow-navy-900/20">
           <div class="absolute right-4 top-4 h-40 w-40 rounded-full border-[1.5rem] border-steel-500/20" aria-hidden="true"></div>
           <p class="technical-label relative text-gold-300">Experiencia en el rubro</p>
-          <span class="relative mt-2 text-8xl font-bold leading-none text-white sm:text-9xl" style="font-family: var(--font-display)">{years}<span class="text-gold-300">+</span></span>
+          <span class="relative mt-2 text-8xl font-bold leading-none text-white sm:text-9xl" style="font-family: var(--font-display)"><span data-count-target={String(years)} id="years-counter">0</span><span class="text-gold-300">+</span></span>
           <span class="relative mt-3 max-w-xs text-lg text-steel-100">{yearsLabel}</span>
         </div>
       )}

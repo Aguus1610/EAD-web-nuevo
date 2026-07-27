@@ -10,26 +10,32 @@ interface Props {
   text: string
   cta: { label: string; href: string }
   secondaryCta?: { label: string; href: string }
+  class?: string
 }
 
-const { heading, text, cta, secondaryCta } = Astro.props
+const { heading, text, cta, secondaryCta, class: className } = Astro.props
 ---
 
-<section class="dark-technical-grid relative overflow-hidden border-t border-steel-500/30 py-section-sm sm:py-section">
+<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-t border-steel-500/30 py-section-sm sm:py-section ${className ?? ''}`}>
+  <div class="section-pressure-gauge" aria-hidden="true"></div>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="fluid-particle" aria-hidden="true"></span>
+  <div class="sticky-content-wrapper relative">
   <div
-    class="absolute inset-0 bg-center bg-no-repeat opacity-5"
+    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.08]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
     aria-hidden="true"
   ></div>
   <Container>
-    <div class="relative grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+    <div class="reveal relative grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
       <div>
         <p class="technical-label text-gold-300">Próximo paso</p>
         <h2 class="text-balance mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">{heading}</h2>
         <p class="mt-4 max-w-2xl text-lg text-gray-200">{text}</p>
       </div>
       <div class="flex flex-wrap gap-4 lg:max-w-sm lg:justify-end">
-      <ButtonLink href={cta.href} variant="primary">
+      <ButtonLink href={cta.href} variant="primary" class="shimmer-gold">
         {cta.label}
       </ButtonLink>
       {secondaryCta && (
@@ -48,4 +54,5 @@ const { heading, text, cta, secondaryCta } = Astro.props
       </div>
     </div>
   </Container>
+  </div>
 </section>

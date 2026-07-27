@@ -31,13 +31,13 @@ const { intro, experience, process, gallery, location, finalCta } = aboutContent
   <section class="bg-white py-16 sm:py-24">
     <Container>
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
-        <div>
+        <div class="reveal">
           <p class="technical-label text-steel-600">Actividad</p>
           <SectionHeading class="mt-3">Qué hacemos</SectionHeading>
         </div>
         <div class="space-y-5 border-l border-steel-500/30 pl-6 sm:pl-8">
-          {intro.paragraphs.slice(1).map((paragraph) => (
-            <p class="text-lg leading-relaxed text-gray-700">{paragraph}</p>
+          {intro.paragraphs.slice(1).map((paragraph, i) => (
+            <p class={`reveal reveal-delay-${i + 1} text-lg leading-relaxed text-gray-700`}>{paragraph}</p>
           ))}
         </div>
       </div>

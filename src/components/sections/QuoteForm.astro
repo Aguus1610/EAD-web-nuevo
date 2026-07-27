@@ -9,8 +9,8 @@ import { siteConfig } from '../../data/site'
         <p class="technical-label text-steel-600">Consulta guiada</p>
         <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-navy-900 sm:text-5xl">Solicitar presupuesto</h2>
         <p class="mt-5 text-sm leading-relaxed text-gray-600">
-          Complete los datos y se abrirá WhatsApp con un mensaje listo para revisar. La apertura de
-          WhatsApp no confirma el envío, el diagnóstico ni la aceptación del trabajo.
+          Complete los datos para enviar su consulta por WhatsApp o correo electrónico.
+          La apertura de WhatsApp o del cliente de correo no confirma el envío, el diagnóstico ni la aceptación del trabajo.
         </p>
         <div class="mt-8 rounded-xl bg-navy-900 p-6 text-white shadow-xl">
           <p class="technical-label text-gold-300">Datos útiles</p>
@@ -115,7 +115,7 @@ import { siteConfig } from '../../data/site'
       <div class="rounded-md border border-gold-400/60 bg-gold-100/50 p-4">
         <label class="flex items-start gap-3 text-sm text-amber-950">
           <input name="consent" type="checkbox" class="mt-1" required />
-          <span>Acepto abrir WhatsApp con los datos ingresados. Entiendo que la web no almacena la solicitud y que debo revisar y enviar el mensaje desde WhatsApp.</span>
+          <span>Acepto enviar la consulta con los datos ingresados. Entiendo que la web no almacena la solicitud y que debo revisar y enviar el mensaje desde WhatsApp o mi cliente de correo.</span>
         </label>
         <p id="error-consent" data-error-for="consent" class="form-error hidden" aria-live="polite"></p>
       </div>
@@ -125,6 +125,9 @@ import { siteConfig } from '../../data/site'
       <div class="flex flex-wrap gap-3">
         <button type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-gold-300 bg-gold-300 px-6 py-3 text-sm font-bold tracking-wide text-navy-950 shadow-lg shadow-black/10 transition-colors hover:border-gold-400 hover:bg-gold-400">
           Abrir mensaje en WhatsApp
+        </button>
+        <button id="send-email" type="button" class="cut-corner hidden border-2 border-steel-500 px-6 py-3 text-sm font-bold tracking-wide text-steel-600 transition-colors hover:border-steel-600 hover:bg-steel-500 hover:text-white">
+          Enviar por correo
         </button>
         <button id="copy-quote" type="button" class="cut-corner hidden border-2 border-navy-800 px-6 py-3 text-sm font-bold text-navy-800 transition-colors hover:bg-navy-800 hover:text-white">
           Copiar mensaje
@@ -137,7 +140,7 @@ import { siteConfig } from '../../data/site'
       </div>
 
       <p id="quote-fallback" class="hidden text-sm text-gray-600">
-        También puede escribir a <a href={`mailto:${siteConfig.email}`} class="underline hover:text-steel-500">{siteConfig.email}</a>
+        También puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-steel-500">{siteConfig.adminEmail}</a>
         o llamar al <a href={`tel:+${siteConfig.phone.replace(/\D/g, '')}`} class="underline hover:text-steel-500">{siteConfig.phone}</a>.
       </p>
       </form>
@@ -146,7 +149,7 @@ import { siteConfig } from '../../data/site'
 </section>
 
 <script>
-  import { generateQuoteMessage, validateQuoteRequest, type QuoteRequest } from '../../lib/contact'
+  import { generateQuoteMessage, validateQuoteRequest, adminMailUrl, type QuoteRequest } from '../../lib/contact'
 
   const form = document.querySelector<HTMLFormElement>('#quote-form')
 
@@ -154,6 +157,7 @@ import { siteConfig } from '../../data/site'
     const preview = form.querySelector<HTMLTextAreaElement>('#quote-preview')
     const previewWrapper = form.querySelector<HTMLElement>('#quote-preview-wrapper')
     const copyButton = form.querySelector<HTMLButtonElement>('#copy-quote')
+    const emailButton = form.querySelector<HTMLButtonElement>('#send-email')
     const fallback = form.querySelector<HTMLElement>('#quote-fallback')
     const status = form.querySelector<HTMLElement>('#quote-status')
 
@@ -265,6 +269,7 @@ import { siteConfig } from '../../data/site'
       if (preview) preview.value = message
       previewWrapper?.classList.remove('hidden')
       copyButton?.classList.remove('hidden')
+      emailButton?.classList.remove('hidden')
       fallback?.classList.remove('hidden')
 
       const whatsappNumber = form.dataset.whatsapp?.trim()
@@ -295,6 +300,15 @@ import { siteConfig } from '../../data/site'
           status.textContent = 'No se pudo copiar automáticamente. Seleccione y copie el mensaje.'
           status.className = 'rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950'
         }
+      }
+    })
+
+    emailButton?.addEventListener('click', () => {
+      if (!preview?.value) return
+      window.open(adminMailUrl(preview.value), '_blank', 'noopener,noreferrer')
+      if (status) {
+        status.textContent = 'Se abrió su cliente de correo. Revise el mensaje y envíelo.'
+        status.className = 'rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-950'
       }
     })
   }

@@ -28,7 +28,7 @@ export function validateQuoteRequest(request: QuoteRequest): QuoteRequestErrors 
   if (!request.equipmentType.trim()) errors.equipmentType = 'Indique el tipo de equipo o producto.'
   if (!request.need.trim()) errors.need = 'Seleccione la necesidad principal.'
   if (!request.description.trim()) errors.description = 'Describa brevemente la consulta.'
-  if (!request.consent) errors.consent = 'Debe aceptar la apertura de WhatsApp con estos datos.'
+  if (!request.consent) errors.consent = 'Debe aceptar el envío de la consulta con estos datos.'
 
   return errors
 }
@@ -47,6 +47,12 @@ export function mailUrl(subject: string, body?: string): string {
   const params = new URLSearchParams({ subject })
   if (body) params.set('body', body)
   return `mailto:${siteConfig.email}?${params.toString()}`
+}
+
+export function adminMailUrl(body: string): string {
+  const subject = `Consulta web — ${siteConfig.name}`
+  const params = new URLSearchParams({ subject, body })
+  return `mailto:${siteConfig.adminEmail}?${params.toString()}`
 }
 
 export function generateQuoteMessage(req: QuoteRequest): string {

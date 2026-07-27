@@ -393,5 +393,41 @@ const { class: className } = Astro.props
   .accent-dot {
     fill: #f0c54a;
     opacity: 0.8;
+    animation: dot-pulse 2s ease-in-out infinite;
+  }
+
+  .accent-dot:nth-child(2) {
+    animation-delay: -1s;
+  }
+
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 0.5; r: 2; }
+    50% { opacity: 1; r: 3; }
+  }
+
+  .load {
+    fill: rgba(15, 31, 58, 0.88);
+    stroke: #8bc7df;
+    stroke-width: 1.5;
+    animation: load-sway 4s ease-in-out infinite;
+    transform-origin: 62px 290px;
+  }
+
+  @keyframes load-sway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-1.5deg); }
+    75% { transform: rotate(1.5deg); }
+  }
+
+  .cable {
+    stroke: rgba(139, 199, 223, 0.5);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+    animation: cable-drift 4s ease-in-out infinite;
+  }
+
+  @keyframes cable-drift {
+    0%, 100% { stroke-dashoffset: 0; }
+    50% { stroke-dashoffset: -12; }
   }
 </style>
