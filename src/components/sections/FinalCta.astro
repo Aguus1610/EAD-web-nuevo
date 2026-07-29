@@ -1,7 +1,7 @@
 ---
 import Container from '../ui/Container.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
-import { siteConfig } from '../../data/site'
+import { primaryContact } from '../../data/site'
 import { telUrl } from '../../lib/contact'
 import { withBase } from '../../lib/url'
 
@@ -17,13 +17,11 @@ const { heading, text, cta, secondaryCta, class: className } = Astro.props
 ---
 
 <section class={`dark-technical-grid industrial-grain relative overflow-hidden border-t border-steel-500/30 py-section-sm sm:py-section ${className ?? ''}`}>
-  <div class="section-pressure-gauge" aria-hidden="true"></div>
   <span class="fluid-particle" aria-hidden="true"></span>
   <span class="fluid-particle" aria-hidden="true"></span>
   <span class="fluid-particle" aria-hidden="true"></span>
-  <div class="sticky-content-wrapper relative">
   <div
-    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.08]"
+    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.12]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
     aria-hidden="true"
   ></div>
@@ -43,16 +41,16 @@ const { heading, text, cta, secondaryCta, class: className } = Astro.props
           {secondaryCta.label}
         </ButtonLink>
       )}
-      {siteConfig.phone && (
+      {primaryContact.phone && (
         <a
-          href={telUrl(siteConfig.phone)}
+          href={telUrl(primaryContact.phone)}
+          aria-label={`Llamar a ${primaryContact.name} al ${primaryContact.phone}`}
           class="cut-corner inline-flex items-center justify-center gap-2 border-2 border-steel-300 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-navy-900"
         >
-          Llamar ahora
+          Llamar a {primaryContact.name}
         </a>
       )}
       </div>
     </div>
   </Container>
-  </div>
 </section>

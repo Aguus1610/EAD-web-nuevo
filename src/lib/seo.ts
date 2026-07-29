@@ -1,4 +1,4 @@
-import { siteConfig } from '../data/site'
+import { primaryContact, siteConfig } from '../data/site'
 
 export interface SeoMeta {
   title: string
@@ -31,7 +31,7 @@ export function localBusinessJsonLd() {
       addressProvince: siteConfig.province,
       addressCountry: siteConfig.country,
     },
-    telephone: siteConfig.phone,
+    telephone: primaryContact.phone,
     email: siteConfig.email,
     openingHours: 'Mo-Fr 08:00-12:00,15:00-19:00',
     url: siteConfig.siteUrl,

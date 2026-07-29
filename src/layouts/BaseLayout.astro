@@ -88,16 +88,12 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
     <script is:inline>
       const pressureBar = document.getElementById('scroll-pressure')
       const pressureBg = document.getElementById('scroll-pressure-bg')
-      const watermarks = document.querySelectorAll('.brand-watermark')
-      const pressureLines = document.querySelectorAll('.pressure-line')
       const header = document.getElementById('site-header')
-      const gauges = document.querySelectorAll('.sticky-stack > .section-pressure-gauge')
 
       function onScroll() {
         const scrollTop = window.scrollY || document.documentElement.scrollTop
         const docHeight = document.documentElement.scrollHeight - window.innerHeight
         const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0
-        const viewHeight = window.innerHeight
 
         if (pressureBar) {
           pressureBar.style.transform = `scaleX(${progress})`
@@ -122,46 +118,6 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
             header.style.boxShadow = ''
           }
         }
-
-        if (watermarks.length > 0) {
-          const offset = scrollTop * 0.12
-          for (const wm of watermarks) {
-            if (wm instanceof HTMLElement) {
-              wm.style.transform = `translateY(${offset}px)`
-            }
-          }
-        }
-
-        if (pressureLines.length > 0) {
-          for (const line of pressureLines) {
-            const rect = line.getBoundingClientRect()
-            const center = rect.top + rect.height / 2
-            const dist = Math.abs(center - viewHeight / 2)
-            const intensity = Math.max(0, 1 - dist / viewHeight)
-            line.style.opacity = String(0.4 + intensity * 0.6)
-            line.style.filter = `drop-shadow(0 0 ${intensity * 8}px rgba(240, 197, 74, ${intensity * 0.6}))`
-          }
-        }
-
-        for (const gauge of gauges) {
-          if (gauge instanceof HTMLElement) {
-            const section = gauge.closest('.sticky-stack')
-            if (!section) continue
-            const rect = section.getBoundingClientRect()
-            const sectionHeight = rect.height
-            if (sectionHeight <= 0) continue
-            const consumed = Math.max(0, Math.min(1, (viewHeight - rect.top) / sectionHeight))
-            const fill = Math.round(consumed * 100)
-            let fillEl = gauge.querySelector('[data-gauge-fill]')
-            if (!fillEl) {
-              fillEl = document.createElement('div')
-              fillEl.setAttribute('data-gauge-fill', '')
-              fillEl.style.cssText = 'position:absolute;right:0;top:0;width:100%;pointer-events:none;background:linear-gradient(180deg,#f0c54a,#55a1c5);transition:height 0.15s linear;'
-              gauge.appendChild(fillEl)
-            }
-            /** @type {HTMLElement} */ (fillEl).style.height = `${fill}%`
-          }
-        }
       }
 
       let ticking = false
@@ -176,20 +132,6 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
       }, { passive: true })
 
       onScroll()
-
-      const crossingObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            const isNearTop = entry.boundingClientRect.top <= 4 && entry.boundingClientRect.top >= -4
-            entry.target.classList.toggle('is-crossing', isNearTop && entry.isIntersecting)
-          }
-        },
-        { threshold: [0, 0.02], rootMargin: '-4px 0px 0px 0px' }
-      )
-
-      for (const el of document.querySelectorAll('.sticky-stack-top')) {
-        crossingObserver.observe(el)
-      }
 
       const revealObserver = new IntersectionObserver(
         (entries) => {

@@ -1,5 +1,6 @@
 ---
-import { siteConfig } from '../../data/site'
+import { primaryContact, siteConfig } from '../../data/site'
+import { telUrl } from '../../lib/contact'
 ---
 
 <section class="bg-white py-16 sm:py-24" aria-labelledby="quote-form-heading">
@@ -22,7 +23,7 @@ import { siteConfig } from '../../data/site'
         </div>
       </div>
 
-      <form id="quote-form" data-whatsapp={siteConfig.whatsapp} class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8" novalidate>
+      <form id="quote-form" data-whatsapp={primaryContact.whatsapp} class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8" novalidate>
       <div>
         <label for="quote-name" class="block text-sm font-medium text-navy-900">Nombre *</label>
         <input id="quote-name" name="name" type="text" autocomplete="name" required class="form-control" />
@@ -141,7 +142,7 @@ import { siteConfig } from '../../data/site'
 
       <p id="quote-fallback" class="hidden text-sm text-gray-600">
         También puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-steel-500">{siteConfig.adminEmail}</a>
-        o llamar al <a href={`tel:+${siteConfig.phone.replace(/\D/g, '')}`} class="underline hover:text-steel-500">{siteConfig.phone}</a>.
+        o llamar a {primaryContact.name} al <a href={telUrl(primaryContact.phone)} class="underline hover:text-steel-500">{primaryContact.phone}</a>.
       </p>
       </form>
     </div>
@@ -315,30 +316,7 @@ import { siteConfig } from '../../data/site'
 </script>
 
 <style>
-  .form-control {
-    margin-top: 0.25rem;
-    display: block;
-    width: 100%;
-    border-radius: 0.25rem;
-    border: 1px solid #b8cad5;
-    background: #f8fbfc;
-    padding: 0.75rem 0.875rem;
-    color: var(--color-gray-900);
-    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-  }
-
-  .form-control:focus {
-    border-color: var(--color-steel-500);
-    background: white;
-  }
-
   .form-control[aria-invalid='true'] {
     border-color: #dc2626;
-  }
-
-  .form-error {
-    margin-top: 0.25rem;
-    color: #b91c1c;
-    font-size: 0.75rem;
   }
 </style>

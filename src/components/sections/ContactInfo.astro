@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from '../../data/site'
-import { telUrl } from '../../lib/contact'
+import { telUrl, whatsappUrl } from '../../lib/contact'
 import Container from '../ui/Container.astro'
 
 interface Props {
@@ -23,13 +23,15 @@ const { showHeading = true } = Astro.props
           </svg>
           Teléfono
         </dt>
-        <dd class="mt-3 space-y-1">
-          <a href={telUrl(siteConfig.phone)} aria-label={`Llamar al ${siteConfig.phone}`} class="block text-gray-700 underline hover:text-steel-500">
-            {siteConfig.phone}
-          </a>
-          <a href={telUrl(siteConfig.phoneSecondary)} aria-label={`Llamar al ${siteConfig.phoneSecondary}`} class="block text-gray-500 underline hover:text-steel-500">
-            {siteConfig.phoneSecondary}
-          </a>
+        <dd class="mt-3 space-y-3">
+          {siteConfig.contacts.map((contact) => (
+            <div>
+              <span class="block font-semibold text-navy-900">{contact.name}</span>
+              <a href={telUrl(contact.phone)} aria-label={`Llamar a ${contact.name} al ${contact.phone}`} class="text-gray-700 underline hover:text-steel-500">
+                {contact.phone}
+              </a>
+            </div>
+          ))}
         </dd>
       </div>
       </div>
@@ -58,10 +60,19 @@ const { showHeading = true } = Astro.props
           </svg>
           WhatsApp
         </dt>
-        <dd class="mt-3">
-          <a href={`https://wa.me/${siteConfig.whatsapp}`} aria-label="Abrir WhatsApp de EAD Oleohidráulica" class="text-gray-700 underline hover:text-steel-500" target="_blank" rel="noopener noreferrer">
-            Abrir chat
-          </a>
+        <dd class="mt-3 space-y-3">
+          {siteConfig.contacts.map((contact) => (
+            <a
+              href={whatsappUrl('Hola, vi la web de EAD Oleohidráulica y quería hacer una consulta.', contact.whatsapp)}
+              aria-label={`Abrir WhatsApp de ${contact.name} al ${contact.phone}`}
+              class="block text-gray-700 underline hover:text-steel-500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="block font-semibold text-navy-900">{contact.name}</span>
+              <span>{contact.phone}</span>
+            </a>
+          ))}
         </dd>
       </div>
       </div>

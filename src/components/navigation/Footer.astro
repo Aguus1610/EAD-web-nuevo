@@ -7,59 +7,33 @@ import SocialLinks from './SocialLinks.astro'
 import { withBase } from '../../lib/url'
 ---
 
-<footer class="dark-technical-grid industrial-grain relative overflow-hidden border-t border-steel-500/30 bg-navy-950">
-  <div
-    class="brand-watermark bg-center bg-no-repeat opacity-[0.04]"
-    style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 24rem auto;`}
-    aria-hidden="true"
-  ></div>
-  <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-steel-500 via-gold-300 to-steel-500 shadow-[0_0_12px_rgba(240,197,74,0.25)]" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-(--content-max) px-4 py-12 sm:px-6 lg:px-8">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-      <div>
-        <BrandLogo brand="ead" variant="light" loading="lazy" class="h-20" />
-        <p class="mt-3 text-sm leading-relaxed text-gray-400">
-          {siteConfig.description}
-        </p>
-        <SocialLinks class="mt-4" />
-      </div>
+<footer class="dark-technical-grid relative border-t border-steel-500/30 bg-navy-950">
+  <div class="absolute inset-x-0 top-0 h-px bg-gold-300/60" aria-hidden="true"></div>
+  <div class="relative mx-auto flex max-w-(--content-max) flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-6">
+      <a href={withBase('/')} aria-label="Ir al inicio">
+        <BrandLogo brand="ead" variant="light" loading="lazy" class="h-10 w-auto" />
+      </a>
 
-      {footerGroups.map((group) => (
-        <div>
-          <h3 class="text-sm font-semibold text-white">{group.label}</h3>
-          <ul class="mt-3 space-y-2">
-            {group.links.map((link) => (
-              <li>
-                <a
-                  href={withBase(link.href)}
-                  class="inline-block text-sm text-gray-400 transition-all duration-200 hover:translate-x-1 hover:text-white"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-
-      <div>
-        <h3 class="text-sm font-semibold text-white">Contacto</h3>
-        <div class="mt-3 space-y-2 text-sm text-gray-400">
-          {siteConfig.address && (
-            <p>
-              {siteConfig.address}<br />
-              {siteConfig.locality}, {siteConfig.province}<br />
-              {siteConfig.country}
-            </p>
-          )}
-          <ContactLinks />
-          {siteConfig.hours && <p class="mt-2">{siteConfig.hours}</p>}
-        </div>
-      </div>
+      <nav aria-label="Footer" class="hidden items-center gap-5 lg:flex">
+        {footerGroups.flatMap((group) => group.links).map((link) => (
+          <a
+            href={withBase(link.href)}
+            class="text-sm text-gray-400 transition-colors hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
     </div>
 
-    <div class="mt-10 border-t border-gray-800/60 pt-6 text-center text-xs text-gray-500">
-      &copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
+    <div class="flex items-center gap-5 text-sm text-gray-400">
+      <ContactLinks />
+      <SocialLinks />
     </div>
+  </div>
+
+  <div class="border-t border-gray-800/40 py-2 text-center text-xs text-gray-500">
+    &copy; {new Date().getFullYear()} {siteConfig.name}. {siteConfig.address}, {siteConfig.locality}, {siteConfig.province}.
   </div>
 </footer>

@@ -106,7 +106,7 @@ test('contact form reports errors and creates a reviewable WhatsApp message', as
   await page.getByLabel('Localidad *').fill('General Pico')
   await page.getByLabel('Teléfono o correo de contacto *').fill('+54 2302 000000')
   await page.getByLabel('Descripción *').fill('Necesito verificar compatibilidad.')
-  await page.getByLabel(/Acepto abrir WhatsApp/).check()
+  await page.getByLabel(/Acepto enviar la consulta/).check()
 
   const popupPromise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Abrir mensaje en WhatsApp' }).click()
@@ -121,6 +121,12 @@ test('contact form reports errors and creates a reviewable WhatsApp message', as
 
 test('contact channels and external location are explicit', async ({ page }) => {
   await page.goto('contacto')
+  const contactChannels = page.locator('section[aria-labelledby="contact-channels-heading"]')
+
+  await expect(contactChannels.getByRole('link', { name: 'Llamar a Agustín Deux al +54 9 2302 672827' })).toHaveAttribute('href', 'tel:+5492302672827')
+  await expect(contactChannels.getByRole('link', { name: 'Abrir WhatsApp de Agustín Deux al +54 9 2302 672827' })).toHaveAttribute('href', /wa\.me\/5492302672827/)
+  await expect(contactChannels.getByRole('link', { name: 'Llamar a Enzo Deux al +54 9 2302 592703' })).toHaveAttribute('href', 'tel:+5492302592703')
+  await expect(contactChannels.getByRole('link', { name: 'Abrir WhatsApp de Enzo Deux al +54 9 2302 592703' })).toHaveAttribute('href', /wa\.me\/5492302592703/)
   await expect(page.getByRole('link', { name: 'Abrir ubicación' })).toHaveAttribute('href', /google\.com\/maps/)
   await expect(page.getByRole('link', { name: 'Abrir Instagram de EAD Oleohidráulica' })).toHaveAttribute('href', 'https://instagram.com/oleohidraulica_ead')
 })

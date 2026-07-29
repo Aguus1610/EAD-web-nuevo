@@ -34,7 +34,6 @@ const featured = allProjects
     subtitle={hero.subtitle}
     ctaPrimary={hero.ctaPrimary}
     ctaSecondary={hero.ctaSecondary}
-    class="sticky-stack-first"
   />
 
   <TrustBar text={trust.text} />
@@ -42,32 +41,27 @@ const featured = allProjects
   <ServiceHighlights
     heading={services.heading}
     items={services.items}
-    class="sticky-stack sticky-stack-z20 sticky-stack-top sticky-stack-shadow"
   />
 
   <BrandRepresentation
     heading={brands.heading}
     note={brands.note}
-    class="sticky-stack sticky-stack-z25 sticky-stack-top sticky-stack-shadow"
   />
 
   <FeaturedProjects
     heading={projects.heading}
     emptyMessage={projects.emptyMessage}
     projects={featured}
-    class="sticky-stack sticky-stack-z30 sticky-stack-top sticky-stack-shadow"
   />
 
   <LocationSummary
     heading={location.heading}
     text={location.text}
-    class="sticky-stack sticky-stack-z35 sticky-stack-top sticky-stack-shadow"
   />
 
   <FinalCta
     heading={finalCta.heading}
     text={finalCta.text}
     cta={finalCta.cta}
-    class="sticky-stack sticky-stack-z40 sticky-stack-top sticky-stack-shadow"
   />
 </BaseLayout>

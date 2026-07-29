@@ -1,3 +1,9 @@
+export interface ContactPerson {
+  name: string
+  phone: string
+  whatsapp: string
+}
+
 export interface SiteConfig {
   name: string
   description: string
@@ -5,9 +11,7 @@ export interface SiteConfig {
   locality: string
   province: string
   country: string
-  phone: string
-  phoneSecondary: string
-  whatsapp: string
+  contacts: readonly [ContactPerson, ...ContactPerson[]]
   email: string
   adminEmail: string
   hours: string
@@ -29,9 +33,18 @@ export const siteConfig: SiteConfig = {
   locality: 'Colonia Barón',
   province: 'La Pampa',
   country: 'Argentina',
-  phone: '+54 2302 672827',
-  phoneSecondary: '+54 2302 592703',
-  whatsapp: '5492302672827',
+  contacts: [
+    {
+      name: 'Agustín Deux',
+      phone: '+54 9 2302 672827',
+      whatsapp: '5492302672827',
+    },
+    {
+      name: 'Enzo Deux',
+      phone: '+54 9 2302 592703',
+      whatsapp: '5492302592703',
+    },
+  ],
   email: 'hydropampa@hotmail.com',
   adminEmail: 'adm201364@gmail.com',
   hours: 'Lun–Vie 8:00–12:00 y 15:00–19:00',
@@ -44,3 +57,5 @@ export const siteConfig: SiteConfig = {
   siteUrl: 'https://aguus1610.github.io/EAD-web-nuevo',
   commercialRelationshipText: 'Representante oficial de Hidro-Grubert y Palfinger.',
 }
+
+export const primaryContact = siteConfig.contacts[0]

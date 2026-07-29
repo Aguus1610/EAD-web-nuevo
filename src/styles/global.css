@@ -226,10 +226,10 @@ section:hover .technical-label::after,
 .dark-technical-grid {
   background-color: var(--color-navy-900);
   background-image:
-    linear-gradient(rgba(139, 199, 223, 0.075) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 199, 223, 0.075) 1px, transparent 1px),
-    radial-gradient(circle at 80% 20%, rgba(50, 127, 166, 0.24), transparent 38%),
-    radial-gradient(circle at 20% 80%, rgba(240, 197, 74, 0.06), transparent 40%);
+    linear-gradient(rgba(139, 199, 223, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 199, 223, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(50, 127, 166, 0.35), transparent 35%),
+    radial-gradient(circle at 20% 80%, rgba(240, 197, 74, 0.12), transparent 35%);
   background-size: 3rem 3rem, 3rem 3rem, 100% 100%, 100% 100%;
 }
 
@@ -272,7 +272,9 @@ section:hover .technical-label::after,
     background: linear-gradient(135deg, rgba(240, 197, 74, 0) 0%, rgba(240, 197, 74, 0) 100%);
   }
 
-  .reveal {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -299,30 +301,9 @@ section:hover .technical-label::after,
     transform: none !important;
   }
 
-  .brand-watermark {
-    transform: none !important;
-  }
-
   #scroll-pressure,
   #scroll-pressure-bg {
     display: none;
-  }
-
-  .sticky-stack {
-    position: relative;
-    top: auto;
-    min-height: auto;
-  }
-
-  .sticky-stack-top::before,
-  .sticky-stack-shadow::after,
-  .section-pressure-gauge,
-  .fluid-particle {
-    display: none;
-  }
-
-  .sticky-content-wrapper {
-    min-height: auto;
   }
 
   .dark-technical-grid {
@@ -334,12 +315,11 @@ section:hover .technical-label::after,
 
 .brand-watermark {
   position: absolute;
-  inset: -10% -5%;
+  inset: -10% 0;
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
   z-index: 0;
-  will-change: transform;
 }
 
 /* === Scroll pressure bar === */
@@ -375,7 +355,7 @@ section:hover .technical-label::after,
 /* === Pressure accent line glow === */
 
 .pressure-line {
-  opacity: 0.4;
+  opacity: 0.6;
   transition: opacity 0.3s ease, filter 0.3s ease;
   will-change: opacity, filter;
 }
@@ -446,22 +426,22 @@ section:hover .technical-label::after,
 
 @keyframes fluid-particle-1 {
   0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  10%  { opacity: 0.4; }
-  90%  { opacity: 0.3; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.45; }
   100% { transform: translate(80px, -180px) scale(0.2); opacity: 0; }
 }
 
 @keyframes fluid-particle-2 {
   0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
-  15%  { opacity: 0.35; }
-  85%  { opacity: 0.25; }
+  15%  { opacity: 0.5; }
+  85%  { opacity: 0.35; }
   100% { transform: translate(-60px, -220px) scale(0.3); opacity: 0; }
 }
 
 @keyframes fluid-particle-3 {
   0%   { transform: translate(0, 0) scale(0.8); opacity: 0; }
-  12%  { opacity: 0.3; }
-  88%  { opacity: 0.2; }
+  12%  { opacity: 0.45; }
+  88%  { opacity: 0.3; }
   100% { transform: translate(40px, -160px) scale(0.15); opacity: 0; }
 }
 
@@ -506,8 +486,8 @@ section:hover .technical-label::after,
 /* === Hydraulic pressure pulse === */
 
 @keyframes pressure-pulse {
-  0%, 100% { opacity: 0.07; }
-  50% { opacity: 0.1; }
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.16; }
 }
 
 .animate-pressure {
@@ -598,101 +578,6 @@ a[class*="underline"][class*="decoration-"] {
     text-underline-offset 200ms ease;
 }
 
-/* === Sticky stacking sections === */
-
-.sticky-stack {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-}
-
-.sticky-stack-z20 { z-index: 20; }
-.sticky-stack-z25 { z-index: 25; }
-.sticky-stack-z30 { z-index: 30; }
-.sticky-stack-z35 { z-index: 35; }
-.sticky-stack-z40 { z-index: 40; }
-.sticky-stack-z45 { z-index: 45; }
-
-/* Golden ignition line at section boundary */
-.sticky-stack-top::before {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    transparent 5%,
-    var(--color-gold-400) 20%,
-    var(--color-gold-300) 50%,
-    var(--color-gold-400) 80%,
-    transparent 95%
-  );
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  content: '';
-}
-
-.sticky-stack-top.is-crossing::before {
-  opacity: 0.9;
-  box-shadow: 0 0 12px rgba(240, 197, 74, 0.5), 0 0 30px rgba(240, 197, 74, 0.2);
-}
-
-/* Dynamic shadow at section top */
-.sticky-stack-shadow::after {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 5rem;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 22, 40, 0.45) 0%,
-    rgba(10, 22, 40, 0.15) 40%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 9;
-  opacity: 0.6;
-  transition: opacity 0.4s ease;
-  content: '';
-}
-
-/* Section pressure gauge (right edge) */
-.sticky-stack > .section-pressure-gauge {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--color-navy-800);
-  z-index: 8;
-  pointer-events: none;
-}
-
-.sticky-stack > .section-pressure-gauge::after {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(180deg, var(--color-gold-300), var(--color-steel-400));
-  transition: height 0.15s linear;
-  content: '';
-}
-
-/* Content centering in sticky sections */
-.sticky-stack > .sticky-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: inherit;
-  padding-top: var(--spacing-section-sm);
-  padding-bottom: var(--spacing-section-sm);
-}
-
-/* Non-sticky first section */
-.sticky-stack-first {
-  position: relative;
-  z-index: 10;
-}
-
 /* === Hero title text shadow === */
 
 .hero-title-glow {
@@ -745,27 +630,9 @@ a[class*="underline"][class*="decoration-"] {
   font-size: 0.75rem;
 }
 
-/* === Mobile: disable sticky stacking === */
+/* === Mobile === */
 
 @media (max-width: 767px) {
-  .sticky-stack {
-    position: relative;
-    top: auto;
-    min-height: auto;
-  }
-
-  .sticky-stack-top::before,
-  .sticky-stack-shadow::after,
-  .section-pressure-gauge {
-    display: none;
-  }
-
-  .sticky-content-wrapper {
-    min-height: auto;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
   .fluid-particle {
     display: none;
   }
@@ -774,7 +641,4 @@ a[class*="underline"][class*="decoration-"] {
     height: auto !important;
   }
 
-  #site-header.is-scrolled .header-logo {
-    height: auto !important;
-  }
 }

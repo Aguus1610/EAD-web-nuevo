@@ -24,6 +24,7 @@ export const footerGroups: NavGroup[] = [
       { label: 'Reparación integral', href: '/servicios/reparacion-integral' },
       { label: 'Instalaciones', href: '/servicios/instalaciones' },
       { label: 'Mantenimiento', href: '/servicios/mantenimiento' },
+      { label: 'Repuestos', href: '/servicios/repuestos' },
     ],
   },
   {

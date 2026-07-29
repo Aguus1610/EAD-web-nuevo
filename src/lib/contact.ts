@@ -1,4 +1,4 @@
-import { siteConfig } from '../data/site'
+import { primaryContact, siteConfig } from '../data/site'
 
 export interface QuoteRequest {
   name: string
@@ -33,9 +33,9 @@ export function validateQuoteRequest(request: QuoteRequest): QuoteRequestErrors 
   return errors
 }
 
-export function whatsappUrl(message: string): string {
+export function whatsappUrl(message: string, whatsappNumber = primaryContact.whatsapp): string {
   const text = encodeURIComponent(message.trim())
-  return `https://wa.me/${siteConfig.whatsapp}?text=${text}`
+  return `https://wa.me/${whatsappNumber}?text=${text}`
 }
 
 export function telUrl(phone: string): string {

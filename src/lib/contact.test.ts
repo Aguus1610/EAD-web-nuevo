@@ -7,11 +7,16 @@ describe('whatsappUrl', () => {
     expect(url).toContain('wa.me/5492302672827')
     expect(url).toContain(encodeURIComponent('Hola, necesito un presupuesto'))
   })
+
+  it('can target a secondary contact', () => {
+    const url = whatsappUrl('Hola', '5492302592703')
+    expect(url).toContain('wa.me/5492302592703')
+  })
 })
 
 describe('telUrl', () => {
   it('generates tel URL from formatted phone', () => {
-    expect(telUrl('+54 2302 672827')).toBe('tel:+542302672827')
+    expect(telUrl('+54 9 2302 672827')).toBe('tel:+5492302672827')
   })
 })
 

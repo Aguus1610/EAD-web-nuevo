@@ -2,7 +2,7 @@
 import Container from '../ui/Container.astro'
 import SectionHeading from '../ui/SectionHeading.astro'
 import { siteConfig } from '../../data/site'
-import { telUrl } from '../../lib/contact'
+import { telUrl, whatsappUrl } from '../../lib/contact'
 
 interface Props {
   heading: string
@@ -40,9 +40,24 @@ const { heading, paragraphs } = Astro.props
           </div>
           <div>
             <dt class="technical-label text-steel-600">Teléfonos</dt>
-            <dd class="mt-1 space-y-1">
-              <a href={telUrl(siteConfig.phone)} class="block text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{siteConfig.phone}</a>
-              <a href={telUrl(siteConfig.phoneSecondary)} class="block text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{siteConfig.phoneSecondary}</a>
+            <dd class="mt-2 space-y-3">
+              {siteConfig.contacts.map((contact) => (
+                <div>
+                  <p class="font-semibold text-navy-900">{contact.name}</p>
+                  <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                    <a href={telUrl(contact.phone)} aria-label={`Llamar a ${contact.name} al ${contact.phone}`} class="text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{contact.phone}</a>
+                    <a
+                      href={whatsappUrl('Hola, vi la web de EAD Oleohidráulica y quería hacer una consulta.', contact.whatsapp)}
+                      aria-label={`Abrir WhatsApp de ${contact.name} al ${contact.phone}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-semibold text-steel-600 underline decoration-steel-400 underline-offset-4 hover:text-steel-700"
+                    >
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+              ))}
             </dd>
           </div>
         </dl>

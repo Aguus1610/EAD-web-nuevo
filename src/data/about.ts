@@ -1,3 +1,5 @@
+import { siteConfig } from './site'
+
 export interface AboutContent {
   intro: {
     title: string
@@ -92,4 +94,3 @@ export const aboutContent: AboutContent = {
     secondaryCta: { label: 'Ver trabajos', href: '/trabajos' },
   },
 }
-import { siteConfig } from './site'

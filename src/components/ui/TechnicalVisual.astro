@@ -1,15 +1,14 @@
 ---
-type VisualVariant = 'home' | 'company' | 'services' | 'products' | 'work' | 'contact' | 'error'
+type VisualVariant = 'company' | 'services' | 'products' | 'work' | 'contact' | 'error'
 
 interface Props {
   variant?: VisualVariant
   class?: string
 }
 
-const { variant = 'home', class: className } = Astro.props
+const { variant = 'company', class: className } = Astro.props
 
 const labels: Record<VisualVariant, { top: string; code: string; bottom: string }> = {
-  home: { top: 'Circuito oleohidráulico', code: 'P / A / B / T', bottom: 'Presión · caudal · control' },
   company: { top: 'Taller especializado', code: 'EAD / LP', bottom: 'Diagnóstico · ejecución' },
   services: { top: 'Áreas de trabajo', code: 'SRV / 04', bottom: 'Reparación · instalación' },
   products: { top: 'Componentes', code: 'REP / CMP', bottom: 'Compatibilidad bajo consulta' },
