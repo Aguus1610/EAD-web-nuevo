@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { breadcrumbJsonLd, defaultSocialImage, localBusinessJsonLd, resolveCanonical, serviceJsonLd } from './seo'
+import { breadcrumbJsonLd, defaultSocialImage, localBusinessJsonLd, projectJsonLd, resolveCanonical, serviceJsonLd } from './seo'
 
 describe('SEO utilities', () => {
   it('resolves canonical URLs under the GitHub Pages base path', () => {
@@ -31,5 +31,20 @@ describe('SEO utilities', () => {
 
     expect(breadcrumbs.itemListElement[2].item).toContain('/EAD-web-nuevo/servicios/reparacion-integral')
     expect(service.url).toBe('https://aguus1610.github.io/EAD-web-nuevo/servicios/reparacion-integral')
+  })
+
+  it('builds project schemas from local media and an optional Instagram source', () => {
+    const project = projectJsonLd({
+      title: 'Mantenimiento de hidroelevador',
+      summary: 'Trabajo documentado y aprobado.',
+      slug: 'mantenimiento-hidroelevador',
+      date: '2026-07-30',
+      images: ['/assets/projects/mantenimiento-hidroelevador/portada.webp'],
+      sourceUrl: 'https://www.instagram.com/p/ABC_123/',
+    })
+
+    expect(project.url).toContain('/EAD-web-nuevo/trabajos/mantenimiento-hidroelevador')
+    expect(project.image[0]).toContain('/EAD-web-nuevo/assets/projects/mantenimiento-hidroelevador/portada.webp')
+    expect(project.isBasedOn).toBe('https://www.instagram.com/p/ABC_123/')
   })
 })

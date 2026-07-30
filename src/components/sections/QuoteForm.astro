@@ -1,17 +1,26 @@
 ---
 import { primaryContact, siteConfig } from '../../data/site'
-import { telUrl } from '../../lib/contact'
+import { quoteFieldLimits, quoteNeeds, telUrl } from '../../lib/contact'
+import type { MediaImage } from '../../data/media'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+
+interface Props {
+  image?: MediaImage
+}
+
+const { image } = Astro.props
 ---
 
 <section class="bg-white py-16 sm:py-24" aria-labelledby="quote-form-heading">
   <div class="mx-auto w-full max-w-(--content-max) px-4 sm:px-6 lg:px-8">
     <div class="grid items-start gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
-      <div class="lg:sticky lg:top-24">
+      <div class="quote-sidebar">
         <p class="technical-label text-steel-600">Consulta guiada</p>
         <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-navy-900 sm:text-5xl">Solicitar presupuesto</h2>
         <p class="mt-5 text-sm leading-relaxed text-gray-600">
-          Complete los datos para enviar su consulta por WhatsApp o correo electrónico.
-          La apertura de WhatsApp o del cliente de correo no confirma el envío, el diagnóstico ni la aceptación del trabajo.
+          Complete los datos para enviar su consulta por correo electrónico o abrir el mensaje en WhatsApp.
+          Formspree procesa y puede almacenar la consulta para entregarla por correo. Al abrir WhatsApp, los datos pasan a ese servicio.
+          No incluya información sensible innecesaria. La solicitud no constituye diagnóstico, aceptación del trabajo ni presupuesto definitivo.
         </p>
         <div class="mt-8 rounded-xl bg-navy-900 p-6 text-white shadow-xl">
           <p class="technical-label text-gold-300">Datos útiles</p>
@@ -21,59 +30,84 @@ import { telUrl } from '../../lib/contact'
             <li class="border-l-2 border-steel-400 pl-3">Descripción de la necesidad</li>
           </ul>
         </div>
+        {image && (
+          <PhotoFrame
+            image={image}
+            label="Detalle de equipo · registro real"
+            class="mt-6 aspect-[16/10] rounded-xl shadow-xl shadow-navy-900/15"
+          />
+        )}
       </div>
 
-      <form id="quote-form" data-whatsapp={primaryContact.whatsapp} class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8" novalidate>
+      <form
+        id="quote-form"
+        action={siteConfig.contactFormEndpoint}
+        method="post"
+        data-whatsapp={primaryContact.whatsapp}
+        data-timeout-ms="12000"
+        class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8"
+      >
+      <input type="hidden" name="subject" value={`Nueva consulta desde ${siteConfig.name}`} />
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" hidden />
       <div>
         <label for="quote-name" class="block text-sm font-medium text-navy-900">Nombre *</label>
-        <input id="quote-name" name="name" type="text" autocomplete="name" required class="form-control" />
+        <input id="quote-name" name="name" type="text" autocomplete="name" maxlength={quoteFieldLimits.name} required class="form-control" />
         <p id="error-name" data-error-for="name" class="form-error hidden" aria-live="polite"></p>
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
           <label for="quote-locality" class="block text-sm font-medium text-navy-900">Localidad *</label>
-          <input id="quote-locality" name="locality" type="text" autocomplete="address-level2" required class="form-control" />
+          <input id="quote-locality" name="locality" type="text" autocomplete="address-level2" maxlength={quoteFieldLimits.locality} required class="form-control" />
           <p id="error-locality" data-error-for="locality" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
           <label for="quote-company" class="block text-sm font-medium text-navy-900">Empresa <span class="text-gray-500">(opcional)</span></label>
-          <input id="quote-company" name="company" type="text" autocomplete="organization" class="form-control" />
+          <input id="quote-company" name="company" type="text" autocomplete="organization" maxlength={quoteFieldLimits.company} class="form-control" />
+          <p id="error-company" data-error-for="company" class="form-error hidden" aria-live="polite"></p>
         </div>
       </div>
 
       <fieldset>
         <legend class="text-sm font-medium text-navy-900">Medio de contacto preferido *</legend>
         <div class="mt-2 flex flex-wrap gap-5">
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="WhatsApp" checked /> WhatsApp</label>
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Teléfono" /> Teléfono</label>
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Correo" /> Correo</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="WhatsApp" required checked /> WhatsApp</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Teléfono" required /> Teléfono</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Correo" required /> Correo</label>
         </div>
         <p id="error-contactMethod" data-error-for="contactMethod" class="form-error hidden" aria-live="polite"></p>
       </fieldset>
 
       <div>
-        <label for="quote-contact-detail" class="block text-sm font-medium text-navy-900">Teléfono o correo de contacto *</label>
-        <input id="quote-contact-detail" name="contactDetail" type="text" autocomplete="tel" required class="form-control" aria-describedby="contact-detail-help" />
-        <p id="contact-detail-help" class="mt-1 text-xs text-gray-500">Ingrese el dato por el que prefiere recibir la respuesta.</p>
+        <label id="contact-detail-label" for="quote-contact-detail" class="block text-sm font-medium text-navy-900">Teléfono o correo de contacto *</label>
+        <input
+          id="quote-contact-detail"
+          name="contactDetail"
+          type="text"
+          inputmode="text"
+          autocomplete="tel"
+          maxlength={quoteFieldLimits.contactDetail}
+          pattern="(?:[^\s@]+@[^\s@]+\.[^\s@]+|\+?(?=(?:\D*\d){6,15}\D*$)(?:\d|\s|\.|-|\(|\))+)"
+          title="Ingrese un correo válido o un teléfono con entre 6 y 15 dígitos."
+          required
+          class="form-control"
+          aria-describedby="contact-detail-help"
+        />
+        <p id="contact-detail-help" class="mt-1 text-xs text-gray-500">Ingrese el teléfono o correo por el que prefiere recibir la respuesta.</p>
         <p id="error-contactDetail" data-error-for="contactDetail" class="form-error hidden" aria-live="polite"></p>
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
           <label for="quote-equipment" class="block text-sm font-medium text-navy-900">Equipo o producto *</label>
-          <input id="quote-equipment" name="equipmentType" type="text" required class="form-control" placeholder="Ej.: hidrogrúa, repuesto, sistema hidráulico" />
+          <input id="quote-equipment" name="equipmentType" type="text" maxlength={quoteFieldLimits.equipmentType} required class="form-control" placeholder="Ej.: hidrogrúa, repuesto, sistema hidráulico" />
           <p id="error-equipmentType" data-error-for="equipmentType" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
           <label for="quote-need" class="block text-sm font-medium text-navy-900">Necesidad principal *</label>
           <select id="quote-need" name="need" required class="form-control">
             <option value="">Seleccione una opción</option>
-            <option>Reparación</option>
-            <option>Instalación</option>
-            <option>Mantenimiento o diagnóstico</option>
-            <option>Repuesto o componente</option>
-            <option>Otra consulta</option>
+            {quoteNeeds.map((need) => <option>{need}</option>)}
           </select>
           <p id="error-need" data-error-for="need" class="form-error hidden" aria-live="polite"></p>
         </div>
@@ -82,23 +116,26 @@ import { telUrl } from '../../lib/contact'
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
           <label for="quote-brand" class="block text-sm font-medium text-navy-900">Marca <span class="text-gray-500">(opcional)</span></label>
-          <input id="quote-brand" name="brand" type="text" class="form-control" />
+          <input id="quote-brand" name="brand" type="text" maxlength={quoteFieldLimits.brand} class="form-control" />
+          <p id="error-brand" data-error-for="brand" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
           <label for="quote-model" class="block text-sm font-medium text-navy-900">Modelo <span class="text-gray-500">(opcional)</span></label>
-          <input id="quote-model" name="model" type="text" class="form-control" />
+          <input id="quote-model" name="model" type="text" maxlength={quoteFieldLimits.model} class="form-control" />
+          <p id="error-model" data-error-for="model" class="form-error hidden" aria-live="polite"></p>
         </div>
       </div>
 
       <div>
         <label for="quote-part-number" class="block text-sm font-medium text-navy-900">Número de pieza <span class="text-gray-500">(opcional)</span></label>
-        <input id="quote-part-number" name="partNumber" type="text" class="form-control" />
+        <input id="quote-part-number" name="partNumber" type="text" maxlength={quoteFieldLimits.partNumber} class="form-control" />
+        <p id="error-partNumber" data-error-for="partNumber" class="form-error hidden" aria-live="polite"></p>
         <p class="mt-1 text-xs text-gray-500">Si dispone de fotografías, podrá adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
       </div>
 
       <div>
         <label for="quote-description" class="block text-sm font-medium text-navy-900">Descripción *</label>
-        <textarea id="quote-description" name="description" rows="5" required class="form-control" placeholder="Describa el problema, la pieza buscada o el trabajo que necesita."></textarea>
+        <textarea id="quote-description" name="description" rows="5" maxlength={quoteFieldLimits.description} required class="form-control" placeholder="Describa el problema, la pieza buscada o el trabajo que necesita."></textarea>
         <p id="error-description" data-error-for="description" class="form-error hidden" aria-live="polite"></p>
       </div>
 
@@ -116,7 +153,7 @@ import { telUrl } from '../../lib/contact'
       <div class="rounded-md border border-gold-400/60 bg-gold-100/50 p-4">
         <label class="flex items-start gap-3 text-sm text-amber-950">
           <input name="consent" type="checkbox" class="mt-1" required />
-          <span>Acepto enviar la consulta con los datos ingresados. Entiendo que la web no almacena la solicitud y que debo revisar y enviar el mensaje desde WhatsApp o mi cliente de correo.</span>
+          <span>Acepto enviar la consulta con los datos ingresados. Si elijo correo, Formspree los procesará; si elijo WhatsApp, se abrirán en ese servicio.</span>
         </label>
         <p id="error-consent" data-error-for="consent" class="form-error hidden" aria-live="polite"></p>
       </div>
@@ -124,24 +161,31 @@ import { telUrl } from '../../lib/contact'
       <div id="quote-status" class="hidden rounded-md border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
 
       <div class="flex flex-wrap gap-3">
-        <button type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-gold-300 bg-gold-300 px-6 py-3 text-sm font-bold tracking-wide text-navy-950 shadow-lg shadow-black/10 transition-colors hover:border-gold-400 hover:bg-gold-400">
-          Abrir mensaje en WhatsApp
+        <button id="submit-quote" type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-gold-300 bg-gold-300 px-6 py-3 text-sm font-bold tracking-wide text-navy-950 shadow-lg shadow-black/10 transition-colors hover:border-gold-400 hover:bg-gold-400 disabled:cursor-wait disabled:opacity-70">
+          <span data-submit-label>Enviar consulta por correo</span>
         </button>
-        <button id="send-email" type="button" class="cut-corner hidden border-2 border-steel-500 px-6 py-3 text-sm font-bold tracking-wide text-steel-600 transition-colors hover:border-steel-600 hover:bg-steel-500 hover:text-white">
-          Enviar por correo
+        <button id="send-whatsapp" type="button" hidden class="cut-corner border-2 border-steel-500 px-6 py-3 text-sm font-bold tracking-wide text-steel-600 transition-colors hover:border-steel-600 hover:bg-steel-500 hover:text-white disabled:cursor-wait disabled:opacity-70">
+          Abrir mensaje en WhatsApp
         </button>
         <button id="copy-quote" type="button" class="cut-corner hidden border-2 border-navy-800 px-6 py-3 text-sm font-bold text-navy-800 transition-colors hover:bg-navy-800 hover:text-white">
           Copiar mensaje
         </button>
       </div>
 
+      <noscript>
+        <p class="text-sm text-gray-600">
+          Para usar WhatsApp sin JavaScript, abra el
+          <a href={`https://wa.me/${primaryContact.whatsapp}`} target="_blank" rel="noopener noreferrer" class="underline hover:text-steel-500">canal directo de {primaryContact.name}</a>.
+        </p>
+      </noscript>
+
       <div id="quote-preview-wrapper" class="hidden">
         <label for="quote-preview" class="block text-sm font-medium text-navy-900">Vista previa del mensaje</label>
         <textarea id="quote-preview" rows="9" readonly class="form-control"></textarea>
       </div>
 
-      <p id="quote-fallback" class="hidden text-sm text-gray-600">
-        También puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-steel-500">{siteConfig.adminEmail}</a>
+      <p id="quote-fallback" class="text-sm text-gray-600">
+        Si el envío no está disponible, puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-steel-500">{siteConfig.adminEmail}</a>
         o llamar a {primaryContact.name} al <a href={telUrl(primaryContact.phone)} class="underline hover:text-steel-500">{primaryContact.phone}</a>.
       </p>
       </form>
@@ -150,7 +194,15 @@ import { telUrl } from '../../lib/contact'
 </section>
 
 <script>
-  import { generateQuoteMessage, validateQuoteRequest, adminMailUrl, type QuoteRequest } from '../../lib/contact'
+  import {
+    createFormspreeSubmission,
+    generateQuoteMessage,
+    parseContactMethod,
+    parseQuoteNeed,
+    validateQuoteRequest,
+    whatsappUrl,
+    type QuoteRequest,
+  } from '../../lib/contact'
 
   const form = document.querySelector<HTMLFormElement>('#quote-form')
 
@@ -158,9 +210,19 @@ import { telUrl } from '../../lib/contact'
     const preview = form.querySelector<HTMLTextAreaElement>('#quote-preview')
     const previewWrapper = form.querySelector<HTMLElement>('#quote-preview-wrapper')
     const copyButton = form.querySelector<HTMLButtonElement>('#copy-quote')
-    const emailButton = form.querySelector<HTMLButtonElement>('#send-email')
-    const fallback = form.querySelector<HTMLElement>('#quote-fallback')
+    const submitButton = form.querySelector<HTMLButtonElement>('#submit-quote')
+    const submitLabel = submitButton?.querySelector<HTMLElement>('[data-submit-label]')
+    const whatsappButton = form.querySelector<HTMLButtonElement>('#send-whatsapp')
     const status = form.querySelector<HTMLElement>('#quote-status')
+    const contactDetail = form.querySelector<HTMLInputElement>('#quote-contact-detail')
+    const contactDetailLabel = form.querySelector<HTMLElement>('#contact-detail-label')
+    const contactDetailHelp = form.querySelector<HTMLElement>('#contact-detail-help')
+    const formControls = Array.from(
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLButtonElement>(
+        'input, select, textarea, button',
+      ),
+    )
+    let submitting = false
 
     const fieldValue = (data: FormData, name: string) => String(data.get(name) ?? '').trim()
 
@@ -207,10 +269,10 @@ import { telUrl } from '../../lib/contact'
       return {
         name: fieldValue(data, 'name'),
         locality: fieldValue(data, 'locality'),
-        contactMethod: fieldValue(data, 'contactMethod'),
+        contactMethod: parseContactMethod(fieldValue(data, 'contactMethod')),
         contactDetail: fieldValue(data, 'contactDetail'),
         equipmentType: fieldValue(data, 'equipmentType'),
-        need: fieldValue(data, 'need'),
+        need: parseQuoteNeed(fieldValue(data, 'need')),
         description: fieldValue(data, 'description'),
         company: fieldValue(data, 'company'),
         brand: fieldValue(data, 'brand'),
@@ -221,6 +283,37 @@ import { telUrl } from '../../lib/contact'
       }
     }
 
+    const showStatus = (message: string, tone: 'pending' | 'success' | 'error') => {
+      if (!status) return
+      const toneClasses = {
+        pending: 'border-steel-300 bg-steel-50 text-steel-900',
+        success: 'border-green-300 bg-green-50 text-green-950',
+        error: 'border-red-300 bg-red-50 text-red-950',
+      }
+      status.textContent = message
+      status.className = `rounded-md border px-4 py-3 text-sm ${toneClasses[tone]}`
+    }
+
+    const clearStatus = () => {
+      if (!status) return
+      status.textContent = ''
+      status.className = 'hidden rounded-md border px-4 py-3 text-sm'
+    }
+
+    const clearPreview = () => {
+      if (preview) preview.value = ''
+      previewWrapper?.classList.add('hidden')
+      copyButton?.classList.add('hidden')
+      if (copyButton) copyButton.textContent = 'Copiar mensaje'
+    }
+
+    const setSubmitting = (active: boolean) => {
+      submitting = active
+      for (const control of formControls) control.disabled = active
+      submitButton?.setAttribute('aria-busy', String(active))
+      if (submitLabel) submitLabel.textContent = active ? 'Enviando consulta...' : 'Enviar consulta por correo'
+    }
+
     const focusControl = (name: string) => {
       const control = form.elements.namedItem(name)
       if (control instanceof RadioNodeList) {
@@ -228,6 +321,41 @@ import { telUrl } from '../../lib/contact'
         first?.focus()
       } else if (control instanceof HTMLElement) {
         control.focus()
+      }
+    }
+
+    const prepareMessage = (): { request: QuoteRequest; message: string } | null => {
+      const request = getRequest()
+      const errors = validateQuoteRequest(request)
+
+      for (const name of Object.keys(request)) clearError(name)
+      const firstError = Object.entries(errors)[0]
+      for (const [name, message] of Object.entries(errors)) showError(name, message)
+
+      if (firstError) {
+        focusControl(firstError[0])
+        return null
+      }
+
+      const message = generateQuoteMessage(request)
+      if (preview) preview.value = message
+      previewWrapper?.classList.remove('hidden')
+      copyButton?.classList.remove('hidden')
+      return { request, message }
+    }
+
+    const updateContactDetail = () => {
+      if (!contactDetail) return
+      const method = parseContactMethod(fieldValue(new FormData(form), 'contactMethod'))
+      const usesEmail = method === 'Correo'
+
+      contactDetail.inputMode = usesEmail ? 'email' : 'tel'
+      contactDetail.autocomplete = usesEmail ? 'email' : 'tel'
+      if (contactDetailLabel) contactDetailLabel.textContent = usesEmail ? 'Correo electrónico *' : 'Teléfono de contacto *'
+      if (contactDetailHelp) {
+        contactDetailHelp.textContent = usesEmail
+          ? 'Ingrese el correo en el que prefiere recibir la respuesta.'
+          : 'Ingrese el número por el que prefiere recibir la respuesta.'
       }
     }
 
@@ -249,44 +377,100 @@ import { telUrl } from '../../lib/contact'
       const target = event.target
       if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) {
         if (target.name) clearError(target.name)
+        if (!submitting) {
+          clearPreview()
+          clearStatus()
+        }
       }
     })
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault()
-      const request = getRequest()
-      const errors = validateQuoteRequest(request)
-
-      for (const name of Object.keys(request)) clearError(name)
-      const firstError = Object.entries(errors)[0]
-      for (const [name, message] of Object.entries(errors)) showError(name, message)
-
-      if (firstError) {
-        focusControl(firstError[0])
-        return
+    form.addEventListener('change', (event) => {
+      const target = event.target
+      if (target instanceof HTMLInputElement && target.name === 'contactMethod') {
+        clearError('contactDetail')
+        updateContactDetail()
       }
+    })
 
-      const message = generateQuoteMessage(request)
-      if (preview) preview.value = message
-      previewWrapper?.classList.remove('hidden')
-      copyButton?.classList.remove('hidden')
-      emailButton?.classList.remove('hidden')
-      fallback?.classList.remove('hidden')
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      if (submitting) return
+
+      const prepared = prepareMessage()
+      if (!prepared) return
+
+      const formData = new FormData(form)
+      const submission = createFormspreeSubmission(prepared.request)
+      const payload = new FormData()
+      payload.set('subject', submission.subject)
+      payload.set('name', submission.name)
+      if (submission.email) payload.set('email', submission.email)
+      payload.set('message', submission.message)
+      payload.set('_gotcha', fieldValue(formData, '_gotcha'))
+
+      setSubmitting(true)
+      showStatus('Enviando la consulta por correo...', 'pending')
+      const controller = new AbortController()
+      const configuredTimeout = Number(form.dataset.timeoutMs)
+      const timeoutMs = Number.isFinite(configuredTimeout) && configuredTimeout > 0 ? configuredTimeout : 12000
+      const timeout = window.setTimeout(() => controller.abort(), timeoutMs)
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: payload,
+          headers: { Accept: 'application/json' },
+          signal: controller.signal,
+        })
+
+        if (response.status === 429) {
+          showStatus('Se alcanzó el límite temporal de envíos. Espere unos minutos o utilice WhatsApp.', 'error')
+          return
+        }
+        if (response.status === 400 || response.status === 422) {
+          showStatus('Formspree no pudo procesar los datos. Revíselos o utilice WhatsApp.', 'error')
+          return
+        }
+        if (!response.ok) {
+          showStatus('El servicio de correo no está disponible en este momento. Pruebe por WhatsApp o correo directo.', 'error')
+          return
+        }
+
+        showStatus('Formspree recibió la consulta para procesarla. EAD Oleohidráulica responderá por el medio indicado.', 'success')
+        form.reset()
+        clearPreview()
+        updateContactDetail()
+      } catch (error) {
+        const timedOut = error instanceof DOMException && error.name === 'AbortError'
+        showStatus(
+          timedOut
+            ? 'El envío tardó demasiado. Sus datos siguen en el formulario; reintente o utilice WhatsApp.'
+            : 'No se pudo conectar con el servicio de correo. Sus datos siguen en el formulario; pruebe por WhatsApp.',
+          'error',
+        )
+      } finally {
+        window.clearTimeout(timeout)
+        setSubmitting(false)
+      }
+    })
+
+    whatsappButton?.addEventListener('click', () => {
+      const prepared = prepareMessage()
+      if (!prepared) return
 
       const whatsappNumber = form.dataset.whatsapp?.trim()
       if (!whatsappNumber) {
-        if (status) {
-          status.textContent = 'WhatsApp no está disponible. Use el mensaje generado por correo o teléfono.'
-          status.className = 'rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950'
-        }
+        showStatus('WhatsApp no está disponible. Use el envío por correo o teléfono.', 'error')
         return
       }
 
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
-      if (status) {
-        status.textContent = 'Se abrió WhatsApp. Revise el mensaje y envíelo desde la aplicación.'
-        status.className = 'rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-950'
+      const popup = window.open(whatsappUrl(prepared.message, whatsappNumber), '_blank')
+      if (!popup) {
+        showStatus('El navegador bloqueó la apertura de WhatsApp. Habilite las ventanas emergentes o copie el mensaje.', 'error')
+        return
       }
+      popup.opener = null
+      showStatus('Se abrió WhatsApp. Revise el mensaje y envíelo desde la aplicación.', 'success')
     })
 
     copyButton?.addEventListener('click', async () => {
@@ -297,25 +481,24 @@ import { telUrl } from '../../lib/contact'
       } catch {
         preview.focus()
         preview.select()
-        if (status) {
-          status.textContent = 'No se pudo copiar automáticamente. Seleccione y copie el mensaje.'
-          status.className = 'rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950'
-        }
+        showStatus('No se pudo copiar automáticamente. Seleccione y copie el mensaje.', 'error')
       }
     })
 
-    emailButton?.addEventListener('click', () => {
-      if (!preview?.value) return
-      window.open(adminMailUrl(preview.value), '_blank', 'noopener,noreferrer')
-      if (status) {
-        status.textContent = 'Se abrió su cliente de correo. Revise el mensaje y envíelo.'
-        status.className = 'rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-950'
-      }
-    })
+    updateContactDetail()
+    whatsappButton?.removeAttribute('hidden')
+    form.noValidate = true
   }
 </script>
 
 <style>
+  @media (min-width: 64rem) and (min-height: 52rem) {
+    .quote-sidebar {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
   .form-control[aria-invalid='true'] {
     border-color: #dc2626;
   }

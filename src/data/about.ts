@@ -17,6 +17,7 @@ export interface AboutContent {
   }
   gallery: {
     heading: string
+    description: string
     emptyMessage: string
   }
   location: {
@@ -78,6 +79,7 @@ export const aboutContent: AboutContent = {
   },
   gallery: {
     heading: 'Nuestro taller',
+    description: 'Una selección de imágenes reales del taller, componentes y equipos que pasan por nuestras instalaciones.',
     emptyMessage:
       'Estamos preparando el registro fotográfico del taller. Las imágenes se publicarán una vez autorizadas.',
   },

@@ -20,6 +20,7 @@ Usar una colección `projects` con esquema estricto y un flujo editorial que exi
 - **Filtro progresivo** — el contenido completo existe en HTML y JavaScript solo mejora la experiencia.
 - **Narrativa problema-intervención-resultado** — comunica capacidad sin convertir la ficha en un informe técnico exhaustivo.
 - **Assets por proyecto** — simplifica mantenimiento, revisión de privacidad y eliminación completa de un caso.
+- **Instagram como fuente opcional** — la feature 012 prepara borradores desde la API oficial, pero la aprobación y publicación continúan siendo manuales.
 
 ## Riesgos
 

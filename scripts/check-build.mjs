@@ -15,6 +15,15 @@ async function walk(directory) {
 
 await walk(dist)
 
+const normalizedRelativePath = (file) => relative(dist, file.path).replaceAll('\\', '/')
+const projectSlug = (file) => {
+  const path = normalizedRelativePath(file)
+  const assetMatch = path.match(/^assets\/projects\/([^/]+)\//)
+  if (assetMatch) return assetMatch[1]
+  const pageMatch = path.match(/^trabajos\/([^/]+)\/index\.html$/)
+  return pageMatch?.[1]
+}
+
 const budgets = {
   '.js': { perFile: 100_000, total: 150_000 },
   '.css': { perFile: 100_000, total: 120_000 },
@@ -26,20 +35,39 @@ const budgets = {
 const errors = []
 for (const [extension, budget] of Object.entries(budgets)) {
   const matching = files.filter((file) => extname(file.path) === extension)
-  const total = matching.reduce((sum, file) => sum + file.size, 0)
+  const shared = matching.filter((file) => !projectSlug(file))
+  const total = shared.reduce((sum, file) => sum + file.size, 0)
   if (total > budget.total) errors.push(`${extension} total ${total} exceeds ${budget.total} bytes`)
   for (const file of matching) {
     if (file.size > budget.perFile) {
       errors.push(`${relative(dist, file.path)} is ${file.size} bytes; limit is ${budget.perFile}`)
     }
   }
-  console.log(`${extension}: ${matching.length} files, ${total} bytes`)
+  console.log(`${extension}: ${matching.length} files, ${total} shared bytes`)
 }
 
 const totalSize = files.reduce((sum, file) => sum + file.size, 0)
+const projectFiles = files.filter(projectSlug)
+const sharedSize = files.filter((file) => !projectSlug(file)).reduce((sum, file) => sum + file.size, 0)
 const totalLimit = 2_500_000
+const projectArchiveLimit = 20_000_000
+const projectLimit = 1_400_000
 console.log(`dist: ${files.length} files, ${totalSize} bytes`)
-if (totalSize > totalLimit) errors.push(`dist total ${totalSize} exceeds ${totalLimit} bytes`)
+console.log(`shared: ${sharedSize} bytes; project archive: ${projectFiles.reduce((sum, file) => sum + file.size, 0)} bytes`)
+if (sharedSize > totalLimit) errors.push(`shared dist ${sharedSize} exceeds ${totalLimit} bytes`)
+if (projectFiles.reduce((sum, file) => sum + file.size, 0) > projectArchiveLimit) {
+  errors.push(`project archive exceeds ${projectArchiveLimit} bytes`)
+}
+
+const projects = new Map()
+for (const file of projectFiles) {
+  const slug = projectSlug(file)
+  if (!slug) continue
+  projects.set(slug, (projects.get(slug) ?? 0) + file.size)
+}
+for (const [slug, size] of projects) {
+  if (size > projectLimit) errors.push(`project ${slug} is ${size} bytes; limit is ${projectLimit}`)
+}
 
 if (errors.length > 0) {
   console.error(errors.join('\n'))

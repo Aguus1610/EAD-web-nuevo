@@ -2,7 +2,8 @@
 import Container from '../ui/Container.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
 import BrandLogo from '../ui/BrandLogo.astro'
-import CraneVisual from '../ui/CraneVisual.astro'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+import type { MediaImage } from '../../data/media'
 import { withBase } from '../../lib/url'
 
 interface Props {
@@ -10,10 +11,11 @@ interface Props {
   subtitle: string
   ctaPrimary: { label: string; href: string }
   ctaSecondary: { label: string; href: string }
+  image: MediaImage
   class?: string
 }
 
-const { title, subtitle, ctaPrimary, ctaSecondary, class: className } = Astro.props
+const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
 ---
 
 <section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 py-16 sm:py-24 ${className ?? ''}`}>
@@ -53,8 +55,14 @@ const { title, subtitle, ctaPrimary, ctaSecondary, class: className } = Astro.pr
         </ul>
       </div>
 
-      <div class="reveal-right lg:justify-self-end">
-        <CraneVisual />
+      <div class="reveal-right relative lg:justify-self-end">
+        <span class="pointer-events-none absolute -right-3 -top-3 h-24 w-24 border-r border-t border-gold-300/50" aria-hidden="true"></span>
+        <PhotoFrame
+          image={image}
+          label="Taller EAD · registro real"
+          class="aspect-[16/10] w-full rounded-lg shadow-2xl shadow-black/35 lg:aspect-[6/5] lg:w-[32rem]"
+          priority
+        />
       </div>
     </div>
   </Container>

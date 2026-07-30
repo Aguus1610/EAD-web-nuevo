@@ -1,0 +1,49 @@
+---
+import ButtonLink from '../ui/ButtonLink.astro'
+import type { ProjectImage } from '../../lib/projects'
+import { formatProjectDate } from '../../lib/projects'
+import { withBase } from '../../lib/url'
+
+interface Props {
+  slug: string
+  title: string
+  summary: string
+  category: string
+  date: string
+  image?: ProjectImage
+  class?: string
+}
+
+const { slug, title, summary, category, date, image, class: className } = Astro.props
+const href = `/trabajos/${slug}`
+---
+
+<article data-project-card data-category={category} class={`industrial-card flex h-full flex-col ${className ?? ''}`}>
+  {image && (
+    <a href={withBase(href)} aria-label={`Ver trabajo: ${title}`} class="block overflow-hidden bg-navy-950">
+      <img
+        src={withBase(image.src)}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        loading="lazy"
+        decoding="async"
+        style={`object-position: ${image.position ?? '50% 50%'};`}
+        class="aspect-[16/9] h-auto w-full object-cover transition-transform duration-500 hover:scale-[1.025]"
+      />
+    </a>
+  )}
+  <div class="flex flex-1 flex-col p-6">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span class="technical-label text-steel-600">{category}</span>
+      <time datetime={date} class="text-xs font-semibold uppercase tracking-wider text-gray-500">{formatProjectDate(date)}</time>
+    </div>
+    <h3 class="mt-3 text-xl font-bold text-navy-900">
+      <a href={withBase(href)} class="text-inherit no-underline hover:text-steel-600">{title}</a>
+    </h3>
+    <p class="mt-3 text-sm leading-relaxed text-gray-600">{summary}</p>
+    <div class="mt-auto pt-5">
+      <ButtonLink href={href} variant="ghost">Ver trabajo →</ButtonLink>
+    </div>
+  </div>
+</article>

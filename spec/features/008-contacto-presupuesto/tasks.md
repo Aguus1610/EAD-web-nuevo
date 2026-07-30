@@ -7,11 +7,16 @@
 - [x] Implementar formulario guiado con etiquetas y errores accesibles.
 - [x] Generar mensaje estructurado y codificado.
 - [x] Implementar copia de mensaje y fallback por correo.
+- [x] Configurar el endpoint aprobado de Formspree para enviar consultas por correo.
+- [x] Mostrar estados reales de envío, éxito y error sin exponer credenciales.
 - [x] Añadir aclaraciones comerciales y de privacidad.
 - [x] Probar teclado, móvil, caracteres especiales y datos incompletos con Playwright.
 - [x] Verificar el destino de ubicación junto con los demás enlaces en producción.
 - [x] Validar contra los criterios de aceptación de `spec.md`.
 - [x] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
+- [x] Bloquear Formspree y WhatsApp en tests automatizados y cubrir éxito, errores, timeout y fallback sin JavaScript.
+- [x] Estructurar el asunto y el contenido de la notificación para el correo estándar de Formspree Free.
+- [ ] Verificar en Formspree que `adm201364@gmail.com` esté confirmado, el workflow de correo activo y el dominio de producción autorizado.
 
 ## Mantenimiento (checklist recurrente)
 

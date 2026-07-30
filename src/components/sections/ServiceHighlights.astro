@@ -3,13 +3,17 @@ import Container from '../ui/Container.astro'
 import SectionHeading from '../ui/SectionHeading.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
 import ServiceIcon from '../ui/ServiceIcon.astro'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+import type { MediaImage } from '../../data/media'
+import type { ServiceIconVariant } from '../../data/services'
 import { withBase } from '../../lib/url'
 
 interface ServiceItem {
   title: string
   summary: string
   href: string
-  icon: 'repair' | 'installation' | 'maintenance' | 'parts'
+  icon: ServiceIconVariant
+  image: MediaImage
 }
 
 interface Props {
@@ -30,10 +34,17 @@ const { heading, items, intro, showAllLink = true, class: className } = Astro.pr
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {items.map((item, i) => (
         <div class={`reveal reveal-delay-${i + 1}`}>
-        <a href={withBase(item.href)} class="industrial-card group block no-underline focus-visible:outline-offset-4">
-          <article class="grid h-full gap-5 p-6 sm:grid-cols-[4.5rem_1fr] sm:p-8">
-            <ServiceIcon variant={item.icon} class="service-icon-draw h-16 w-16 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
-            <div class="flex min-w-0 flex-col">
+        <a href={withBase(item.href)} class="industrial-card group block h-full no-underline focus-visible:outline-offset-4">
+          <article class="flex h-full flex-col">
+            <div class="relative">
+              <PhotoFrame
+                image={item.image}
+                class="aspect-[16/7] w-full"
+                imageClass="transition-transform duration-500 group-hover:scale-[1.025]"
+              />
+              <ServiceIcon variant={item.icon} class="service-icon-draw absolute -bottom-8 left-6 z-10 h-16 w-16 drop-shadow-xl" />
+            </div>
+            <div class="flex min-w-0 flex-1 flex-col px-6 pb-6 pt-12 sm:px-8 sm:pb-8">
               <p class="technical-label text-steel-600">Área de servicio</p>
               <h3 class="mt-2 text-2xl font-bold text-navy-900 transition-colors group-hover:text-steel-600">{item.title}</h3>
               <p class="mt-3 flex-1 text-sm leading-relaxed text-gray-600">{item.summary}</p>

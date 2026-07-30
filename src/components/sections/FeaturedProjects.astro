@@ -2,24 +2,30 @@
 import Container from '../ui/Container.astro'
 import SectionHeading from '../ui/SectionHeading.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
-import TechnicalVisual from '../ui/TechnicalVisual.astro'
-import { withBase } from '../../lib/url'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+import ProjectCard from './ProjectCard.astro'
+import type { MediaImage } from '../../data/media'
+import type { ProjectImage } from '../../lib/projects'
 
 interface ProjectEntry {
   slug: string
   title: string
   summary: string
   category: string
+  date: string
+  image?: ProjectImage
 }
 
 interface Props {
   heading: string
   emptyMessage: string
   projects?: ProjectEntry[]
+  evidenceImages?: readonly MediaImage[]
   class?: string
 }
 
-const { heading, emptyMessage, projects, class: className } = Astro.props
+const { heading, emptyMessage, projects, evidenceImages = [], class: className } = Astro.props
+const evidenceClasses = ['col-span-2 min-h-44', 'min-h-40', 'min-h-40']
 ---
 
 <section class={`bg-white py-16 sm:py-24 ${className ?? ''}`}>
@@ -30,15 +36,7 @@ const { heading, emptyMessage, projects, class: className } = Astro.props
       <>
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
-            <article class={`reveal reveal-delay-${i + 1} industrial-card p-6`}>
-              <span class="technical-label text-steel-600">{p.category}</span>
-              <h3 class="mt-3 text-xl font-bold text-navy-900">
-                <a href={withBase(`/trabajos/${p.slug}`)} class="text-inherit no-underline hover:text-steel-600">
-                  {p.title}
-                </a>
-              </h3>
-              <p class="mt-2 text-sm leading-relaxed text-gray-600">{p.summary}</p>
-            </article>
+            <ProjectCard {...p} class={`reveal reveal-delay-${i + 1}`} />
           ))}
         </div>
         <div class="reveal mt-10 text-center">
@@ -61,8 +59,14 @@ const { heading, emptyMessage, projects, class: className } = Astro.props
           </ButtonLink>
           </div>
         </div>
-        <div class="border-t border-white/10 bg-navy-950/40 p-5 lg:border-l lg:border-t-0 sm:p-8">
-          <TechnicalVisual variant="work" />
+        <div class="grid grid-cols-2 gap-2 border-t border-white/10 bg-navy-950/60 p-3 lg:border-l lg:border-t-0 sm:p-5">
+          {evidenceImages.map((image, index) => (
+            <PhotoFrame
+              image={image}
+              label={index === 0 ? 'Registro general del taller' : undefined}
+              class={`rounded-md ${evidenceClasses[index] ?? 'min-h-40'}`}
+            />
+          ))}
         </div>
       </div>
     )}

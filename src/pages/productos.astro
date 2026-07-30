@@ -8,6 +8,7 @@ import BrandCard from '../components/sections/BrandCard.astro'
 import ProductCategoryCard from '../components/sections/ProductCategoryCard.astro'
 import { brands } from '../data/brands'
 import { productCategories } from '../data/productCategories'
+import { productMedia, routeMedia } from '../data/media'
 import { siteConfig } from '../data/site'
 ---
 
@@ -23,7 +24,8 @@ import { siteConfig } from '../data/site'
     eyebrow="Productos y marcas"
     title="Repuestos y componentes hidráulicos"
     description="Comercializamos repuestos originales de las marcas representadas y componentes hidráulicos. Toda disponibilidad, compatibilidad y plazo se confirman bajo consulta."
-    visual="products"
+    image={routeMedia.products}
+    imageLabel="Componentes del taller"
   />
 
   <section class="bg-white py-16 sm:py-24">
@@ -67,6 +69,8 @@ import { siteConfig } from '../data/site'
             summary={cat.summary}
             examples={cat.examples}
             href={`/contacto?tipo=Repuesto%20o%20componente&equipo=${encodeURIComponent(cat.title)}`}
+            icon={cat.icon}
+            image={productMedia[cat.id]}
           />
           </div>
         ))}

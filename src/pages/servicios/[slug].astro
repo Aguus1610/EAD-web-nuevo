@@ -4,7 +4,9 @@ import Container from '../../components/ui/Container.astro'
 import ButtonLink from '../../components/ui/ButtonLink.astro'
 import PageHero from '../../components/sections/PageHero.astro'
 import RelatedServices from '../../components/sections/RelatedServices.astro'
+import PhotoStrip from '../../components/sections/PhotoStrip.astro'
 import { services, type ServiceEntry } from '../../data/services'
+import { serviceMedia } from '../../data/media'
 import { serviceJsonLd } from '../../lib/seo'
 
 export function getStaticPaths() {
@@ -36,7 +38,8 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
     eyebrow="Servicio"
     title={service.title}
     description={service.summary}
-    visual="services"
+    image={serviceMedia[service.icon].hero}
+    imageLabel="Registro general del taller"
     compact
   />
 
@@ -70,6 +73,19 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
           </div>
         </aside>
       </div>
+
+      <section class="mt-14 border-t border-steel-500/30 pt-10" aria-labelledby="service-photos-title">
+        <p class="technical-label text-steel-600">Registro del taller</p>
+        <h2 id="service-photos-title" class="mt-3 text-3xl font-bold text-navy-900">Capacidades en imágenes</h2>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-gray-600">
+          Las fotografías muestran equipos, componentes y tareas del taller como referencia general. El alcance de cada intervención se confirma después de evaluar el caso.
+        </p>
+        <PhotoStrip
+          images={serviceMedia[service.icon].supporting}
+          label={`Registro visual para ${service.title}`}
+          class="mt-7"
+        />
+      </section>
 
       <RelatedServices slugs={relatedSlugs} />
     </Container>

@@ -1,0 +1,54 @@
+---
+import type { MediaImage } from '../../data/media'
+import { withBase } from '../../lib/url'
+
+interface Props {
+  image: MediaImage
+  class?: string
+  imageClass?: string
+  label?: string
+  loading?: 'eager' | 'lazy'
+  priority?: boolean
+}
+
+const {
+  image,
+  class: className,
+  imageClass,
+  label,
+  loading = 'lazy',
+  priority = false,
+} = Astro.props
+---
+
+<div class={`photo-frame relative isolate overflow-hidden bg-navy-950 ${className ?? ''}`}>
+  <img
+    src={withBase(image.src)}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    loading={priority ? 'eager' : loading}
+    decoding={priority ? 'sync' : 'async'}
+    fetchpriority={priority ? 'high' : undefined}
+    style={`object-position: ${image.position ?? '50% 50%'};`}
+    class={`h-full w-full object-cover ${imageClass ?? ''}`}
+  />
+  <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/45 via-transparent to-navy-950/10" aria-hidden="true"></span>
+  <span class="pointer-events-none absolute right-3 top-3 h-7 w-7 border-r-2 border-t-2 border-gold-300/90" aria-hidden="true"></span>
+  <span class="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-steel-300/80" aria-hidden="true"></span>
+  {label && (
+    <span class="absolute bottom-3 left-5 max-w-[calc(100%-3rem)] bg-navy-950/90 px-3 py-2 font-technical text-[0.6875rem] font-bold uppercase leading-[1.3] tracking-[0.16em] text-gold-300 shadow-lg backdrop-blur-sm">
+      {label}
+    </span>
+  )}
+</div>
+
+<style>
+  .photo-frame::after {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(139, 199, 223, 0.36);
+    pointer-events: none;
+    content: '';
+  }
+</style>

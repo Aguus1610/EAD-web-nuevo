@@ -47,11 +47,31 @@ if (siteConfig.includes("siteUrl: 'PENDING_CONFIRMATION'")) errors.push('Canonic
 if (siteConfig.includes("mapUrl: 'PENDING_CONFIRMATION'")) errors.push('Map URL is not confirmed')
 
 const projectDirectory = new URL('../src/content/projects/', import.meta.url)
+const projectAssets = fileURLToPath(new URL('../public/', import.meta.url))
+const instagramMediaIds = new Map()
 for (const entry of await readdir(projectDirectory)) {
   if (entry.startsWith('_') || !/\.mdx?$/.test(entry)) continue
   const content = await readFile(new URL(entry, projectDirectory), 'utf8')
   if (!/publicationApproved:\s*true/.test(content)) {
     errors.push(`Project ${entry} is not approved for publication`)
+  }
+  if (/https:\/\/[^\s"']*(?:cdninstagram|fbcdn)[^\s"']*/i.test(content)) {
+    errors.push(`Project ${entry} references an external Instagram CDN asset`)
+  }
+
+  const mediaId = content.match(/^\s*mediaId:\s*["']?([^\s"']+)/m)?.[1]
+  if (mediaId) {
+    const previous = instagramMediaIds.get(mediaId)
+    if (previous) errors.push(`Projects ${previous} and ${entry} reuse Instagram mediaId ${mediaId}`)
+    else instagramMediaIds.set(mediaId, entry)
+  }
+
+  for (const match of content.matchAll(/^\s*src:\s*["']?(\/assets\/projects\/[^\s"']+)/gm)) {
+    try {
+      await access(join(projectAssets, match[1].replace(/^\//, '')))
+    } catch {
+      errors.push(`Project ${entry} references missing asset ${match[1]}`)
+    }
   }
 }
 

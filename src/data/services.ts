@@ -1,6 +1,10 @@
+export type ServiceIconVariant = 'repair' | 'installation' | 'maintenance' | 'parts'
+export const serviceSlugs = ['reparacion-integral', 'instalaciones', 'mantenimiento', 'repuestos'] as const
+export type ServiceSlug = typeof serviceSlugs[number]
+
 export interface ServiceEntry {
-  slug: string
-  icon: 'repair' | 'installation' | 'maintenance' | 'parts'
+  slug: ServiceSlug
+  icon: ServiceIconVariant
   title: string
   summary: string
   description: string[]

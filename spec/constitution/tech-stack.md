@@ -22,6 +22,8 @@
 - `src/layouts/BaseLayout.astro` — documento base, metadatos, header, main y footer.
 - `src/lib/contact.ts` — sanitización y construcción de enlaces de WhatsApp, correo y teléfono.
 - `src/lib/seo.ts` — títulos, descripciones, canonical, Open Graph y datos estructurados.
+- `src/lib/instagram.ts` — contratos y validación pura de respuestas oficiales de Instagram.
+- `scripts/import-instagram.ts` — importación local y explícita hacia borradores ignorados.
 - `src/styles/global.css` — tokens CSS, estilos base, foco, selección y preferencias de movimiento.
 - `public/assets/brand/` — logos entregados por EAD Oleohidráulica.
 - `public/assets/projects/` — fotografías optimizadas de trabajos reales.
@@ -37,6 +39,7 @@
 - `npm run format:check` — comprueba el formato sin modificar archivos.
 - `npm run build` — compila la salida de producción.
 - `npm run preview` — inspecciona localmente el build.
+- `npm run instagram:import -- <url>` — prepara un borrador privado desde una publicación seleccionada cuando exista acceso oficial.
 
 ## Modelo de datos / dominio
 
@@ -44,8 +47,8 @@
 - `Service` — identificador, título, resumen, problema que resuelve, capacidades, proceso, aplicaciones, imagen opcional, orden y llamada a la acción.
 - `ProductCategory` — categoría, descripción, ejemplos aprobados, marcas asociadas y leyenda de disponibilidad bajo consulta.
 - `Brand` — nombre, logo, texto de relación comercial aprobado, URL oficial opcional y reglas de presentación.
-- `Project` — slug, título, fecha o período, categoría, equipo, problema inicial, intervención, resultado, imágenes, texto alternativo, destacado y autorización de publicación.
-- `QuoteRequest` — estructura temporal en el navegador con nombre, empresa opcional, localidad, medio de contacto, tipo de equipo, marca/modelo opcionales, necesidad, urgencia y consentimiento. No se persiste en la web.
+- `Project` — slug, título, fecha, categoría, equipo, problema inicial, intervención, resultado, narrativa, medios locales, fuente opcional, destacado y autorización de publicación.
+- `QuoteRequest` — estructura temporal en el navegador con nombre, empresa opcional, localidad, medio de contacto, tipo de equipo, marca/modelo opcionales, necesidad, urgencia y consentimiento. No se persiste en la web; Formspree la procesa cuando el usuario solicita el envío por correo.
 - `SeoMeta` — título, descripción, imagen social, canonical, indexación y datos estructurados por página.
 
 ## Convenciones
@@ -55,7 +58,7 @@
 - Contenido visible en español; nombres de API y código en inglés cuando mejoren consistencia técnica.
 - Cada página debe tener un único `h1`, orden jerárquico de encabezados y regiones semánticas claras.
 - Toda imagen informativa requiere `alt`; las decorativas usan `alt=""` y no duplican información accesible.
-- Los formularios validan en cliente, muestran errores junto al campo, preservan datos y nunca bloquean el acceso a WhatsApp o correo.
+- Los formularios validan en cliente, muestran errores junto al campo, preservan los datos ante fallos y nunca bloquean el acceso a WhatsApp o correo.
 - Las tarjetas repetidas se generan desde datos o contenido; no se duplican manualmente en distintas páginas.
 - Las URLs públicas son legibles, estables y sin parámetros innecesarios.
 - Toda feature debe incluir criterios de aceptación, pruebas o una validación manual documentada.
@@ -81,5 +84,6 @@
 - No añadir cookies, píxeles, mapas embebidos, videos externos o analítica invasiva por defecto.
 - No almacenar solicitudes de presupuesto en `localStorage`, archivos públicos o servicios no aprobados.
 - No incluir secretos en código cliente ni en el repositorio.
+- No consultar Instagram durante el build ni conservar URLs de su CDN como assets públicos.
 - No instalar dependencias para resolver algo que Astro, TypeScript o CSS nativo resuelven de forma simple.
 - No aceptar un build con errores de tipos, enlaces rotos, destinos de contacto vacíos o fallas críticas de accesibilidad.

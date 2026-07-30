@@ -1,0 +1,132 @@
+---
+import type { ProjectImage } from '../../lib/projects'
+import { withBase } from '../../lib/url'
+
+interface Props {
+  permalink: string
+  cover: ProjectImage
+}
+
+const { permalink, cover } = Astro.props
+const shortcode = new URL(permalink).pathname.split('/').filter(Boolean)[1]
+const sectionId = `instagram-reel-${shortcode}`
+---
+
+<section class="mt-12" aria-labelledby={`${sectionId}-title`} data-instagram-reel data-permalink={permalink}>
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="technical-label text-steel-600">Contenido audiovisual</p>
+      <h2 id={`${sectionId}-title`} class="mt-3 text-2xl font-semibold text-navy-900">Reel del trabajo</h2>
+    </div>
+    <a href={permalink} target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-navy-800 underline decoration-gold-400 decoration-2 underline-offset-4 hover:text-steel-600">
+      Abrir en Instagram
+    </a>
+  </div>
+
+  <div class="mt-5 overflow-hidden rounded-xl border border-steel-500/30 bg-navy-950 shadow-xl">
+    <div data-reel-preview class="relative min-h-80">
+      <img
+        src={withBase(cover.src)}
+        alt={cover.alt}
+        width={cover.width}
+        height={cover.height}
+        loading="lazy"
+        decoding="async"
+        style={`object-position: ${cover.position ?? '50% 50%'};`}
+        class="max-h-[38rem] min-h-80 w-full object-cover opacity-70"
+      />
+      <div class="absolute inset-0 flex flex-col items-center justify-center bg-navy-950/45 p-6 text-center">
+        <button
+          type="button"
+          data-reel-load
+          aria-describedby={`${sectionId}-privacy`}
+          class="cut-corner bg-gold-300 px-6 py-3 font-bold text-navy-950 transition-colors hover:bg-white"
+        >
+          Cargar Reel desde Instagram
+        </button>
+        <p id={`${sectionId}-privacy`} class="mt-4 max-w-lg text-xs leading-relaxed text-gray-200">
+          Al cargarlo, Instagram podrá recibir datos técnicos de su navegador. No se establece ninguna conexión antes de esta acción.
+        </p>
+      </div>
+    </div>
+    <div data-reel-target hidden class="flex min-h-96 justify-center bg-white p-3 sm:p-6"></div>
+  </div>
+  <p data-reel-status class="mt-3 text-sm text-gray-600" aria-live="polite"></p>
+</section>
+
+<script>
+  interface InstagramEmbedWindow extends Window {
+    instgrm?: { Embeds?: { process: () => void } }
+  }
+
+  const instagramWindow = window as InstagramEmbedWindow
+
+  function processInstagramEmbeds() {
+    instagramWindow.instgrm?.Embeds?.process()
+  }
+
+  function loadInstagramScript(): Promise<void> {
+    const existing = document.querySelector<HTMLScriptElement>('script[data-instagram-embed-script]')
+    if (instagramWindow.instgrm?.Embeds) {
+      processInstagramEmbeds()
+      return Promise.resolve()
+    }
+    if (existing) {
+      return new Promise((resolve, reject) => {
+        existing.addEventListener('load', () => {
+          processInstagramEmbeds()
+          resolve()
+        }, { once: true })
+        existing.addEventListener('error', () => reject(new Error('Instagram no respondió.')), { once: true })
+      })
+    }
+
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = 'https://www.instagram.com/embed.js'
+      script.async = true
+      script.dataset.instagramEmbedScript = 'true'
+      script.addEventListener('load', () => {
+        processInstagramEmbeds()
+        resolve()
+      }, { once: true })
+      script.addEventListener('error', () => reject(new Error('Instagram no respondió.')), { once: true })
+      document.body.append(script)
+    })
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-instagram-reel]')) {
+    if (root.dataset.initialized === 'true') continue
+    root.dataset.initialized = 'true'
+    const button = root.querySelector<HTMLButtonElement>('[data-reel-load]')
+    const preview = root.querySelector<HTMLElement>('[data-reel-preview]')
+    const target = root.querySelector<HTMLElement>('[data-reel-target]')
+    const status = root.querySelector<HTMLElement>('[data-reel-status]')
+    const permalink = root.dataset.permalink
+
+    button?.addEventListener('click', async () => {
+      if (!target || !preview || !status || !permalink || !button) return
+      button.disabled = true
+      button.textContent = 'Cargando Reel...'
+      status.textContent = 'Conectando con Instagram a solicitud del visitante.'
+      const embed = document.createElement('blockquote')
+      embed.className = 'instagram-media'
+      embed.dataset.instgrmPermalink = permalink
+      embed.dataset.instgrmVersion = '14'
+      target.replaceChildren(embed)
+      target.hidden = false
+
+      try {
+        await loadInstagramScript()
+        preview.hidden = true
+        status.textContent = 'Contenido cargado desde Instagram.'
+      } catch {
+        target.hidden = true
+        preview.hidden = false
+        button.disabled = false
+        button.textContent = 'Reintentar carga desde Instagram'
+        status.textContent = 'No se pudo cargar el Reel. Puede abrir la publicación directamente en Instagram.'
+      }
+    })
+  }
+</script>

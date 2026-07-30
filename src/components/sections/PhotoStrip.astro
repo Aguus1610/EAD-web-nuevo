@@ -1,0 +1,24 @@
+---
+import type { MediaImage } from '../../data/media'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+
+interface Props {
+  images: readonly MediaImage[]
+  label: string
+  class?: string
+}
+
+const { images, label, class: className } = Astro.props
+---
+
+<ul class={`grid gap-3 sm:grid-cols-2 lg:grid-cols-3 ${className ?? ''}`} aria-label={label}>
+  {images.map((image, index) => (
+    <li class={`reveal reveal-delay-${Math.min(index + 1, 5)}`}>
+      <PhotoFrame
+        image={image}
+        class="aspect-[4/3] rounded-lg shadow-lg shadow-navy-900/10"
+        imageClass="transition-transform duration-500 hover:scale-[1.025]"
+      />
+    </li>
+  ))}
+</ul>

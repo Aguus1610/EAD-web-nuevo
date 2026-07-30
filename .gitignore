@@ -31,6 +31,10 @@ blob-report/
 .cursor/
 skills-lock.json
 
+# pnpm lock (project uses npm)
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
 # old site artifacts — block legacy source files at repo root
 /*.html
 /*.css

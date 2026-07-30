@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const baseURL = 'http://127.0.0.1:4321/EAD-web-nuevo/'
+const port = process.env.PLAYWRIGHT_PORT ?? '4321'
+const host = process.env.PLAYWRIGHT_HOST ?? '127.0.0.1'
+const baseURL = `http://${host}:${port}/EAD-web-nuevo/`
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -21,10 +23,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run dev -- --host 127.0.0.1 --port 4321',
+    command: `npm run dev -- --host ${host} --port ${port}`,
     url: baseURL,
     env: { ASTRO_DEV_BACKGROUND: '0' },
-    reuseExistingServer: true,
+    reuseExistingServer: process.env.PLAYWRIGHT_REUSE_SERVER === '1',
     timeout: 120_000,
   },
 })

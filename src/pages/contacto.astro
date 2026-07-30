@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import PageHero from '../components/sections/PageHero.astro'
 import ContactInfo from '../components/sections/ContactInfo.astro'
 import QuoteForm from '../components/sections/QuoteForm.astro'
+import { contactSupportMedia, routeMedia } from '../data/media'
 
 const metaDescription =
   'Contacte a EAD Oleohidráulica por WhatsApp, teléfono o correo. Solicite presupuesto para reparación, instalación o mantenimiento hidráulico en Colonia Barón, La Pampa.'
@@ -20,10 +21,11 @@ const metaDescription =
     eyebrow="Contacto"
     title="Contacto y presupuesto"
     description="Estamos en Colonia Barón, La Pampa. Puede consultarnos por el canal que prefiera."
-    visual="contact"
+    image={routeMedia.contact}
+    imageLabel="Conexiones hidráulicas del taller"
   />
 
   <ContactInfo showHeading={false} />
 
-  <QuoteForm />
+  <QuoteForm image={contactSupportMedia} />
 </BaseLayout>

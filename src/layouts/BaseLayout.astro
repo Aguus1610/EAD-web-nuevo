@@ -18,13 +18,14 @@ interface Props {
   description?: string
   canonical?: string
   image?: string
+  ogType?: 'website' | 'article'
   noindex?: boolean
   currentPath?: string
   crumbs?: Crumb[]
   jsonLd?: Record<string, unknown>
 }
 
-const { title, description, canonical, image, noindex, currentPath = '/', crumbs, jsonLd } = Astro.props
+const { title, description, canonical, image, ogType = 'website', noindex, currentPath = '/', crumbs, jsonLd } = Astro.props
 
 const fullTitle = `${title} | ${siteConfig.name}`
 const canonicalUrl = canonical ?? resolveCanonical(currentPath)
@@ -45,7 +46,7 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
     {description && <meta property="og:description" content={description} />}
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="es_AR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />

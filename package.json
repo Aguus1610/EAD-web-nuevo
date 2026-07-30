@@ -16,6 +16,7 @@
     "format:check": "astro check",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "instagram:import": "node --env-file-if-exists=.env.local scripts/import-instagram.ts",
     "check:build": "node scripts/check-build.mjs",
     "validate:launch": "node scripts/validate-launch.mjs",
     "quality": "npm run typecheck && npm run lint && npm test && npm run build && npm run check:build && npm run validate:launch && npm run test:e2e"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.61.1",
+    "@types/node": "^22.20.1",
     "typescript": "^5.7.0",
     "vitest": "^4.0.0"
   }

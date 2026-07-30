@@ -1,42 +1,45 @@
 ---
+import type { ServiceIconVariant } from '../../data/services'
+
 interface Props {
-  variant: 'repair' | 'installation' | 'maintenance' | 'parts'
+  variant: ServiceIconVariant
   class?: string
 }
 
 const { variant, class: className } = Astro.props
 ---
 
-<svg class={className} viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
+<svg class={className} data-service-icon={variant} viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
   <rect x="1" y="1" width="62" height="62" rx="12" class="icon-panel" />
-  <path d="M8 50H21V42H32" class="icon-pipe" />
-  <circle cx="8" cy="50" r="3" class="icon-node" />
   {variant === 'repair' && (
     <>
-      <path d="M42 18A16 16 0 1020 42M42 18V30M42 18H30" class="icon-main" />
-      <path d="M27 25L39 37M39 25L27 37" class="icon-accent" />
+      <path d="M10 29H34V41H10V29ZM15 29V41M34 32H45V38H34M45 35H54" class="icon-main" />
+      <path d="M47 13A8 8 0 0037 23L24 36M47 13L42 18L46 22L51 17A8 8 0 01 41 27L28 40" class="icon-accent" />
     </>
   )}
   {variant === 'installation' && (
     <>
-      <rect x="14" y="19" width="29" height="24" rx="3" class="icon-main" />
-      <path d="M29 19V43M29 31H52M43 27V35" class="icon-main" />
-      <circle cx="52" cy="31" r="4" class="icon-accent-fill" />
+      <path d="M9 40H52V46H9V40ZM12 28H30V40H12V28ZM30 34H39L44 40H30V34Z" class="icon-main" />
+      <circle cx="18" cy="48" r="4" class="icon-main" />
+      <circle cx="44" cy="48" r="4" class="icon-main" />
+      <path d="M25 28V17H34L45 25M45 25V32M42 35C42 38 48 38 48 34" class="icon-accent" />
+      <circle cx="34" cy="17" r="2.5" class="icon-accent-fill" />
     </>
   )}
   {variant === 'maintenance' && (
     <>
-      <circle cx="33" cy="31" r="17" class="icon-main" />
-      <path d="M33 31L43 22M19 31H23M43 31H47" class="icon-accent" />
-      <circle cx="33" cy="31" r="3" class="icon-accent-fill" />
+      <circle cx="32" cy="31" r="18" class="icon-main" />
+      <path d="M18 31H22M42 31H46M22 21L25 24M39 21L36 24M32 17V21" class="icon-main" />
+      <path d="M32 31L42 23" class="icon-accent" />
+      <circle cx="32" cy="31" r="3" class="icon-accent-fill" />
+      <path d="M22 48H42" class="icon-accent" />
     </>
   )}
   {variant === 'parts' && (
     <>
-      <path d="M17 20H47V42H17Z" class="icon-main" />
-      <path d="M32 20V42M17 31H47M22 25L28 29M37 34L43 38" class="icon-accent" />
-      <circle cx="22" cy="37" r="3" class="icon-accent-fill" />
-      <circle cx="42" cy="25" r="3" class="icon-accent-fill" />
+      <path d="M9 25H20L26 30V36L20 41H9V25ZM55 25H44L38 30V36L44 41H55V25Z" class="icon-main" />
+      <path d="M26 30H31V36H26M38 30H33V36H38M31 27V39M33 27V39" class="icon-accent" />
+      <path d="M14 20V46M50 20V46" class="icon-main" />
     </>
   )}
 </svg>
@@ -48,16 +51,14 @@ const { variant, class: className } = Astro.props
   }
 
   .icon-main,
-  .icon-accent,
-  .icon-pipe {
+  .icon-accent {
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 2.5;
   }
 
-  .icon-main,
-  .icon-pipe {
+  .icon-main {
     stroke: #8bc7df;
   }
 
@@ -65,8 +66,7 @@ const { variant, class: className } = Astro.props
     stroke: #f0c54a;
   }
 
-  .icon-accent-fill,
-  .icon-node {
+  .icon-accent-fill {
     fill: #f0c54a;
   }
 
@@ -82,8 +82,7 @@ const { variant, class: className } = Astro.props
     stroke-dashoffset: 0;
   }
 
-  .service-icon-draw .icon-accent-fill,
-  .service-icon-draw .icon-node {
+  .service-icon-draw .icon-accent-fill {
     opacity: 0;
     transform: scale(0.5);
     transition:
@@ -91,8 +90,7 @@ const { variant, class: className } = Astro.props
       transform 0.4s ease 0.6s;
   }
 
-  .service-icon-draw.icon-drawn .icon-accent-fill,
-  .service-icon-draw.icon-drawn .icon-node {
+  .service-icon-draw.icon-drawn .icon-accent-fill {
     opacity: 1;
     transform: scale(1);
   }

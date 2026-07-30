@@ -87,3 +87,40 @@ export function serviceJsonLd(service: ServiceSchemaInput) {
     areaServed: siteConfig.areaServed,
   }
 }
+
+interface ProjectSchemaInput {
+  title: string
+  summary: string
+  slug: string
+  date: string
+  images: string[]
+  sourceUrl?: string
+}
+
+export function projectJsonLd(project: ProjectSchemaInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: project.title,
+    description: project.summary,
+    datePublished: project.date,
+    url: resolveCanonical(`/trabajos/${project.slug}`),
+    mainEntityOfPage: resolveCanonical(`/trabajos/${project.slug}`),
+    image: project.images.map(resolveCanonical),
+    ...(project.sourceUrl ? { isBasedOn: project.sourceUrl } : {}),
+    author: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: defaultSocialImage(),
+      },
+    },
+  }
+}

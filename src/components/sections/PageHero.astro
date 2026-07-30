@@ -1,19 +1,19 @@
 ---
 import Container from '../ui/Container.astro'
-import TechnicalVisual from '../ui/TechnicalVisual.astro'
+import PhotoFrame from '../ui/PhotoFrame.astro'
+import type { MediaImage } from '../../data/media'
 import { withBase } from '../../lib/url'
-
-type VisualVariant = 'company' | 'services' | 'products' | 'work' | 'contact' | 'error'
 
 interface Props {
   eyebrow: string
   title: string
   description: string
-  visual: VisualVariant
+  image?: MediaImage
+  imageLabel?: string
   compact?: boolean
 }
 
-const { eyebrow, title, description, visual, compact = false } = Astro.props
+const { eyebrow, title, description, image, imageLabel = 'Registro real del taller', compact = false } = Astro.props
 ---
 
 <section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
@@ -38,7 +38,29 @@ const { eyebrow, title, description, visual, compact = false } = Astro.props
         </p>
       </div>
 
-      <TechnicalVisual variant={visual} class={`reveal-right ${compact ? 'max-w-lg lg:justify-self-end' : 'lg:justify-self-end'}`} />
+      {image ? (
+        <div class={`reveal-right relative w-full ${compact ? 'max-w-lg lg:justify-self-end' : 'lg:justify-self-end'}`}>
+          <span class="pointer-events-none absolute -right-3 -top-3 h-20 w-20 border-r border-t border-gold-300/50" aria-hidden="true"></span>
+          <PhotoFrame
+            image={image}
+            label={imageLabel}
+            class={`w-full rounded-lg shadow-2xl shadow-black/30 ${compact ? 'aspect-[16/10] lg:aspect-[4/3]' : 'aspect-[16/10] lg:aspect-[4/3] lg:w-[32rem]'}`}
+            priority
+          />
+        </div>
+      ) : (
+        <div class="reveal-right flex justify-center lg:justify-self-end">
+          <div class="flex aspect-square w-48 flex-col items-center justify-center rounded-xl border border-steel-300/40 bg-navy-950/60 text-center shadow-2xl shadow-black/25 sm:w-56">
+            <svg class="h-20 w-20 text-steel-300" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+              <circle cx="20" cy="48" r="7" stroke="currentColor" stroke-width="4" />
+              <circle cx="76" cy="48" r="7" stroke="currentColor" stroke-width="4" />
+              <path d="M27 48H40M56 48H69" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              <path d="M42 37L54 59M54 37L42 59" stroke="#f0c54a" stroke-width="5" stroke-linecap="round" />
+            </svg>
+            <span class="technical-label mt-3 text-gold-300">Ruta interrumpida</span>
+          </div>
+        </div>
+      )}
     </div>
   </Container>
 </section>

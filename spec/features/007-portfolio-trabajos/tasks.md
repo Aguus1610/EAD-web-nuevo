@@ -8,6 +8,7 @@
 - [x] Implementar tarjetas, índice y filtros accesibles.
 - [x] Implementar ficha dinámica y galería navegable.
 - [x] Enlazar servicios relacionados y CTA contextual.
+- [x] Preparar contrato e importación oficial opcional desde Instagram sin publicación automática.
 - [ ] Optimizar imágenes y verificar textos alternativos.
 - [ ] Probar estados sin resultados, teclado, móvil y metadatos con Playwright.
 - [ ] Validar contra los criterios de aceptación de `spec.md` con proyectos autorizados.

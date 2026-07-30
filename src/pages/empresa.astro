@@ -9,8 +9,28 @@ import FinalCta from '../components/sections/FinalCta.astro'
 import Container from '../components/ui/Container.astro'
 import SectionHeading from '../components/ui/SectionHeading.astro'
 import { aboutContent } from '../data/about'
+import { routeMedia, workshopGalleryPool } from '../data/media'
+import { selectGalleryImages } from '../lib/gallery'
 
 const { intro, experience, process, gallery, location, finalCta } = aboutContent
+const gallerySeed = import.meta.env.PHOTO_ROTATION_SEED || new Date().toISOString()
+const landscapeImages = selectGalleryImages(
+  workshopGalleryPool.filter((image) => image.orientation === 'landscape'),
+  4,
+  `${gallerySeed}:landscape`,
+)
+const portraitImages = selectGalleryImages(
+  workshopGalleryPool.filter((image) => image.orientation === 'portrait'),
+  2,
+  `${gallerySeed}:portrait`,
+)
+const workshopImages = [
+  ...landscapeImages.slice(0, 1),
+  ...portraitImages.slice(0, 1),
+  ...landscapeImages.slice(1, 3),
+  ...portraitImages.slice(1, 2),
+  ...landscapeImages.slice(3),
+]
 ---
 
 <BaseLayout
@@ -25,7 +45,8 @@ const { intro, experience, process, gallery, location, finalCta } = aboutContent
     eyebrow="Empresa"
     title={intro.title}
     description={intro.paragraphs[0]}
-    visual="company"
+    image={routeMedia.company}
+    imageLabel="Taller EAD · Colonia Barón"
   />
 
   <section class="bg-white py-16 sm:py-24">
@@ -53,7 +74,12 @@ const { intro, experience, process, gallery, location, finalCta } = aboutContent
 
   <WorkProcess heading={process.heading} steps={process.steps} />
 
-  <WorkshopGallery heading={gallery.heading} emptyMessage={gallery.emptyMessage} />
+  <WorkshopGallery
+    heading={gallery.heading}
+    description={gallery.description}
+    emptyMessage={gallery.emptyMessage}
+    images={workshopImages}
+  />
 
   <LocationContext heading={location.heading} paragraphs={location.paragraphs} />
 
