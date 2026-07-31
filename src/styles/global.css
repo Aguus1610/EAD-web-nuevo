@@ -50,8 +50,8 @@
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
 
-  --content-max: 72rem;
-  --content-narrow: 48rem;
+  --content-max: 80rem;
+  --content-narrow: 56rem;
 }
 
 html {
