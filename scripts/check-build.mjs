@@ -29,7 +29,7 @@ const budgets = {
   '.css': { perFile: 100_000, total: 120_000 },
   '.html': { perFile: 200_000, total: 700_000 },
   '.png': { perFile: 400_000, total: 1_000_000 },
-  '.webp': { perFile: 300_000, total: 1_500_000 },
+  '.webp': { perFile: 320_000, total: 8_500_000 },
 }
 
 const errors = []
@@ -49,7 +49,7 @@ for (const [extension, budget] of Object.entries(budgets)) {
 const totalSize = files.reduce((sum, file) => sum + file.size, 0)
 const projectFiles = files.filter(projectSlug)
 const sharedSize = files.filter((file) => !projectSlug(file)).reduce((sum, file) => sum + file.size, 0)
-const totalLimit = 2_500_000
+const totalLimit = 10_000_000
 const projectArchiveLimit = 20_000_000
 const projectLimit = 1_400_000
 console.log(`dist: ${files.length} files, ${totalSize} bytes`)

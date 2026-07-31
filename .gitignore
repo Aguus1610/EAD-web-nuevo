@@ -26,6 +26,10 @@ blob-report/
 # local photo import staging
 .sync-temp/
 
+# local backup of raw media (not part of the site)
+.backup-fotos-videos/
+.sync-temp/
+
 # local agent and editor configuration
 .agents/
 .cursor/

@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { media, productMedia, routeMedia, serviceMedia, workshopGalleryPool } from './media'
 
 describe('workshop media catalog', () => {
-  it('contains 22 unique, dimensioned WebP images', () => {
-    expect(workshopGalleryPool).toHaveLength(22)
-    expect(new Set(workshopGalleryPool.map((image) => image.id))).toHaveLength(22)
-    expect(new Set(workshopGalleryPool.map((image) => image.src))).toHaveLength(22)
+  it('contains unique, dimensioned WebP images', () => {
+    expect(workshopGalleryPool.length).toBeGreaterThanOrEqual(30)
+    expect(new Set(workshopGalleryPool.map((image) => image.id))).toHaveLength(workshopGalleryPool.length)
+    expect(new Set(workshopGalleryPool.map((image) => image.src))).toHaveLength(workshopGalleryPool.length)
 
     for (const image of workshopGalleryPool) {
       expect(image.src).toMatch(/^\/assets\/workshop\/.+\.webp$/)
