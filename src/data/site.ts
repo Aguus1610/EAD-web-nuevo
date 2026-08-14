@@ -16,6 +16,7 @@ export interface SiteConfig {
   adminEmail: string
   contactFormEndpoint: string
   hours: string
+  openingHoursSchema: string
   instagram: string
   instagramHandle: string
   yearsExperience: number
@@ -51,6 +52,7 @@ export const siteConfig: SiteConfig = {
   adminEmail: 'adm201364@gmail.com',
   contactFormEndpoint: 'https://formspree.io/f/xqerjrnp',
   hours: 'Lun–Vie 8:00–12:00 y 15:00–19:00',
+  openingHoursSchema: 'Mo-Fr 08:00-12:00,15:00-19:00',
   instagram: 'https://instagram.com/oleohidraulica_ead',
   instagramHandle: '@oleohidraulica_ead',
   yearsExperience: 15,

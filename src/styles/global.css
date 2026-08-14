@@ -362,7 +362,7 @@ section:hover .technical-label::after,
 
 /* === Scroll reveal animations === */
 
-.reveal {
+html.js .reveal {
   opacity: 0;
   transform: translateY(1.5rem);
   transition:
@@ -370,7 +370,7 @@ section:hover .technical-label::after,
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.is-visible {
+html.js .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -381,7 +381,7 @@ section:hover .technical-label::after,
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.5s; }
 
-.reveal-left {
+html.js .reveal-left {
   opacity: 0;
   transform: translateX(-1.5rem);
   transition:
@@ -389,12 +389,12 @@ section:hover .technical-label::after,
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-left.is-visible {
+html.js .reveal-left.is-visible {
   opacity: 1;
   transform: translateX(0);
 }
 
-.reveal-right {
+html.js .reveal-right {
   opacity: 0;
   transform: translateX(1.5rem);
   transition:
@@ -402,7 +402,7 @@ section:hover .technical-label::after,
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-right.is-visible {
+html.js .reveal-right.is-visible {
   opacity: 1;
   transform: translateX(0);
 }

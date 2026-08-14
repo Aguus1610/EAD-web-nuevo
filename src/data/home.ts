@@ -36,7 +36,7 @@ export interface HomeContent {
 
 export const homeContent: HomeContent = {
   hero: {
-    title: 'Soluciones oleohidráulicas profesionales en La Pampa',
+    title: 'Soluciones oleohidráulicas profesionales',
     subtitle:
       `Reparación, instalación y mantenimiento de sistemas hidráulicos. ${siteConfig.commercialRelationshipText}`,
     ctaPrimary: { label: 'Solicitar presupuesto', href: '/contacto' },

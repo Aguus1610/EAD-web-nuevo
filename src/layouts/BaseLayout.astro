@@ -38,6 +38,7 @@ const structuredData = [localBusinessJsonLd(), crumbs ? breadcrumbJsonLd(crumbs,
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}

@@ -33,7 +33,7 @@ export function localBusinessJsonLd() {
     },
     telephone: primaryContact.phone,
     email: siteConfig.email,
-    openingHours: 'Mo-Fr 08:00-12:00,15:00-19:00',
+    openingHours: siteConfig.openingHoursSchema,
     url: siteConfig.siteUrl,
     image: defaultSocialImage(),
     sameAs: [siteConfig.instagram, siteConfig.mapUrl],

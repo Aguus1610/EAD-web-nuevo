@@ -1,0 +1,56 @@
+---
+import PhotoFrame from '../ui/PhotoFrame.astro'
+import { withBase } from '../../lib/url'
+import type { CraneLine } from '../../data/craneLines'
+
+interface Props extends CraneLine {
+  class?: string
+}
+
+const {
+  title,
+  badge,
+  description,
+  image,
+  websiteUrl,
+  ctaLabel,
+  ctaHref,
+  class: className,
+} = Astro.props
+---
+
+<article class={`industrial-card flex h-full flex-col overflow-hidden ${className ?? ''}`}>
+  <a
+    href={websiteUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group relative block overflow-hidden"
+    aria-label={`${title} · sitio oficial de la marca`}
+  >
+    <PhotoFrame
+      image={image}
+      label={badge}
+      class="aspect-[16/10] w-full transition-transform duration-500 group-hover:scale-[1.02]"
+    />
+    <span
+      class="pointer-events-none absolute bottom-3 right-5 inline-flex items-center gap-1.5 text-xs font-bold text-white opacity-80 transition-opacity group-hover:opacity-100"
+      aria-hidden="true"
+    >
+      Sitio oficial
+      <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
+      </svg>
+    </span>
+  </a>
+
+  <div class="flex flex-1 flex-col p-6 sm:p-7">
+    <h3 class="text-xl font-bold text-navy-900">{title}</h3>
+    <p class="mt-3 text-sm leading-relaxed text-gray-600">{description}</p>
+    <a
+      href={withBase(ctaHref)}
+      class="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-bold text-navy-800 underline decoration-gold-400 decoration-2 underline-offset-4 hover:text-steel-600"
+    >
+      {ctaLabel}
+    </a>
+  </div>
+</article>

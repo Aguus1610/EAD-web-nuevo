@@ -272,13 +272,6 @@ export const media = {
     width: 2000, height: 900, orientation: 'landscape',
     position: '50% 52%',
   },
-  phoneD_01: {
-    id: 'taller-20251211-01',
-    src: '/assets/workshop/taller-20251211-01.webp',
-    alt: 'Trabajo de taller con equipos oleohidráulicos y herramientas.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 52%',
-  },
   phoneF_02: {
     id: 'taller-20260107-02',
     src: '/assets/workshop/taller-20260107-02.webp',
@@ -319,13 +312,13 @@ export const serviceMedia = {
   },
   installation: {
     hero: media.installedWorkshopEquipment,
-    card: media.installedHydraulicTank,
+    card: media.gruaEnU,
     supporting: [media.workshopLiftPlatform, media.tallerVehiculo2, media.hidraulicaMovil],
   },
   maintenance: {
     hero: media.mantenimiento,
     card: media.hydraulicCylinderOutside,
-    supporting: [media.servicio, media.hidraulicaMovil, media.phoneD_01],
+    supporting: [media.servicio, media.hidraulicaMovil, media.phoneA_03],
   },
   parts: {
     hero: media.filtrosEstanteria,
@@ -355,7 +348,7 @@ export const productMedia = {
 export const homeEvidenceMedia = [
   media.phoneF_02,
   media.phoneA_02,
-  media.phoneD_01,
+  media.workshopOverview,
 ] as const
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -376,16 +369,3 @@ export const workArchiveMedia = [
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const contactSupportMedia = media.hydraulicCylinderOutside
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  GALERÍA DE EQUIPOS — página Empresa
-// ═══════════════════════════════════════════════════════════════════════════
-
-export const brandEquipmentGallery = [
-  media.pk61502Title,
-  media.tractorPalf,
-  media.hidrogrubert97,
-  media.pkk26000,
-  media.hidrogrubert93,
-  media.hidrogrubert104,
-] as const

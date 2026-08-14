@@ -9,7 +9,7 @@
 5. **005 · Servicios oleohidráulicos** — Página `/servicios` con índice de 4 áreas. Fichas individuales en `/servicios/[slug]` via getStaticPaths: reparacion-integral, instalaciones, mantenimiento, repuestos. Cada ficha con descripción, alcance y CTA. Datos tipados en src/data/services.ts. 0 errores typecheck, build 0 errores (7 páginas).
 6. **006 · Productos y marcas representadas** — relación oficial y categorías centralizadas, consultas contextuales, logos originales y validación responsive con Playwright.
 8. **008 · Contacto y solicitud de presupuesto** — canales confirmados, ubicación externa, formulario accesible, validación tipada, envío mediante Formspree, mensaje de WhatsApp, copia y alternativas sin persistencia propia.
-9. **009 · SEO local y contenido compartible** — GitHub Pages bajo `/EAD-web`, canonical, Open Graph, Twitter Cards, JSON-LD, sitemap, robots, 404 y pruebas de unicidad y rutas.
+9. **009 · SEO local y contenido compartible** — GitHub Pages bajo `/EAD-web-nuevo`, canonical, Open Graph, Twitter Cards, JSON-LD, sitemap, robots, 404 y pruebas de unicidad y rutas.
 10. **010 · Calidad, despliegue y medición** — CI/CD, suite completa, accesibilidad, presupuestos, validación de lanzamiento, política sin analítica, rollback y despliegue verificado en GitHub Pages.
 11. **011 · Fotografía real e iconografía** — catálogo tipado de 22 fotografías autorizadas, encabezados y registros contextuales, galería rotativa, iconos específicos para servicios y productos, 404 simplificada y presupuestos de carga validados.
 

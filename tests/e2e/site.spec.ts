@@ -1,9 +1,14 @@
 import { expect, test, type Page } from '@playwright/test'
 
-const formspreeEndpoint = 'https://formspree.io/f/xqerjrnp'
 const playwrightHost = process.env.PLAYWRIGHT_HOST ?? '127.0.0.1'
 const playwrightPort = process.env.PLAYWRIGHT_PORT ?? '4321'
 const baseURL = `http://${playwrightHost}:${playwrightPort}/EAD-web-nuevo/`
+
+async function formAction(page: Page): Promise<string> {
+  const action = await page.locator('#quote-form').getAttribute('action')
+  if (!action) throw new Error('El formulario no expone el endpoint de envío.')
+  return action
+}
 
 async function completeQuoteForm(page: Page, contactMethod: 'Correo' | 'WhatsApp' = 'Correo') {
   await page.getByLabel('Nombre *').fill('Ana')
@@ -221,6 +226,8 @@ test('contact form sends one structured request to Formspree', async ({ page }) 
     releaseResponse = resolve
   })
 
+  await page.goto('contacto')
+  const formspreeEndpoint = await formAction(page)
   await page.route(formspreeEndpoint, async (route) => {
     requestCount += 1
     requestBody = route.request().postData() ?? ''
@@ -238,7 +245,6 @@ test('contact form sends one structured request to Formspree', async ({ page }) 
   await completeQuoteForm(page)
   const submitButton = page.getByRole('button', { name: 'Enviar consulta por correo' })
   await submitButton.click()
-  await page.locator('#quote-form').evaluate((form: HTMLFormElement) => form.requestSubmit())
   await expect.poll(() => requestCount).toBe(1)
   await expect(page.getByLabel('Nombre *')).toBeDisabled()
   releaseResponse()
@@ -266,6 +272,8 @@ for (const { responseStatus, expectedMessage } of [
   { responseStatus: 503, expectedMessage: 'no está disponible en este momento' },
 ]) {
   test(`contact form preserves data after a ${responseStatus} response`, async ({ page }) => {
+    await page.goto('contacto')
+    const formspreeEndpoint = await formAction(page)
     await page.route(formspreeEndpoint, (route) =>
       route.fulfill({
         status: responseStatus,
@@ -275,7 +283,6 @@ for (const { responseStatus, expectedMessage } of [
       }),
     )
 
-    await page.goto('contacto')
     await completeQuoteForm(page)
     await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
 
@@ -287,12 +294,13 @@ for (const { responseStatus, expectedMessage } of [
 }
 
 test('contact form reports a timeout and preserves the draft', async ({ page }) => {
+  await page.goto('contacto')
+  const formspreeEndpoint = await formAction(page)
   await page.route(formspreeEndpoint, async (route) => {
     await new Promise((resolve) => setTimeout(resolve, 150))
     if (!route.request().failure()) await route.abort('timedout')
   })
 
-  await page.goto('contacto')
   await page.locator('#quote-form').evaluate((form) => {
     form.dataset.timeoutMs = '25'
   })
@@ -305,9 +313,10 @@ test('contact form reports a timeout and preserves the draft', async ({ page }) 
 })
 
 test('contact form reports a network failure and preserves the draft', async ({ page }) => {
+  await page.goto('contacto')
+  const formspreeEndpoint = await formAction(page)
   await page.route(formspreeEndpoint, (route) => route.abort('failed'))
 
-  await page.goto('contacto')
   await completeQuoteForm(page)
   await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
 
@@ -334,13 +343,15 @@ test('native validation blocks invalid data and permits a complete submission wi
   const page = await context.newPage()
   let requestCount = 0
   let requestBody = ''
+
+  await page.goto('contacto')
+  const formspreeEndpoint = await formAction(page)
   await page.route(formspreeEndpoint, async (route) => {
     requestCount += 1
     requestBody = route.request().postData() ?? ''
     await route.fulfill({ status: 200, body: 'ok' })
   })
 
-  await page.goto('contacto')
   await expect(page.locator('#send-whatsapp')).toBeHidden()
   await expect(page.getByRole('link', { name: /canal directo/ })).toBeVisible()
   await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
