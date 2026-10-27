@@ -1,5 +1,9 @@
+import { existsSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { media, productMedia, routeMedia, serviceMedia, workshopGalleryPool } from './media'
+
+const publicAssetPath = (src: string) => fileURLToPath(new URL(`../../public${src}`, import.meta.url))
 
 describe('workshop media catalog', () => {
   it('contains unique, dimensioned WebP images', () => {
@@ -12,6 +16,8 @@ describe('workshop media catalog', () => {
       expect(image.alt.trim().length).toBeGreaterThan(20)
       expect(image.width).toBeGreaterThan(0)
       expect(image.height).toBeGreaterThan(0)
+      expect(image.orientation).toBe(image.width >= image.height ? 'landscape' : 'portrait')
+      expect(existsSync(publicAssetPath(image.src))).toBe(true)
     }
   })
 

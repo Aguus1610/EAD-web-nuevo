@@ -16,48 +16,45 @@ interface Props {
 const { eyebrow, title, description, image, imageLabel = 'Registro real del taller', compact = false } = Astro.props
 ---
 
-<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
+<section class={`dark-technical-grid relative overflow-hidden border-b border-deep-700 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
   <div
-    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.1]"
+    class="brand-watermark bg-center bg-no-repeat opacity-[0.06]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
     aria-hidden="true"
   ></div>
-  <div class="pressure-line absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="corner-yellow pointer-events-none absolute right-0 top-0 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
-      <div class="reveal relative z-10">
-        <p class="technical-label text-gold-300">{eyebrow}</p>
-        <h1 class={`text-balance mt-4 font-bold leading-[0.98] text-white ${compact ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl lg:text-7xl'}`}>
+      <div class="reveal relative z-10 min-w-0">
+        <p class="technical-label text-yellow-400">{eyebrow}</p>
+        <h1 class={`text-balance mt-4 font-bold leading-tight text-white ${compact ? 'text-4xl sm:text-5xl' : 'text-4xl sm:text-6xl lg:text-7xl'}`}>
           {title}
         </h1>
-        <p class="mt-6 max-w-2xl border-l border-steel-400/60 pl-5 text-lg leading-relaxed text-gray-200 sm:text-xl">
+        <p class="mt-6 max-w-2xl border-l-2 border-yellow-400 pl-5 text-lg leading-relaxed text-light-100 sm:text-xl">
           {description}
         </p>
       </div>
 
       {image ? (
-        <div class="reveal-right relative w-full lg:justify-self-end">
-          <span class="pointer-events-none absolute -right-3 -top-3 h-20 w-20 border-r border-t border-gold-300/50" aria-hidden="true"></span>
+        <div class="reveal-right relative w-full min-w-0 lg:justify-self-end">
+          <span class="pointer-events-none absolute -right-3 -top-3 h-20 w-20 border-r-2 border-t-2 border-yellow-400/60" aria-hidden="true"></span>
           <PhotoFrame
             image={image}
             label={imageLabel}
-            class={`w-full rounded-lg shadow-2xl shadow-black/30 ${compact ? 'aspect-[16/10] lg:aspect-[4/3] lg:w-[28rem]' : 'aspect-[16/10] lg:aspect-[4/3] lg:w-[36rem]'}`}
+            class={`w-full border border-deep-700 ${compact ? 'aspect-[16/10] lg:aspect-[4/3] lg:w-full lg:max-w-[28rem]' : 'aspect-[16/10] lg:aspect-[4/3] lg:w-full lg:max-w-[36rem]'}`}
             priority
           />
         </div>
       ) : (
         <div class="reveal-right flex justify-center lg:justify-self-end">
-          <div class="flex aspect-square w-48 flex-col items-center justify-center rounded-xl border border-steel-300/40 bg-navy-950/60 text-center shadow-2xl shadow-black/25 sm:w-56">
-            <svg class="h-20 w-20 text-steel-300" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+          <div class="flex aspect-square w-48 flex-col items-center justify-center border border-deep-700 bg-deep-950/60 text-center sm:w-56">
+            <svg class="h-20 w-20 text-light-100" viewBox="0 0 96 96" fill="none" aria-hidden="true">
               <circle cx="20" cy="48" r="7" stroke="currentColor" stroke-width="4" />
               <circle cx="76" cy="48" r="7" stroke="currentColor" stroke-width="4" />
               <path d="M27 48H40M56 48H69" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
-              <path d="M42 37L54 59M54 37L42 59" stroke="#f0c54a" stroke-width="5" stroke-linecap="round" />
+              <path d="M42 37L54 59M54 37L42 59" stroke="#FFDA24" stroke-width="5" stroke-linecap="round" />
             </svg>
-            <span class="technical-label mt-3 text-gold-300">Ruta interrumpida</span>
+            <span class="technical-label mt-3 text-yellow-400">Ruta interrumpida</span>
           </div>
         </div>
       )}

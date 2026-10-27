@@ -47,20 +47,20 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
     <Container>
       <div class="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
         <article>
-          <p class="technical-label text-steel-600">Evaluación de la necesidad</p>
-          <h2 class="section-title mt-3 text-3xl font-bold text-navy-900 sm:text-4xl">Descripción del servicio</h2>
+          <p class="technical-label text-blue-600">Evaluación de la necesidad</p>
+          <h2 class="section-title mt-3 text-3xl font-bold text-deep-900 sm:text-4xl">Descripción del servicio</h2>
           {service.description.map((p) => (
-            <p class="mt-5 text-lg leading-relaxed text-gray-700">{p}</p>
+            <p class="mt-5 text-lg leading-relaxed text-ink-700">{p}</p>
           ))}
         </article>
 
         <aside class="industrial-card p-6 sm:p-8" aria-labelledby="service-scope-title">
-          <p class="technical-label text-steel-600">Incluye según evaluación</p>
-          <h2 id="service-scope-title" class="mt-3 text-2xl font-bold text-navy-900">Alcance del servicio</h2>
+          <p class="technical-label text-blue-600">Incluye según evaluación</p>
+          <h2 id="service-scope-title" class="mt-3 text-2xl font-bold text-deep-900">Alcance del servicio</h2>
           <ul class="mt-6 space-y-4">
             {service.scope.map((item) => (
-              <li class="flex items-start gap-3 text-gray-700">
-                <svg class="mt-0.5 h-6 w-6 shrink-0 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <li class="flex items-start gap-3 text-ink-700">
+                <svg class="mt-0.5 h-6 w-6 shrink-0 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <circle cx="12" cy="12" r="9" stroke-width="1.75" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l3 3 5-6" />
                 </svg>
@@ -74,10 +74,10 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
         </aside>
       </div>
 
-      <section class="mt-14 border-t border-steel-500/30 pt-10" aria-labelledby="service-photos-title">
-        <p class="technical-label text-steel-600">Registro del taller</p>
-        <h2 id="service-photos-title" class="mt-3 text-3xl font-bold text-navy-900">Capacidades en imágenes</h2>
-        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-gray-600">
+      <section class="mt-14 border-t border-light-200 pt-10" aria-labelledby="service-photos-title">
+        <p class="technical-label text-blue-600">Registro del taller</p>
+        <h2 id="service-photos-title" class="mt-3 text-3xl font-bold text-deep-900">Capacidades en imágenes</h2>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-700">
           Las fotografías muestran equipos, componentes y tareas del taller como referencia general. El alcance de cada intervención se confirma después de evaluar el caso.
         </p>
         <PhotoStrip

@@ -16,28 +16,26 @@ interface Props {
 const { heading, text, cta, secondaryCta, class: className } = Astro.props
 ---
 
-<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-t border-steel-500/30 py-section-sm sm:py-section ${className ?? ''}`}>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
+<section class={`dark-technical-grid relative overflow-hidden border-t border-deep-700 py-section-sm sm:py-section ${className ?? ''}`}>
   <div
-    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.12]"
+    class="brand-watermark bg-center bg-no-repeat opacity-[0.07]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
     aria-hidden="true"
   ></div>
+  <span class="corner-yellow pointer-events-none absolute right-0 top-0 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
     <div class="reveal relative grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
       <div>
-        <p class="technical-label text-gold-300">Próximo paso</p>
+        <p class="technical-label text-yellow-400">Próximo paso</p>
         <h2 class="text-balance mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">{heading}</h2>
-        <p class="mt-4 max-w-2xl text-lg text-gray-200">{text}</p>
+        <p class="mt-4 max-w-2xl text-lg text-light-100">{text}</p>
       </div>
       <div class="flex flex-wrap gap-4 lg:max-w-sm lg:justify-end">
-      <ButtonLink href={cta.href} variant="primary" class="shimmer-gold">
+      <ButtonLink href={cta.href} variant="primary">
         {cta.label}
       </ButtonLink>
       {secondaryCta && (
-        <ButtonLink href={secondaryCta.href} variant="secondary" class="border-white text-white hover:bg-white hover:text-navy-900">
+        <ButtonLink href={secondaryCta.href} variant="secondary-light">
           {secondaryCta.label}
         </ButtonLink>
       )}
@@ -45,7 +43,7 @@ const { heading, text, cta, secondaryCta, class: className } = Astro.props
         <a
           href={telUrl(primaryContact.phone)}
           aria-label={`Llamar a ${primaryContact.name} al ${primaryContact.phone}`}
-          class="cut-corner inline-flex items-center justify-center gap-2 border-2 border-steel-300 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-navy-900"
+          class="cut-corner inline-flex items-center justify-center gap-2 border-2 border-light-100/60 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-deep-900"
         >
           Llamar a {primaryContact.name}
         </a>

@@ -24,7 +24,10 @@ spec/
     ├── 009-seo-local-contenido/
     ├── 010-calidad-despliegue-medicion/
     ├── 011-fotografia-iconografia/
-    └── 012-importacion-instagram-portfolio/
+    ├── 012-importacion-instagram-portfolio/
+    ├── 013-identidad-visual-portfolio/
+    ├── 014-renovacion-fotografica/
+    └── 015-emailjs-contacto/
 ```
 
 La constitución manda: si una feature contradice la misión, los límites comerciales, la arquitectura o las reglas de marca, se replantea la feature y no se ignora la constitución.

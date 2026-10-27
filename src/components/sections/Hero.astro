@@ -18,36 +18,33 @@ interface Props {
 const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
 ---
 
-<section class={`dark-technical-grid industrial-grain relative overflow-hidden border-b border-steel-500/30 py-16 sm:py-24 ${className ?? ''}`}>
+<section class={`dark-technical-grid relative overflow-hidden border-b border-deep-700 py-16 sm:py-24 ${className ?? ''}`}>
   <div
-    class="brand-watermark animate-pressure bg-center bg-no-repeat opacity-[0.12]"
+    class="brand-watermark bg-center bg-no-repeat opacity-[0.07]"
     style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 40rem auto;`}
     aria-hidden="true"
   ></div>
-  <div class="pressure-line absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold-300 via-gold-500 to-steel-500" aria-hidden="true"></div>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
-  <span class="fluid-particle" aria-hidden="true"></span>
+  <span class="corner-yellow pointer-events-none absolute right-0 top-0 h-28 w-28 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
-      <div class="reveal relative z-10">
+      <div class="reveal relative z-10 min-w-0">
         <BrandLogo brand="ead" variant="light" class="mb-5 h-20 sm:h-24" />
-        <p class="technical-label text-gold-300">Oleohidráulica · Colonia Barón</p>
-        <h1 class="hero-title-glow text-balance mt-4 text-5xl font-bold leading-[0.98] text-white sm:text-6xl lg:text-7xl">
+        <p class="technical-label text-yellow-400">Oleohidráulica · Colonia Barón</p>
+        <h1 class="text-balance mt-4 text-4xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
           {title}
         </h1>
-        <p class="mt-6 max-w-2xl border-l border-steel-400/60 pl-5 text-lg leading-relaxed text-gray-200 sm:text-xl">
+        <p class="mt-6 max-w-2xl border-l-2 border-yellow-400 pl-5 text-lg leading-relaxed text-light-100 sm:text-xl">
           {subtitle}
         </p>
         <div class="mt-7 flex flex-wrap gap-4">
           <ButtonLink href={ctaPrimary.href} variant="primary">
             {ctaPrimary.label}
           </ButtonLink>
-          <ButtonLink href={ctaSecondary.href} variant="secondary" class="border-steel-300 text-white hover:border-white hover:bg-white hover:text-navy-900">
+          <ButtonLink href={ctaSecondary.href} variant="secondary-light">
             {ctaSecondary.label}
           </ButtonLink>
         </div>
-        <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-5 text-sm text-steel-100" aria-label="Áreas principales">
+        <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/20 pt-5 text-sm text-light-100" aria-label="Áreas principales">
           <li>Reparación</li>
           <li>Instalación</li>
           <li>Mantenimiento</li>
@@ -55,12 +52,12 @@ const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = A
         </ul>
       </div>
 
-      <div class="reveal-right relative lg:justify-self-end">
-        <span class="pointer-events-none absolute -right-3 -top-3 h-24 w-24 border-r border-t border-gold-300/50" aria-hidden="true"></span>
+      <div class="reveal-right relative min-w-0 lg:justify-self-end">
+        <span class="pointer-events-none absolute -right-3 -top-3 h-24 w-24 border-r-2 border-t-2 border-yellow-400/60" aria-hidden="true"></span>
         <PhotoFrame
           image={image}
           label="Taller EAD · registro real"
-          class="aspect-[16/10] w-full rounded-lg shadow-2xl shadow-black/35 lg:aspect-[6/5] lg:w-[36rem]"
+          class="aspect-[16/10] w-full border border-deep-700 lg:aspect-[6/5] lg:w-full lg:max-w-[36rem]"
           priority
         />
       </div>

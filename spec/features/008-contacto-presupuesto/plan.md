@@ -1,5 +1,7 @@
 # 008 · Contacto y solicitud de presupuesto — Plan
 
+> Actualización 015: el envío por correo usa EmailJS; este plan conserva las decisiones originales de Formspree como registro histórico.
+
 ## Enfoque
 
 Implementar un formulario cliente con validación tipada, envío por correo mediante Formspree y generación de URL de WhatsApp. Mantener siempre canales alternativos y mostrar una confirmación únicamente después de una respuesta válida del servicio. La ubicación se abrirá mediante un enlace externo explícito para proteger rendimiento y privacidad.

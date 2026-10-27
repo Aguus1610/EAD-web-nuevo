@@ -42,10 +42,22 @@ export interface QuoteRequest {
 
 export type QuoteRequestErrors = Partial<Record<keyof QuoteRequest, string>>
 
-export interface FormspreeSubmission {
+export interface EmailJsTemplateParams {
+  [key: string]: string
   subject: string
   name: string
-  email?: string
+  locality: string
+  company: string
+  contact_method: string
+  contact_detail: string
+  equipment_type: string
+  need: string
+  brand: string
+  model: string
+  part_number: string
+  urgency: string
+  description: string
+  reply_to: string
   message: string
 }
 
@@ -124,8 +136,12 @@ export function mailUrl(subject: string, body?: string): string {
   return `mailto:${siteConfig.email}?${params.toString()}`
 }
 
+function singleLine(value: string): string {
+  return value.replace(/\s+/g, ' ').trim()
+}
+
 export function generateQuoteSubject(req: QuoteRequest): string {
-  return `[EAD] ${req.need} · ${req.name.trim()} · ${req.locality.trim()}`
+  return `[EAD] ${req.need} · ${singleLine(req.name)} · ${singleLine(req.locality)}`
 }
 
 export function generateQuoteMessage(req: QuoteRequest): string {
@@ -172,11 +188,33 @@ export function generateQuoteMessage(req: QuoteRequest): string {
   return lines.join('\n')
 }
 
-export function createFormspreeSubmission(req: QuoteRequest): FormspreeSubmission {
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+export function createEmailJsParams(req: QuoteRequest): EmailJsTemplateParams {
+  const replyTo = req.contactMethod === 'Correo' ? req.contactDetail.trim() : siteConfig.adminEmail
+
   return {
     subject: generateQuoteSubject(req),
-    name: req.name.trim(),
-    ...(req.contactMethod === 'Correo' ? { email: req.contactDetail.trim() } : {}),
-    message: generateQuoteMessage(req),
+    name: escapeHtml(req.name.trim()),
+    locality: escapeHtml(req.locality.trim()),
+    company: escapeHtml(req.company?.trim() || 'No informada'),
+    contact_method: req.contactMethod,
+    contact_detail: escapeHtml(req.contactDetail.trim()),
+    equipment_type: escapeHtml(req.equipmentType.trim()),
+    need: req.need,
+    brand: escapeHtml(req.brand?.trim() || 'No informada'),
+    model: escapeHtml(req.model?.trim() || 'No informado'),
+    part_number: escapeHtml(req.partNumber?.trim() || 'No informado'),
+    urgency: escapeHtml(req.urgency?.trim() || 'Sin especificar'),
+    description: escapeHtml(req.description.trim()),
+    reply_to: replyTo,
+    message: escapeHtml(generateQuoteMessage(req)),
   }
 }

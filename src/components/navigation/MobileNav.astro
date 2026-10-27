@@ -18,7 +18,7 @@ function isActive(linkHref: string): boolean {
 <div class="md:hidden" x-data>
   <button
     id="menu-toggle"
-    class="flex h-10 w-10 items-center justify-center rounded-md text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+    class="flex h-10 w-10 items-center justify-center text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400"
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Abrir menú"
@@ -34,7 +34,7 @@ function isActive(linkHref: string): boolean {
 
   <div
     id="mobile-menu"
-    class="fixed inset-x-0 top-16 z-40 hidden border-t border-steel-500/30 bg-navy-950 shadow-2xl"
+    class="fixed inset-x-0 top-16 z-40 hidden border-t border-deep-700 bg-deep-950 shadow-xl shadow-deep-950/40"
     role="dialog"
     aria-modal="true"
     aria-label="Navegación"
@@ -45,10 +45,10 @@ function isActive(linkHref: string): boolean {
           <li>
             <a
               href={withBase(link.href)}
-              class={`block rounded-md px-3 py-3 text-base font-medium transition-colors
+              class={`block border-l-2 px-3 py-3 text-base font-medium transition-colors
                 ${isActive(link.href)
-                  ? 'bg-steel-500/20 text-white font-semibold'
-                  : 'text-gray-200 hover:bg-white/10 hover:text-white'
+                  ? 'border-yellow-400 bg-white/10 text-white font-semibold'
+                  : 'border-transparent text-light-100 hover:bg-white/5 hover:text-white'
                 }
               `}
               aria-current={isActive(link.href) ? 'page' : undefined}

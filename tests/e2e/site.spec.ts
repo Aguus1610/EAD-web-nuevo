@@ -1,13 +1,20 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Page, type Route } from '@playwright/test'
 
 const playwrightHost = process.env.PLAYWRIGHT_HOST ?? '127.0.0.1'
 const playwrightPort = process.env.PLAYWRIGHT_PORT ?? '4321'
 const baseURL = `http://${playwrightHost}:${playwrightPort}/EAD-web-nuevo/`
+const emailJsEndpoint = 'https://api.emailjs.com/api/v1.0/email/send'
 
-async function formAction(page: Page): Promise<string> {
-  const action = await page.locator('#quote-form').getAttribute('action')
-  if (!action) throw new Error('El formulario no expone el endpoint de envío.')
-  return action
+async function fulfillEmailJsPreflight(route: Route) {
+  await route.fulfill({
+    status: 204,
+    headers: {
+      'access-control-allow-origin': '*',
+      'access-control-allow-methods': 'POST, OPTIONS',
+      'access-control-allow-headers': 'content-type',
+      'access-control-max-age': '86400',
+    },
+  })
 }
 
 async function completeQuoteForm(page: Page, contactMethod: 'Correo' | 'WhatsApp' = 'Correo') {
@@ -31,7 +38,7 @@ async function acceptConsent(page: Page) {
 }
 
 test.beforeEach(async ({ context }) => {
-  await context.route('https://formspree.io/**', (route) => route.abort('blockedbyclient'))
+  await context.route('https://api.emailjs.com/**', (route) => route.abort('blockedbyclient'))
   await context.route(/https:\/\/(?:wa\.me|api\.whatsapp\.com)\/.*/, (route) => route.abort('blockedbyclient'))
 })
 
@@ -217,71 +224,101 @@ test('contact form reports errors and creates a reviewable WhatsApp message', as
   await expect(page.locator('#quote-status')).toContainText('Se abrió WhatsApp')
 })
 
-test('contact form sends one structured request to Formspree', async ({ page }) => {
-  let requestCount = 0
+test('contact form sends one structured request to EmailJS', async ({ page }) => {
+  let postCount = 0
   let requestBody = ''
-  let requestAccept = ''
+  let requestContentType = ''
   let releaseResponse!: () => void
   const responseGate = new Promise<void>((resolve) => {
     releaseResponse = resolve
   })
 
   await page.goto('contacto')
-  const formspreeEndpoint = await formAction(page)
-  await page.route(formspreeEndpoint, async (route) => {
-    requestCount += 1
+  await page.route(emailJsEndpoint, async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await fulfillEmailJsPreflight(route)
+      return
+    }
+
+    postCount += 1
     requestBody = route.request().postData() ?? ''
-    requestAccept = route.request().headers().accept ?? ''
+    requestContentType = route.request().headers()['content-type'] ?? ''
     await responseGate
     await route.fulfill({
       status: 200,
-      contentType: 'application/json',
+      contentType: 'text/plain',
       headers: { 'access-control-allow-origin': '*' },
-      body: JSON.stringify({ ok: true }),
+      body: 'OK',
     })
   })
 
-  await page.goto('contacto')
   await completeQuoteForm(page)
   const submitButton = page.getByRole('button', { name: 'Enviar consulta por correo' })
   await submitButton.click()
-  await expect.poll(() => requestCount).toBe(1)
+  await expect.poll(() => postCount).toBe(1)
   await expect(page.getByLabel('Nombre *')).toBeDisabled()
   releaseResponse()
 
-  await expect(page.locator('#quote-status')).toContainText('Formspree recibió la consulta para procesarla')
-  expect(requestCount).toBe(1)
-  expect(requestAccept).toContain('application/json')
-  const submittedFields = Array.from(requestBody.matchAll(/name="([^"]+)"/g), ([, name]) => name)
-  expect(submittedFields).toEqual(['subject', 'name', 'email', 'message', '_gotcha'])
-  expect(requestBody).toContain('[EAD] Mantenimiento o diagn')
-  expect(requestBody).toContain('NUEVA CONSULTA DESDE LA WEB')
-  expect(requestBody).toContain('CONTACTO')
-  expect(requestBody).toContain('EQUIPO O PRODUCTO')
-  expect(requestBody).toContain('Consentimiento: aceptado')
-  expect(requestBody).not.toContain('name="contactMethod"')
-  expect(requestBody).not.toContain('name="equipmentType"')
+  await expect(page.locator('#quote-status')).toContainText('EmailJS recibió la consulta para entregarla por correo')
+  expect(postCount).toBe(1)
+  expect(requestContentType).toContain('application/json')
+  const payload = JSON.parse(requestBody) as {
+    lib_version: string
+    user_id: string
+    service_id: string
+    template_id: string
+    template_params: Record<string, string>
+  }
+  expect(payload.lib_version).toBeTruthy()
+  expect(payload.service_id).toBe('service_oh4erk7')
+  expect(payload.template_id).toBe('template_ddtz01q')
+  expect(payload.user_id).toBe('SHCCKv__9-9XVNQDv')
+  expect(payload.template_params).toMatchObject({
+    subject: '[EAD] Mantenimiento o diagnóstico · Ana · General Pico',
+    name: 'Ana',
+    locality: 'General Pico',
+    company: 'No informada',
+    contact_method: 'Correo',
+    contact_detail: 'ana@example.com',
+    equipment_type: 'Hidroelevador',
+    need: 'Mantenimiento o diagnóstico',
+    brand: 'No informada',
+    model: 'No informado',
+    part_number: 'No informado',
+    urgency: 'Sin especificar',
+    description: 'Necesito verificar el equipo.',
+    reply_to: 'ana@example.com',
+  })
+  expect(payload.template_params.message).toContain('NUEVA CONSULTA DESDE LA WEB')
+  expect(payload.template_params.message).toContain('CONTACTO')
+  expect(payload.template_params.message).toContain('EQUIPO O PRODUCTO')
+  expect(payload.template_params.message).toContain('Consentimiento: aceptado')
   await expect(page.getByLabel('Nombre *')).toHaveValue('')
   await expect(page.locator('#quote-preview-wrapper')).toBeHidden()
   await expect(submitButton).toBeEnabled()
 })
 
 for (const { responseStatus, expectedMessage } of [
-  { responseStatus: 422, expectedMessage: 'no pudo procesar los datos' },
+  { responseStatus: 400, expectedMessage: 'EmailJS no pudo procesar los datos' },
+  { responseStatus: 403, expectedMessage: 'El servicio de correo rechazó el envío' },
   { responseStatus: 429, expectedMessage: 'límite temporal de envíos' },
-  { responseStatus: 503, expectedMessage: 'no está disponible en este momento' },
+  { responseStatus: 500, expectedMessage: 'no está disponible en este momento' },
 ]) {
-  test(`contact form preserves data after a ${responseStatus} response`, async ({ page }) => {
+  test(`contact form preserves data after an EmailJS ${responseStatus} response`, async ({ page }) => {
     await page.goto('contacto')
-    const formspreeEndpoint = await formAction(page)
-    await page.route(formspreeEndpoint, (route) =>
-      route.fulfill({
+    await page.route(emailJsEndpoint, async (route) => {
+      if (route.request().method() === 'OPTIONS') {
+        await fulfillEmailJsPreflight(route)
+        return
+      }
+
+      await route.fulfill({
         status: responseStatus,
-        contentType: 'application/json',
+        contentType: 'text/plain',
         headers: { 'access-control-allow-origin': '*' },
-        body: JSON.stringify({ ok: false }),
-      }),
-    )
+        body: 'error',
+      })
+    })
 
     await completeQuoteForm(page)
     await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
@@ -295,8 +332,12 @@ for (const { responseStatus, expectedMessage } of [
 
 test('contact form reports a timeout and preserves the draft', async ({ page }) => {
   await page.goto('contacto')
-  const formspreeEndpoint = await formAction(page)
-  await page.route(formspreeEndpoint, async (route) => {
+  await page.route(emailJsEndpoint, async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await fulfillEmailJsPreflight(route)
+      return
+    }
+
     await new Promise((resolve) => setTimeout(resolve, 150))
     if (!route.request().failure()) await route.abort('timedout')
   })
@@ -314,8 +355,14 @@ test('contact form reports a timeout and preserves the draft', async ({ page }) 
 
 test('contact form reports a network failure and preserves the draft', async ({ page }) => {
   await page.goto('contacto')
-  const formspreeEndpoint = await formAction(page)
-  await page.route(formspreeEndpoint, (route) => route.abort('failed'))
+  await page.route(emailJsEndpoint, async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await fulfillEmailJsPreflight(route)
+      return
+    }
+
+    await route.abort('failed')
+  })
 
   await completeQuoteForm(page)
   await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
@@ -337,46 +384,17 @@ test('contact form reports when WhatsApp is blocked', async ({ page }) => {
   await expect(page.locator('#quote-preview-wrapper')).toBeVisible()
 })
 
-test('native validation blocks invalid data and permits a complete submission without JavaScript', async ({ browser }, testInfo) => {
+test('contact form without JavaScript offers direct channels', async ({ browser }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-chromium', 'One browser is enough for the no-JavaScript fallback')
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL, reducedMotion: 'reduce' })
   const page = await context.newPage()
-  let requestCount = 0
-  let requestBody = ''
 
   await page.goto('contacto')
-  const formspreeEndpoint = await formAction(page)
-  await page.route(formspreeEndpoint, async (route) => {
-    requestCount += 1
-    requestBody = route.request().postData() ?? ''
-    await route.fulfill({ status: 200, body: 'ok' })
-  })
-
+  await expect(page.locator('#submit-quote')).toBeHidden()
   await expect(page.locator('#send-whatsapp')).toBeHidden()
   await expect(page.getByRole('link', { name: /canal directo/ })).toBeVisible()
-  await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
-
-  await expect(page.getByLabel('Nombre *')).toBeFocused()
-  expect(requestCount).toBe(0)
-
-  await page.getByLabel('Nombre *').fill('Ana')
-  await page.getByLabel('Localidad *').fill('General Pico')
-  await page.getByLabel('Teléfono o correo de contacto *').fill('......')
-  await page.getByLabel('Equipo o producto *').fill('Hidroelevador')
-  await page.getByLabel('Necesidad principal *').selectOption('Mantenimiento o diagnóstico')
-  await page.getByLabel('Descripción *').fill('Necesito verificar el equipo.')
-  await acceptConsent(page)
-  await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
-
-  await expect(page.getByLabel('Teléfono o correo de contacto *')).toBeFocused()
-  expect(requestCount).toBe(0)
-
-  await page.getByLabel('Correo', { exact: true }).check()
-  await page.getByLabel('Teléfono o correo de contacto *').fill('ana@example.com')
-  await page.getByRole('button', { name: 'Enviar consulta por correo' }).click()
-
-  expect(requestCount).toBe(1)
-  expect(new URLSearchParams(requestBody).get('contactDetail')).toBe('ana@example.com')
+  await expect(page.locator('a[href^="mailto:adm201364@gmail.com"]')).toHaveCount(2)
+  await expect(page.getByLabel('Nombre *')).toBeVisible()
   await context.close()
 })
 

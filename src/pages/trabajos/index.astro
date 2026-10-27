@@ -56,13 +56,13 @@ const categories = [...new Set(approved.map((project) => project.data.category))
             />
           ))}
         </div>
-        <p id="project-empty-filter" class="mt-8 hidden rounded-lg border border-steel-500/30 bg-white p-6 text-center text-gray-600">No hay trabajos publicados en esta categoría.</p>
+        <p id="project-empty-filter" class="mt-8 hidden rounded-lg border border-light-200 bg-white p-6 text-center text-ink-700">No hay trabajos publicados en esta categoría.</p>
         </>
       ) : (
         <div class="industrial-card mx-auto max-w-3xl px-6 py-12 text-center sm:px-10 sm:py-16">
-          <p class="technical-label text-steel-600">Archivo en preparación</p>
-          <h2 class="mt-3 text-3xl font-bold text-navy-900">Portfolio de trabajos reales</h2>
-          <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-gray-600">
+          <p class="technical-label text-blue-600">Archivo en preparación</p>
+          <h2 class="mt-3 text-3xl font-bold text-deep-900">Portfolio de trabajos reales</h2>
+          <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-700">
             Estamos preparando el portfolio con imágenes de trabajos reales. Mientras tanto, conocé nuestros servicios o consultanos directamente.
           </p>
           <div class="mt-6 flex flex-wrap justify-center gap-4">
@@ -76,7 +76,7 @@ const categories = [...new Set(approved.map((project) => project.data.category))
         </div>
         <div class="mt-12">
           <PhotoStrip images={workArchiveMedia} label="Registro general de capacidades del taller" />
-          <p class="mx-auto mt-4 max-w-3xl text-center text-xs leading-relaxed text-gray-500">
+          <p class="mx-auto mt-4 max-w-3xl text-center text-xs leading-relaxed text-ink-500">
             Estas imágenes documentan capacidades y elementos del taller; no constituyen fichas de proyectos individuales.
           </p>
         </div>
@@ -109,17 +109,17 @@ const categories = [...new Set(approved.map((project) => project.data.category))
 
 <style>
   .project-filter {
-    border: 1px solid var(--color-steel-400);
-    border-radius: 0.25rem;
+    border: 1px solid var(--color-light-200);
+    border-radius: 0;
     padding: 0.5rem 1rem;
-    color: var(--color-navy-800);
+    color: var(--color-deep-900);
     font-weight: 600;
     transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
   }
 
   .project-filter[aria-pressed='true'] {
-    border-color: var(--color-navy-900);
-    background: var(--color-navy-900);
+    border-color: var(--color-deep-900);
+    background: var(--color-deep-900);
     color: white;
   }
 </style>

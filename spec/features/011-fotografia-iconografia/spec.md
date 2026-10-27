@@ -14,7 +14,7 @@ Las fotografías aportan evidencia concreta del trabajo y los iconos reconocible
 
 - [x] Las páginas comerciales no muestran `CraneVisual` ni `TechnicalVisual`.
 - [x] Los encabezados principales utilizan fotografías reales con texto alternativo y dimensiones declaradas.
-- [x] El catálogo contiene entre 20 y 24 WebP seleccionados de los archivos autorizados.
+- [x] El catálogo original contuvo 22 WebP; la renovación 014 lo amplió a 32 fotos reales optimizadas.
 - [x] Ninguna fotografía publicada expone rostros, patentes, documentos ni identificadores personales legibles.
 - [x] Las fotografías no se presentan como proyectos específicos sin título, problema, intervención y resultado confirmados.
 - [x] La galería de Empresa conserva seis imágenes rotativas por build.

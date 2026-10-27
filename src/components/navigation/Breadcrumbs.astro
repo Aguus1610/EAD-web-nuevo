@@ -13,15 +13,15 @@ interface Props {
 const { crumbs } = Astro.props
 ---
 
-<div class="border-b border-white/5 bg-navy-900">
+<div class="border-b border-deep-700 bg-deep-950">
   <nav aria-label="Migas de pan" class="mx-auto max-w-(--content-max) px-4 py-3 sm:px-6 lg:px-8">
-    <ol class="flex flex-wrap items-center gap-1 text-sm text-steel-300">
+    <ol class="flex flex-wrap items-center gap-1 text-sm text-light-100">
       <li>
         <a href={withBase('/')} class="transition-colors hover:text-white">Inicio</a>
       </li>
       {crumbs.map((crumb) => (
         <li class="flex items-center gap-1">
-          <span class="text-steel-500">/</span>
+          <span class="text-light-100/50">/</span>
           {crumb.href ? (
             <a href={withBase(crumb.href)} class="transition-colors hover:text-white">{crumb.label}</a>
           ) : (

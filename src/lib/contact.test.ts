@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { siteConfig } from '../data/site'
 import {
-  createFormspreeSubmission,
+  createEmailJsParams,
   generateQuoteMessage,
   generateQuoteSubject,
   mailUrl,
@@ -102,27 +102,62 @@ describe('generateQuoteMessage', () => {
   })
 })
 
-describe('Formspree submission', () => {
+describe('EmailJS template params', () => {
   it('builds a recognizable subject and structured message', () => {
     expect(generateQuoteSubject(validRequest)).toBe(
       '[EAD] Mantenimiento o diagnóstico · Ana · General Pico',
     )
-    expect(createFormspreeSubmission(validRequest)).toEqual({
+    expect(createEmailJsParams(validRequest)).toEqual({
       subject: '[EAD] Mantenimiento o diagnóstico · Ana · General Pico',
       name: 'Ana',
-      email: 'ana@example.com',
+      locality: 'General Pico',
+      company: 'No informada',
+      contact_method: 'Correo',
+      contact_detail: 'ana@example.com',
+      equipment_type: 'Hidroelevador',
+      need: 'Mantenimiento o diagnóstico',
+      brand: 'No informada',
+      model: 'No informado',
+      part_number: 'No informado',
+      urgency: 'Sin especificar',
+      description: 'Consulta preventiva',
+      reply_to: 'ana@example.com',
       message: generateQuoteMessage(validRequest),
     })
   })
 
-  it('only sets Reply-To when the preferred channel is email', () => {
-    const submission = createFormspreeSubmission({
+  it('uses the admin email as Reply-To when the preferred channel is not email', () => {
+    const params = createEmailJsParams({
       ...validRequest,
       contactMethod: 'WhatsApp',
       contactDetail: '+54 2302 000000',
+      company: 'Taller Mecánico',
+      brand: 'Hidro-Grubert',
+      model: 'HG-2000',
+      partNumber: 'ABC-123',
+      urgency: 'Esta semana',
     })
 
-    expect(submission).not.toHaveProperty('email')
+    expect(params.reply_to).toBe(siteConfig.adminEmail)
+    expect(params.company).toBe('Taller Mecánico')
+    expect(params.brand).toBe('Hidro-Grubert')
+    expect(params.model).toBe('HG-2000')
+    expect(params.part_number).toBe('ABC-123')
+    expect(params.urgency).toBe('Esta semana')
+  })
+
+  it('escapes HTML from user-provided values', () => {
+    const params = createEmailJsParams({
+      ...validRequest,
+      name: '<b>Ana</b>',
+      company: 'A & B',
+      description: '<script>alert(1)</script>',
+    })
+
+    expect(params.name).toBe('&lt;b&gt;Ana&lt;/b&gt;')
+    expect(params.company).toBe('A &amp; B')
+    expect(params.description).toBe('&lt;script&gt;alert(1)&lt;/script&gt;')
+    expect(params.message).toContain('&lt;script&gt;alert(1)&lt;/script&gt;')
   })
 })
 
@@ -193,8 +228,12 @@ describe('validateQuoteRequest', () => {
 })
 
 describe('contact form configuration', () => {
-  it('uses the approved public Formspree endpoint and fallback email', () => {
-    expect(siteConfig.contactFormEndpoint).toBe('https://formspree.io/f/xqerjrnp')
+  it('uses the approved EmailJS credentials and fallback email', () => {
+    expect(siteConfig.emailJs).toEqual({
+      serviceId: 'service_oh4erk7',
+      templateId: 'template_ddtz01q',
+      publicKey: 'SHCCKv__9-9XVNQDv',
+    })
     expect(siteConfig.adminEmail).toBe('adm201364@gmail.com')
   })
 })

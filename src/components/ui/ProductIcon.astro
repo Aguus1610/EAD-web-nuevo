@@ -10,7 +10,7 @@ const { variant, class: className } = Astro.props
 ---
 
 <svg class={className} data-product-icon={variant} viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
-  <rect x="1" y="1" width="62" height="62" rx="12" class="icon-panel" />
+  <rect x="1" y="1" width="62" height="62" rx="2" class="icon-panel" />
   {variant === 'hidro-grubert' && (
     <>
       <circle cx="26" cy="32" r="12" class="icon-main" />
@@ -46,8 +46,8 @@ const { variant, class: className } = Astro.props
 
 <style>
   .icon-panel {
-    fill: #0f1f3a;
-    stroke: rgba(139, 199, 223, 0.45);
+    fill: #07123f;
+    stroke: rgba(255, 255, 255, 0.25);
   }
 
   .icon-main,
@@ -59,14 +59,14 @@ const { variant, class: className } = Astro.props
   }
 
   .icon-main {
-    stroke: #8bc7df;
+    stroke: #ffffff;
   }
 
   .icon-accent {
-    stroke: #f0c54a;
+    stroke: #ffda24;
   }
 
   .icon-accent-fill {
-    fill: #f0c54a;
+    fill: #ffda24;
   }
 </style>

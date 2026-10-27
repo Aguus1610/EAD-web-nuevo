@@ -1,70 +1,67 @@
 # EAD Oleohidráulica — Sitio institucional y comercial
 
-Sitio web publicitario para EAD Oleohidráulica, orientado a presentar capacidades, trabajos, productos y representaciones comerciales, y convertir visitas en consultas y solicitudes de presupuesto. El público principal son propietarios de equipos, empresas, talleres, productores y responsables de flotas que necesitan soluciones oleohidráulicas confiables.
-
-## Stack
-
-- Lenguaje: TypeScript en modo estricto
-- Framework / runtime: Astro con Node.js LTS
-- Base de datos: No aplica; el contenido público se mantiene en archivos tipados y colecciones de contenido
-- Tests: Vitest para lógica y Playwright para recorridos críticos, responsive y accesibilidad
+Sitio estático en Astro 7 + TypeScript estricto + Tailwind v4 (plugin de Vite, sin archivo de config) para EAD Oleohidráulica (Colonia Barón, La Pampa). Convierte visitas en consultas por WhatsApp, correo o formulario (EmailJS). Contenido visible en español rioplatense.
 
 ## Comandos
 
-- `npm run dev` - arranca el servidor en local
-- `npm run test` - ejecuta los tests unitarios
-- `npm run test:e2e` - ejecuta los recorridos end-to-end
-- `npm run lint` - revisa TypeScript, Astro y estilo antes de cada PR
-- `npm run build` - compila el sitio para producción
-- `npm run preview` - sirve localmente la compilación de producción
+Requiere Node >= 22.12 (`engines`). Astro 7 no arranca con versiones anteriores.
 
-## Estructura del proyecto
+- `npm run dev` — servidor local en `http://127.0.0.1:4321/EAD-web-nuevo/`
+- `npm test` — Vitest; solo recoge `src/**/*.test.ts` (tests colocalizados junto al código)
+- `npm run test:e2e` — Playwright en desktop-chromium + Pixel 5; levanta solo el dev server (puerto 4321); `PLAYWRIGHT_REUSE_SERVER=1` para reutilizar uno ya corriendo
+- `npm run lint` y `npm run format:check` — ambos ejecutan `astro check`; no existe ESLint ni Prettier
+- `npm run check:build` — presupuestos de tamaño por archivo/tipo sobre `dist/`
+- `npm run validate:launch` — reglas de lanzamiento (ver abajo)
+- `npm run quality` — gate completo (typecheck + lint + test + build + check:build + validate:launch + test:e2e); es exactamente lo que corre CI en cada push/PR
+- `npm run instagram:import -- <url>` — genera un borrador de proyecto desde una publicación de Instagram; requiere `.env.local` con `INSTAGRAM_ACCESS_TOKEN` (ver `.env.example`)
 
-- `src/components/` - componentes reutilizables de interfaz, navegación, tarjetas, formularios y secciones
-- `src/layouts/` - layouts globales, metadatos, navegación y pie de página
-- `src/pages/` - páginas públicas y rutas del sitio
-- `src/content/` - trabajos, servicios y contenidos editoriales validados por esquema
-- `src/data/` - datos globales del negocio, contactos, marcas, categorías y configuración
-- `src/lib/` - utilidades puras para SEO, formato, validación y generación de enlaces de contacto
-- `src/styles/` - tokens, estilos globales y reglas de accesibilidad
-- `public/assets/brand/` - logos originales suministrados; no deben redibujarse ni recolorearse
-- `tests/` - pruebas end-to-end, accesibilidad y regresión de recorridos críticos
-- `spec/` - constitución, especificaciones, planes y tareas SDD
+## Gotchas que un agente fallaría sin ayuda
+
+- **Base path**: el sitio vive en `https://aguus1610.github.io/EAD-web-nuevo` (`base: '/EAD-web-nuevo'` en `astro.config.mjs`, deploy automático a GitHub Pages solo desde `main`). Todo enlace/asset interno debe respetar el base (usar utilidades de `src/lib/url.ts`); `validate:launch` falla si un HTML contiene rutas absolutas fuera de `/EAD-web-nuevo`. Si cambia el host, actualizar `base`, `siteUrl` en `src/data/site.ts` y los tests e2e.
+- **Reglas de lanzamiento** (`scripts/validate-launch.mjs`, corre en CI): cada página debe tener exactamente 1 `<main>`, 1 `<h1>` y `rel="canonical"`; no puede quedar `PENDING_CONFIRMATION` en el build; `siteUrl` y `mapUrl` de `src/data/site.ts` no pueden estar pendientes.
+- **Proyectos** (`src/content/projects/`): el build falla si un proyecto no tiene `publicationApproved: true`. Los assets deben ser locales en `/assets/projects/<slug>/*.webp`; están prohibidas URLs de CDN de Instagram como assets y `mediaId` duplicados. Archivos que empiezan con `_` se ignoran (borradores).
+- **Datos comerciales**: única fuente de verdad en `src/data/site.ts` (contactos, horarios, configuración pública de EmailJS, coordenadas, años de experiencia). No duplicar ni inventar valores en componentes; todo CTA necesita destino real y configurable (`src/lib/contact.ts` para WhatsApp/correo/teléfono).
+- **EmailJS**: el envío usa el SDK en el navegador con service ID, template ID y public key. Nunca versionar una private key; los orígenes permitidos y el destino se configuran en el panel de EmailJS. Sin JavaScript se oculta el envío y quedan WhatsApp/correo/teléfono.
+- **Instagram**: el import nunca corre durante el build; las respuestas se validan con contratos en `src/lib/instagram.ts`.
+- **Tests e2e** bloquean la red externa (api.emailjs.com, wa.me, api.whatsapp.com); no esperes llamadas reales en ellos.
+
+## Estructura
+
+- `src/data/` — datos del negocio, contactos, marcas, líneas de grúas, navegación
+- `src/content/` — colecciones validadas por `src/content.config.ts` (proyectos con frontmatter tipado)
+- `src/lib/` — utilidades puras: url, seo, contact, instagram, projects, gallery
+- `src/components/`, `src/layouts/`, `src/pages/`, `src/styles/` — estándar Astro
+- `public/assets/brand/` — logos originales suministrados; no redibujar ni recolorear
+- `public/assets/projects/` y `public/assets/workshop/` — fotos reales optimizadas que se publican (WebP)
+- `media-src/workshop/` — originales JPG y descartes fuera del build; no moverlos a `public/`
+- `tests/e2e/` — recorridos de navegación, contacto, responsive y accesibilidad
+- `spec/` — SDD: constitution (mission, tech-stack, roadmap), features y decisiones de release
 
 ## Convenciones
 
-- Usar `PascalCase` para componentes y tipos; `camelCase` para variables, funciones y propiedades.
-- Mantener los tests unitarios junto a la utilidad probada cuando resulte claro; los recorridos completos van en `tests/e2e/`.
-- Centralizar datos comerciales y de contacto en `src/data/site.ts`; no duplicarlos en componentes.
-- Validar todo contenido estructurado mediante esquemas antes del build.
-- Mantener el contenido visible en español rioplatense profesional, claro y sin errores ortográficos.
-- Utilizar HTML semántico antes que componentes genéricos y conservar una jerarquía correcta de encabezados.
-- Construir componentes pequeños, tipados y reutilizables; evitar componentes monolíticos de página completa.
-- Toda llamada a la acción debe tener un destino real y configurable: WhatsApp, correo, teléfono o formulario.
-- Las afirmaciones comerciales, años de experiencia, representaciones y disponibilidad de productos deben provenir de datos aprobados por EAD Oleohidráulica.
-- Diseñar mobile-first y comprobar cada feature en móvil, tablet y escritorio.
+- `PascalCase` para componentes y tipos; `camelCase` para el resto; slugs en `kebab-case`.
+- HTML semántico antes que componentes genéricos; jerarquía de encabezados correcta.
+- Mobile-first; verificar cada feature en 360 / 768 / 1024 / 1440 px.
+- Sin `any` en TypeScript; componentes pequeños, tipados y reutilizables.
 
 ## No hagas
 
-- No modificar, deformar, recortar, recolorear ni recrear los logos de EAD Oleohidráulica, Hidro-Grubert o Palfinger.
-- No inventar proyectos, testimonios, certificaciones, especificaciones técnicas, precios, stock, zonas de cobertura ni relaciones comerciales.
-- No presentar la web como tienda en línea, sistema de gestión, portal de clientes o catálogo técnico oficial.
-- No añadir una base de datos, autenticación, CMS o dependencia de gran tamaño sin justificarla y recibir aprobación.
-- No subir archivos `.env*`, credenciales, claves de analítica ni datos personales al repositorio.
-- No usar `any` en TypeScript sin una justificación localizada y documentada.
-- No incorporar imágenes de stock que puedan confundirse con trabajos reales del taller.
-- No publicar formularios o botones con destinos ficticios; los datos faltantes deben quedar señalados como bloqueo de lanzamiento.
-- No habilitar rastreo, cookies no esenciales o scripts de terceros sin consentimiento y documentación.
+- No modificar, recrear ni recolorear los logos de EAD, Hidro-Grubert o Palfinger.
+- No inventar proyectos, testimonios, certificaciones, precios, stock, coberturas ni relaciones comerciales.
+- No añadir base de datos, auth, CMS o dependencias grandes sin justificación y aprobación.
+- No subir `.env*`, credenciales ni datos personales al repo.
+- No usar imágenes de stock que puedan confundirse con trabajos reales.
+- No publicar originales pesados ni patentes/rostros legibles; optimizar a WebP y archivar en `media-src/`.
+- No habilitar tracking, cookies no esenciales ni scripts de terceros sin consentimiento y documentación.
 
 ## Flujo de trabajo
 
-Antes de una tarea no trivial, propón un plan y espera mi OK.
-Una tarea a la vez; al terminar, dime qué cambiaste para que lo revise.
-Si no estás seguro al 80%, pregunta. No inventes.
+- Antes de una tarea no trivial, proponer un plan y esperar el OK; una tarea a la vez y reportar los cambios al terminar.
+- Spec-driven: cada feature nueva va a `spec/features/NNN-nombre/` con `spec.md` + `plan.md` + `tasks.md`, y se actualiza `spec/constitution/roadmap.md` (ver `spec/README.md`).
+- Si no hay certeza al 80%, preguntar antes que inventar.
 
-## Documentación
+## Documentación de referencia
 
-- `spec/constitution/mission.md` - propósito, público, principios y límites del producto.
-- `spec/constitution/tech-stack.md` - arquitectura, convenciones técnicas y reglas visuales.
-- `spec/constitution/roadmap.md` - orden previsto de implementación.
-- `spec/features/` - definición, plan y checklist de cada feature antes de tocar código.
+- `spec/constitution/mission.md` — propósito, público y límites del producto
+- `spec/constitution/tech-stack.md` — arquitectura, convenciones y reglas visuales
+- `spec/performance-budgets.md` y `spec/release.md` — presupuestos y criterios de release

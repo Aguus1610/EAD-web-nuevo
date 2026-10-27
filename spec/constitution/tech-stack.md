@@ -43,12 +43,13 @@
 
 ## Modelo de datos / dominio
 
-- `SiteConfig` — nombre comercial, descripción, domicilio, localidad, provincia, país, coordenadas opcionales, horario, correo, teléfono, WhatsApp, Instagram y área de servicio. Los campos críticos de lanzamiento no pueden quedar vacíos.
+- `SiteConfig` — nombre comercial, descripción, domicilio, localidad, provincia, país, coordenadas opcionales, horario, correo, teléfono, WhatsApp, Instagram, configuración pública de EmailJS y área de servicio. Los campos críticos de lanzamiento no pueden quedar vacíos.
 - `Service` — identificador, título, resumen, problema que resuelve, capacidades, proceso, aplicaciones, imagen opcional, orden y llamada a la acción.
 - `ProductCategory` — categoría, descripción, ejemplos aprobados, marcas asociadas y leyenda de disponibilidad bajo consulta.
 - `Brand` — nombre, logo, texto de relación comercial aprobado, URL oficial opcional y reglas de presentación.
 - `Project` — slug, título, fecha, categoría, equipo, problema inicial, intervención, resultado, narrativa, medios locales, fuente opcional, destacado y autorización de publicación.
-- `QuoteRequest` — estructura temporal en el navegador con nombre, empresa opcional, localidad, medio de contacto, tipo de equipo, marca/modelo opcionales, necesidad, urgencia y consentimiento. No se persiste en la web; Formspree la procesa cuando el usuario solicita el envío por correo.
+- `QuoteRequest` — estructura temporal en el navegador con nombre, empresa opcional, localidad, medio de contacto, tipo de equipo, marca/modelo opcionales, necesidad, urgencia y consentimiento. No se persiste en la web; EmailJS la procesa cuando el usuario solicita el envío por correo.
+- `EmailJsTemplateParams` — variables planas para la plantilla de EmailJS, con fallbacks para campos opcionales, Reply-To y mensaje completo escapado.
 - `SeoMeta` — título, descripción, imagen social, canonical, indexación y datos estructurados por página.
 
 ## Convenciones

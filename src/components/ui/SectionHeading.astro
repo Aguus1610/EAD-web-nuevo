@@ -9,6 +9,6 @@ interface Props {
 const { tag: Tag = 'h2', id, class: className, light = false } = Astro.props
 ---
 
-<Tag id={id} class={`section-title text-3xl font-bold leading-tight sm:text-4xl ${light ? 'text-white' : 'text-navy-900'} ${className ?? ''}`}>
+<Tag id={id} class={`section-title text-3xl font-bold leading-tight sm:text-4xl ${light ? 'text-white' : 'text-deep-900'} ${className ?? ''}`}>
   <slot />
 </Tag>

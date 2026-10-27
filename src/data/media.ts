@@ -14,270 +14,247 @@ export interface MediaImage {
 export const media = {
   // ════════════════════════════════ TALLER ════════════════════════════════
 
-  workshopOverview: {
-    id: 'taller-vista-general',
-    src: '/assets/workshop/taller-vista-general.webp',
-    alt: 'Interior del taller con un brazo hidráulico blanco, bancos de trabajo y estanterías.',
+  tallerExterior: {
+    id: 'taller-exterior-atardecer',
+    src: '/assets/workshop/taller-exterior-atardecer.webp',
+    alt: 'Camión con grúa Palfinger en el acceso del taller EAD al atardecer, con otra grúa montada en el interior.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 45%',
+  },
+  tallerGruas: {
+    id: 'taller-gruas-atardecer',
+    src: '/assets/workshop/taller-gruas-atardecer.webp',
+    alt: 'Grúa Palfinger en primer plano sobre la caja de un camión y el taller EAD con otra grúa adentro, al atardecer.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 45%',
+  },
+  tallerInteriorGeneral: {
+    id: 'taller-interior-general',
+    src: '/assets/workshop/taller-interior-general.webp',
+    alt: 'Interior del taller EAD con la grúa Hidro-Grubert N-7000 montada sobre un camión, bancos de trabajo y entrepiso.',
     width: 1200, height: 540, orientation: 'landscape',
-    position: '50% 52%',
+    position: '50% 50%',
   },
-  workshopHydraulicArm: {
-    id: 'taller-brazo-hidraulico',
-    src: '/assets/workshop/taller-brazo-hidraulico.webp',
-    alt: 'Brazo articulado blanco dentro del taller, con herramientas y equipos al fondo.',
+  tallerInteriorGrua: {
+    id: 'taller-interior-grua',
+    src: '/assets/workshop/taller-interior-grua.webp',
+    alt: 'Brazo blanco Hidro-Grubert en primer plano dentro del taller, con el entrepiso y las herramientas al fondo.',
     width: 1200, height: 540, orientation: 'landscape',
-    position: '48% 52%',
-  },
-  tallerPanoramica: {
-    id: 'taller-panoramica-2',
-    src: '/assets/workshop/taller-panoramica-2.webp',
-    alt: 'Vista panorámica del taller con bancos de trabajo, equipos y componentes hidráulicos.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 52%',
-  },
-  tallerVehiculo1: {
-    id: 'taller-vehiculo-1',
-    src: '/assets/workshop/taller-vehiculo-1.webp',
-    alt: 'Vehículo con equipo hidráulico montado dentro del taller.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  tallerVehiculo2: {
-    id: 'taller-vehiculo-2',
-    src: '/assets/workshop/taller-vehiculo-2.webp',
-    alt: 'Equipo oleohidráulico instalado sobre un vehículo en proceso de trabajo.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 48%',
+    position: '50% 50%',
   },
 
-  // ═══════════════════════════ GRÚAS Y ELEVACIÓN ═══════════════════════════
+  // ════════════════════════════ ELEVACIÓN ══════════════════════════════════
 
-  gruaEnU: {
-    id: 'grua-en-u',
-    src: '/assets/workshop/grua-en-u.webp',
-    alt: 'Grúa articulada plegada en U dentro del taller, mostrando la estructura del equipo.',
+  hidroelevadorTaller: {
+    id: 'hidroelevador-bl12-taller',
+    src: '/assets/workshop/hidroelevador-bl12-taller.webp',
+    alt: 'Hidroelevador BL-12/TA Hidro-Grubert en el taller, con un técnico trabajando junto a la base.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  hidroelevadorServicioOficial: {
+    id: 'hidroelevador-bl12-servicio-oficial',
+    src: '/assets/workshop/hidroelevador-bl12-servicio-oficial.webp',
+    alt: 'Calcomanía de EAD como servicio técnico oficial Hidro-Grubert y Palfinger sobre el brazo de un hidroelevador.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 42%',
+  },
+  hidroelevadorBrazo: {
+    id: 'hidroelevador-bl12-brazo',
+    src: '/assets/workshop/hidroelevador-bl12-brazo.webp',
+    alt: 'Brazo blanco de hidroelevador con el logotipo Hidro-Grubert dentro del taller.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  hidroelevadorDetalle: {
+    id: 'hidroelevador-bl12-detalle',
+    src: '/assets/workshop/hidroelevador-bl12-detalle.webp',
+    alt: 'Detalle del brazo y las etiquetas de seguridad de un hidroelevador Hidro-Grubert.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  hidroelevadorPluma: {
+    id: 'hidroelevador-bl12-pluma',
+    src: '/assets/workshop/hidroelevador-bl12-pluma.webp',
+    alt: 'Pluma blanca BL-12/TA de un hidroelevador Hidro-Grubert dentro del taller.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
+  },
+  hidroelevadorGh: {
+    id: 'hidroelevador-gh-rojo',
+    src: '/assets/workshop/hidroelevador-gh-rojo.webp',
+    alt: 'Base de grúa con comando hidráulico y calcomanía de EAD sobre la caja de un camión.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+
+  // ═══════════════════════════ GRÚAS HIDRO-GRUBERT ═════════════════════════
+
+  gruaHidroGrubertN15000: {
+    id: 'grua-hidrogrubert-n15000',
+    src: '/assets/workshop/grua-hidrogrubert-n15000.webp',
+    alt: 'Grúa Hidro-Grubert N-15000 montada sobre un camión blanco, con el brazo extendido contra un cielo nublado.',
     width: 2000, height: 1000, orientation: 'landscape',
-    position: '50% 48%',
+    position: '50% 40%',
   },
-  cablePulleysHook: {
-    id: 'cable-poleas-gancho',
-    src: '/assets/workshop/cable-poleas-gancho.webp',
-    alt: 'Cable de acero, poleas negras y gancho rojo de un equipo de elevación.',
-    width: 506, height: 900, orientation: 'portrait',
-    position: '50% 48%',
+  gruaHidroGrubertN7000: {
+    id: 'grua-hidrogrubert-n7000',
+    src: '/assets/workshop/grua-hidrogrubert-n7000.webp',
+    alt: 'Grúa Hidro-Grubert N-7000 con cilindros y comandos hidráulicos dentro del taller.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-  workshopLiftPlatform: {
-    id: 'plataforma-elevadora-taller',
-    src: '/assets/workshop/plataforma-elevadora-taller.webp',
-    alt: 'Plataforma elevadora remolcable blanca con el brazo plegado dentro del taller.',
-    width: 1200, height: 675, orientation: 'landscape',
-    position: '50% 48%',
+  gruaHidroGrubertControles: {
+    id: 'grua-hidrogrubert-controles',
+    src: '/assets/workshop/grua-hidrogrubert-controles.webp',
+    alt: 'Comandos y mangueras de una grúa Hidro-Grubert N-0020 en el taller.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
+  },
+  gruaHidroGrubertExterior: {
+    id: 'grua-hidrogrubert-n7000-exterior',
+    src: '/assets/workshop/grua-hidrogrubert-n7000-exterior.webp',
+    alt: 'Grúa Hidro-Grubert N-7000 montada sobre un camión, con la indicación de carga máxima en el brazo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+
+  // ═══════════════════════════ GRÚAS PALFINGER ═════════════════════════════
+
+  gruaPalfingerPkk26000: {
+    id: 'grua-palfinger-pkk26000',
+    src: '/assets/workshop/grua-palfinger-pkk26000.webp',
+    alt: 'Grúa Palfinger PKK 26000 naranja montada sobre un camión blanco.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  gruaPalfingerPk13501: {
+    id: 'grua-palfinger-pk13501',
+    src: '/assets/workshop/grua-palfinger-pk13501.webp',
+    alt: 'Brazo de grúa Palfinger PK 13.501 SLD3 con el logotipo de la marca.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 45%',
+  },
+  gruaPalfingerMontada: {
+    id: 'grua-palfinger-montada',
+    src: '/assets/workshop/grua-palfinger-montada.webp',
+    alt: 'Camión con grúa Palfinger extendida frente al taller EAD, con cielo despejado.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 45%',
+  },
+  gruaPalfingerTecnico: {
+    id: 'grua-palfinger-tecnico',
+    src: '/assets/workshop/grua-palfinger-tecnico.webp',
+    alt: 'Técnico con campera Palfinger revisando una grúa PK 24.001 SLD5 elevada.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  gruaPalfingerControl: {
+    id: 'grua-palfinger-control',
+    src: '/assets/workshop/grua-palfinger-control.webp',
+    alt: 'Control remoto Palfinger en primer plano con la grúa montada sobre un camión al fondo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+  controlRemotoPalfinger: {
+    id: 'control-remoto-palfinger',
+    src: '/assets/workshop/control-remoto-palfinger.webp',
+    alt: 'Control remoto Palfinger sobre una superficie metálica, con la grúa elevada al fondo.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 45%',
   },
 
   // ════════════════════════ REPARACIÓN Y MECANIZADO ════════════════════════
 
-  bombaHidraulica: {
-    id: 'bomba-hidraulica',
-    src: '/assets/workshop/bomba-hidraulica.webp',
-    alt: 'Bomba hidráulica desmontada sobre un banco de trabajo del taller.',
-    width: 1600, height: 1200, orientation: 'landscape',
-    position: '50% 48%',
+  conjuntoEngranajesCorona: {
+    id: 'conjunto-engranajes-corona',
+    src: '/assets/workshop/conjunto-engranajes-corona.webp',
+    alt: 'Corona dentada con buje de bronce sobre una estructura blanca, lista para revisión.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
   },
-  gearAssembly: {
-    id: 'conjunto-engranajes',
-    src: '/assets/workshop/conjunto-engranajes.webp',
-    alt: 'Carcasa abierta con engranajes de un componente hidráulico sobre mesa de trabajo.',
-    width: 506, height: 900, orientation: 'portrait',
-    position: '50% 52%',
+  bombasHydronit: {
+    id: 'bombas-hidraulicas-hydronit',
+    src: '/assets/workshop/bombas-hidraulicas-hydronit.webp',
+    alt: 'Dos bombas hidráulicas Hydronit desmontadas sobre el banco de trabajo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
   },
-  ringGearBushing: {
-    id: 'corona-y-buje',
-    src: '/assets/workshop/corona-y-buje.webp',
-    alt: 'Detalle de un buje cobrizo y una corona dentada sobre una estructura blanca.',
-    width: 506, height: 900, orientation: 'portrait',
-    position: '50% 48%',
-  },
-  weldedStructure: {
-    id: 'soldadura-estructura',
-    src: '/assets/workshop/soldadura-estructura.webp',
-    alt: 'Detalle de uniones soldadas sobre una estructura metálica pintada de blanco.',
-    width: 600, height: 1067, orientation: 'portrait',
-    position: '50% 48%',
+  bombasDetalle: {
+    id: 'bombas-hidraulicas-detalle',
+    src: '/assets/workshop/bombas-hidraulicas-detalle.webp',
+    alt: 'Detalle de cuerpos de bombas hidráulicas Hydronit con acoples roscados.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
   },
 
   // ════════════════════════════ INSTALACIONES ══════════════════════════════
 
-  installedWorkshopEquipment: {
-    id: 'equipo-instalado-taller',
-    src: '/assets/workshop/equipo-instalado-taller.webp',
-    alt: 'Equipo oleohidráulico Hidro-Grubert instalado sobre un vehículo dentro del taller.',
-    width: 600, height: 1067, orientation: 'portrait',
-    position: '50% 48%',
+  equipoBateaTanque: {
+    id: 'equipo-batea-tanque',
+    src: '/assets/workshop/equipo-batea-tanque.webp',
+    alt: 'Tanque hidráulico negro instalado sobre la caja de un camión, con calcomanía de EAD.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-  installedHydraulicTank: {
-    id: 'deposito-hidraulico-instalado',
-    src: '/assets/workshop/deposito-hidraulico-instalado.webp',
-    alt: 'Depósito hidráulico negro instalado detrás de la cabina de un camión.',
-    width: 506, height: 900, orientation: 'portrait',
-    position: '50% 48%',
+  equipoBateaConexiones: {
+    id: 'equipo-batea-conexiones',
+    src: '/assets/workshop/equipo-batea-conexiones.webp',
+    alt: 'Mangueras y conexiones sobre el tanque hidráulico de un equipo de batea.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-
-  // ════════════════════ MANTENIMIENTO, DIAGNÓSTICO Y SERVICIO ══════════════
-
-  mantenimiento: {
-    id: 'mantenimiento',
-    src: '/assets/workshop/mantenimiento.webp',
-    alt: 'Técnico realizando tareas de mantenimiento sobre un componente hidráulico en el taller.',
-    width: 1260, height: 946, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  servicio: {
-    id: 'servicio',
-    src: '/assets/workshop/servicio.webp',
-    alt: 'Trabajo de servicio técnico sobre un equipo hidráulico dentro del taller.',
-    width: 1260, height: 946, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  hydraulicCylinderOutside: {
-    id: 'cilindro-hidraulico-exterior',
-    src: '/assets/workshop/cilindro-hidraulico-exterior.webp',
-    alt: 'Cilindro hidráulico extendido en el exterior del taller, para revisión.',
-    width: 600, height: 1334, orientation: 'portrait',
-    position: '50% 48%',
-  },
-  hidraulicaMovil: {
-    id: 'hidraulica-movil',
-    src: '/assets/workshop/hidraulica-movil.webp',
-    alt: 'Equipo de hidráulica móvil con mangueras y acoples en zona de trabajo.',
-    width: 897, height: 564, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  ingenieriaTaller: {
-    id: 'ingenieria-taller',
-    src: '/assets/workshop/ingenieria-taller.webp',
-    alt: 'Componente hidráulico en proceso de evaluación técnica sobre banco del taller.',
-    width: 1200, height: 1242, orientation: 'portrait',
-    position: '50% 48%',
-  },
-
-  // ═══════════════════ REPUESTOS, FILTROS E IMPLEMENTOS ════════════════════
-
-  componentesHidraulicos: {
-    id: 'componentes-hidraulicos',
-    src: '/assets/workshop/componentes-hidraulicos.webp',
-    alt: 'Acoples hidráulicos metálicos ordenados sobre un banco de trabajo.',
-    width: 1200, height: 540, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  filtrosEstanteria: {
-    id: 'filtros-estanteria',
-    src: '/assets/workshop/filtros-estanteria.webp',
-    alt: 'Filtros hidráulicos originales en caja sobre una estantería del taller.',
-    width: 1200, height: 906, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  filtrosDetalle: {
-    id: 'filtros-detalle',
-    src: '/assets/workshop/filtros-detalle.webp',
-    alt: 'Filtros oleohidráulicos alineados sobre superficie de trabajo.',
-    width: 1600, height: 402, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  manguerasTaller: {
-    id: 'mangueras-taller',
-    src: '/assets/workshop/mangueras-taller.webp',
-    alt: 'Mangueras hidráulicas de distintos diámetros organizadas en el taller.',
+  equipoBateaAcoples: {
+    id: 'equipo-batea-acoples',
+    src: '/assets/workshop/equipo-batea-acoples.webp',
+    alt: 'Acoples rápidos macho y hembra instalados en el tanque hidráulico de un camión.',
     width: 1600, height: 900, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  valvulasDetalle: {
-    id: 'valvulas-detalle',
-    src: '/assets/workshop/valvulas-detalle.webp',
-    alt: 'Válvulas hidráulicas metálicas con conexiones roscadas.',
-    width: 512, height: 463, orientation: 'landscape',
-  },
-  repuestosEstanteria: {
-    id: 'repuestos-estanteria',
-    src: '/assets/workshop/repuestos-estanteria.webp',
-    alt: 'Estantería del taller con repuestos hidráulicos clasificados en cajas.',
-    width: 512, height: 180, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  repuestosTablero: {
-    id: 'repuestos-tablero',
-    src: '/assets/workshop/repuestos-tablero.webp',
-    alt: 'Tablero con repuestos y conexiones hidráulicas para consulta.',
-    width: 225, height: 225, orientation: 'landscape',
     position: '50% 50%',
   },
-
-  // ════════════════════════════ EQUIPOS Y MARCAS ═══════════════════════════
-
-  hidrogrubert93: {
-    id: 'hidrogrubert-93',
-    src: '/assets/workshop/hidrogrubert-93.webp',
-    alt: 'Equipo Hidro-Grubert, grúa articulada para montaje vehicular.',
-    width: 853, height: 900, orientation: 'portrait',
-    position: '50% 48%',
+  equipoBateaVolcador: {
+    id: 'equipo-batea-volcador',
+    src: '/assets/workshop/equipo-batea-volcador.webp',
+    alt: 'Batea azul elevada por un cilindro hidráulico Binotto, junto al tanque con identificación de EAD.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-  hidrogrubert97: {
-    id: 'hidrogrubert-97',
-    src: '/assets/workshop/hidrogrubert-97.webp',
-    alt: 'Equipo Hidro-Grubert, sistema de elevación oleohidráulico para camión.',
-    width: 1348, height: 900, orientation: 'landscape',
-    position: '50% 48%',
+  portaescaleraDetalle: {
+    id: 'portaescalera-detalle',
+    src: '/assets/workshop/portaescalera-detalle.webp',
+    alt: 'Portaescalera metálico instalado sobre la caja de un vehículo utilitario.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-  hidrogrubert104: {
-    id: 'hidrogrubert-104',
-    src: '/assets/workshop/hidrogrubert-104.webp',
-    alt: 'Equipo Hidro-Grubert, brazo articulado de alta capacidad de carga.',
-    width: 1348, height: 900, orientation: 'landscape',
-    position: '50% 48%',
+  portaescaleraInstalado: {
+    id: 'portaescalera-instalado',
+    src: '/assets/workshop/portaescalera-instalado.webp',
+    alt: 'Vehículo utilitario blanco con hidroelevador Palfinger y portaescalera montados, al atardecer.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
   },
-  pk61502Title: {
-    id: 'pk-61502-title',
-    src: '/assets/workshop/pk-61502-title.webp',
-    alt: 'Grúa Palfinger PK 61502, equipo de elevación de alto rendimiento.',
-    width: 1600, height: 800, orientation: 'landscape',
-    position: '50% 48%',
+  portaescaleraPalfinger: {
+    id: 'portaescalera-palfinger-pb13',
+    src: '/assets/workshop/portaescalera-palfinger-pb13.webp',
+    alt: 'Vehículo utilitario con hidroelevador Palfinger PB 13 AT 1 y portaescalera instalados, junto a un edificio.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 55%',
   },
-  pkk26000: {
-    id: 'pkk-26000',
-    src: '/assets/workshop/pkk-26000.webp',
-    alt: 'Grúa Palfinger PKK 26000, equipo articulado para aplicaciones pesadas.',
-    width: 1282, height: 900, orientation: 'landscape',
-    position: '50% 48%',
-  },
-  tractorPalf: {
-    id: 'tractor-palf',
-    src: '/assets/workshop/tractor-palf.webp',
-    alt: 'Tractor agrícola equipado con grúa Palfinger en zona rural.',
-    width: 1600, height: 800, orientation: 'landscape',
-    position: '50% 48%',
+  portaescaleraTrasera: {
+    id: 'portaescalera-palfinger-trasera',
+    src: '/assets/workshop/portaescalera-palfinger-trasera.webp',
+    alt: 'Vista lateral del vehículo utilitario con portaescalera e hidroelevador Palfinger montados sobre la caja.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 55%',
   },
 
-  // ═══════════════════════ TELÉFONO (4 que quedaron) ═══════════════════════
+  // ═════════════════════ MANTENIMIENTO Y DIAGNÓSTICO ═══════════════════════
 
-  phoneA_02: {
-    id: 'taller-20251030-02',
-    src: '/assets/workshop/taller-20251030-02.webp',
-    alt: 'Vista del taller con equipos hidráulicos y bancos de trabajo.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 52%',
-  },
-  phoneA_03: {
-    id: 'taller-20251030-03',
-    src: '/assets/workshop/taller-20251030-03.webp',
-    alt: 'Interior del taller con componentes oleohidráulicos en preparación.',
-    width: 2000, height: 900, orientation: 'landscape',
-    position: '50% 52%',
-  },
-  phoneF_02: {
-    id: 'taller-20260107-02',
-    src: '/assets/workshop/taller-20260107-02.webp',
-    alt: 'Panorámica del espacio de trabajo con vehículos y componentes.',
-    width: 2000, height: 1125, orientation: 'landscape',
-    position: '50% 52%',
+  diagnosticoPalfinger: {
+    id: 'diagnostico-palfinger',
+    src: '/assets/workshop/diagnostico-palfinger.webp',
+    alt: 'Notebook de EAD con el software de diagnóstico Palfinger y el cable de conexión sobre una manta roja.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 30%',
   },
 } as const satisfies Record<string, MediaImage>
 
@@ -292,12 +269,12 @@ export const workshopGalleryPool: readonly MediaImage[] = Object.values(media)
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const routeMedia = {
-  home: media.phoneF_02,
-  company: media.phoneF_02,
-  services: media.gruaEnU,
-  products: media.manguerasTaller,
-  work: media.tallerVehiculo1,
-  contact: media.workshopHydraulicArm,
+  home: media.tallerExterior,
+  company: media.tallerInteriorGeneral,
+  services: media.gruaPalfingerMontada,
+  products: media.controlRemotoPalfinger,
+  work: media.tallerGruas,
+  contact: media.tallerInteriorGrua,
 } as const
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -306,24 +283,24 @@ export const routeMedia = {
 
 export const serviceMedia = {
   repair: {
-    hero: media.ingenieriaTaller,
-    card: media.bombaHidraulica,
-    supporting: [media.gearAssembly, media.ringGearBushing, media.weldedStructure],
+    hero: media.conjuntoEngranajesCorona,
+    card: media.hidroelevadorBrazo,
+    supporting: [media.bombasHydronit, media.hidroelevadorGh, media.tallerInteriorGrua],
   },
   installation: {
-    hero: media.installedWorkshopEquipment,
-    card: media.gruaEnU,
-    supporting: [media.workshopLiftPlatform, media.tallerVehiculo2, media.hidraulicaMovil],
+    hero: media.portaescaleraPalfinger,
+    card: media.portaescaleraTrasera,
+    supporting: [media.hidroelevadorTaller, media.equipoBateaTanque, media.equipoBateaVolcador],
   },
   maintenance: {
-    hero: media.mantenimiento,
-    card: media.hydraulicCylinderOutside,
-    supporting: [media.servicio, media.hidraulicaMovil, media.phoneA_03],
+    hero: media.gruaPalfingerTecnico,
+    card: media.gruaPalfingerPk13501,
+    supporting: [media.diagnosticoPalfinger, media.hidroelevadorServicioOficial, media.gruaHidroGrubertControles],
   },
   parts: {
-    hero: media.filtrosEstanteria,
-    card: media.repuestosEstanteria,
-    supporting: [media.manguerasTaller, media.filtrosDetalle, media.valvulasDetalle],
+    hero: media.controlRemotoPalfinger,
+    card: media.equipoBateaAcoples,
+    supporting: [media.bombasDetalle, media.equipoBateaConexiones, media.conjuntoEngranajesCorona],
   },
 } as const satisfies Record<
   ServiceIconVariant,
@@ -335,10 +312,10 @@ export const serviceMedia = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const productMedia = {
-  'repuestos-hidro-grubert': media.hidrogrubert97,
-  'repuestos-palfinger': media.pk61502Title,
-  'componentes-hidraulicos': media.componentesHidraulicos,
-  implementos: media.filtrosDetalle,
+  'repuestos-hidro-grubert': media.gruaHidroGrubertN15000,
+  'repuestos-palfinger': media.gruaPalfingerPk13501,
+  'componentes-hidraulicos': media.bombasHydronit,
+  implementos: media.portaescaleraPalfinger,
 } as const satisfies Record<ProductCategoryId, MediaImage>
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -346,9 +323,9 @@ export const productMedia = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const homeEvidenceMedia = [
-  media.phoneF_02,
-  media.phoneA_02,
-  media.workshopOverview,
+  media.gruaPalfingerMontada,
+  media.tallerInteriorGeneral,
+  media.hidroelevadorTaller,
 ] as const
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -356,16 +333,16 @@ export const homeEvidenceMedia = [
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const workArchiveMedia = [
-  media.weldedStructure,
-  media.bombaHidraulica,
-  media.hydraulicCylinderOutside,
-  media.tallerVehiculo1,
-  media.servicio,
-  media.gearAssembly,
+  media.tallerGruas,
+  media.hidroelevadorTaller,
+  media.conjuntoEngranajesCorona,
+  media.portaescaleraTrasera,
+  media.equipoBateaVolcador,
+  media.diagnosticoPalfinger,
 ] as const
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  ACOMPAÑAMIENTO — formulario de contacto
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const contactSupportMedia = media.hydraulicCylinderOutside
+export const contactSupportMedia = media.diagnosticoPalfinger

@@ -10,20 +10,20 @@ interface Props {
 const { heading, steps } = Astro.props
 ---
 
-<section class="dark-technical-grid border-y border-steel-500/30 py-16 sm:py-24">
+<section class="dark-technical-grid border-y border-deep-700 py-16 sm:py-24">
   <Container>
-    <p class="technical-label text-gold-300">Proceso de trabajo</p>
+    <p class="technical-label text-yellow-400">Proceso de trabajo</p>
     <SectionHeading light class="mt-3">{heading}</SectionHeading>
 
     <ol class="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((step, i) => (
-        <li class={`reveal reveal-delay-${i + 1} relative overflow-hidden rounded-xl border border-white/15 bg-navy-800/85 p-6 shadow-xl transition-all duration-300 hover:border-gold-400/30 hover:shadow-gold-300/5 hover:bg-navy-800`}>
-          <span class="technical-label text-gold-300">
+        <li class={`reveal reveal-delay-${i + 1} relative border border-white/15 border-t-2 border-t-yellow-400 bg-deep-800 p-6 transition-colors hover:border-white/40`}>
+          <span class="technical-label text-yellow-400">
             Etapa {String(i + 1).padStart(2, '0')}
           </span>
-          <div class="my-5 h-px bg-gradient-to-r from-gold-300 via-steel-400 to-transparent" aria-hidden="true"></div>
+          <div class="my-5 h-px bg-white/20" aria-hidden="true"></div>
           <h3 class="text-xl font-bold text-white">{step.title}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-gray-300">{step.description}</p>
+          <p class="mt-3 text-sm leading-relaxed text-light-100">{step.description}</p>
         </li>
       ))}
     </ol>

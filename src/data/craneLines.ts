@@ -29,7 +29,7 @@ export const craneLineSection: CraneLineSection = {
       badge: 'Línea Hidro-Grubert',
       description:
         'Grúas articuladas Hidro-Grubert para montaje vehicular. Repuestos originales y consultas sobre equipos de la línea.',
-      image: media.hidrogrubert97,
+      image: media.gruaHidroGrubertN15000,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
       ctaLabel: 'Consultar por Hidro-Grubert',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Hidro-Grubert',
@@ -40,7 +40,7 @@ export const craneLineSection: CraneLineSection = {
       badge: 'Línea Palfinger',
       description:
         'Grúas articuladas Palfinger para transporte, construcción y agroindustria. Repuestos originales y consultas bajo pedido.',
-      image: media.pk61502Title,
+      image: media.gruaPalfingerPkk26000,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
       ctaLabel: 'Consultar por Palfinger',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Palfinger',

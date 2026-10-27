@@ -17,10 +17,10 @@ const mapEmbedUrl = `https://www.google.com/maps?q=${siteConfig.latitude},${site
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${siteConfig.latitude},${siteConfig.longitude}`
 ---
 
-<section class={`border-t border-steel-500/20 py-section-sm sm:py-section bg-white ${className ?? ''}`}>
+<section class={`border-t border-light-200 py-section-sm sm:py-section bg-white ${className ?? ''}`}>
   <Container>
     <div class="grid items-stretch gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-      <div class="reveal-left group relative overflow-hidden rounded-xl border border-steel-500/20 bg-navy-950 shadow-lg shadow-navy-900/10">
+      <div class="reveal-left group relative overflow-hidden border border-light-200 bg-deep-950">
         <iframe
           title="Ubicación de EAD Oleohidráulica en Colonia Barón, La Pampa"
           src={mapEmbedUrl}
@@ -35,7 +35,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="absolute bottom-4 left-4 right-4 flex items-center justify-center gap-2 rounded-lg bg-gold-300 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-lg transition-all duration-300 hover:bg-gold-400 hover:scale-[1.02]"
+          class="absolute bottom-4 left-4 right-4 flex items-center justify-center gap-2 bg-yellow-400 px-4 py-2.5 text-sm font-bold text-ink-900 transition-colors hover:bg-yellow-500"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M6 12h12m-3-3l3 3-3 3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -48,10 +48,10 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
         <SectionHeading>{heading}</SectionHeading>
 
         <address class="mt-6 not-italic space-y-3">
-          <p class="text-xl font-bold text-navy-900">{siteConfig.name}</p>
+          <p class="text-xl font-bold text-deep-900">{siteConfig.name}</p>
 
-          <p class="flex items-start gap-3 text-gray-600">
-            <svg class="mt-0.5 h-5 w-5 shrink-0 text-gold-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <p class="flex items-start gap-3 text-ink-700">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-blue-600" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2" />
               <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
             </svg>
@@ -64,16 +64,16 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
 
           {siteConfig.contacts.map((contact) => (
             <div class="flex items-start gap-3">
-              <svg class="h-5 w-5 shrink-0 text-gold-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg class="h-5 w-5 shrink-0 text-blue-600" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               <div>
-                <p class="font-semibold text-navy-900">{contact.name}</p>
+                <p class="font-semibold text-deep-900">{contact.name}</p>
                 <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                   <a
                     href={telUrl(contact.phone)}
                     aria-label={`Llamar a ${contact.name} al ${contact.phone}`}
-                    class="text-gray-600 transition-colors hover:text-navy-900"
+                    class="text-ink-700 transition-colors hover:text-deep-900"
                   >
                     {contact.phone}
                   </a>
@@ -82,7 +82,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
                     aria-label={`Abrir WhatsApp de ${contact.name} al ${contact.phone}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="font-semibold text-steel-600 underline decoration-steel-400 underline-offset-4 hover:text-steel-700"
+                    class="font-semibold text-blue-600 underline decoration-blue-600/40 underline-offset-4 hover:text-blue-700"
                   >
                     WhatsApp
                   </a>
@@ -93,16 +93,16 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${site
 
           {siteConfig.hours && (
             <p class="flex items-center gap-3">
-              <svg class="h-5 w-5 shrink-0 text-gold-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg class="h-5 w-5 shrink-0 text-blue-600" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
                 <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
               </svg>
-              <span class="text-gray-600">{siteConfig.hours}</span>
+              <span class="text-ink-700">{siteConfig.hours}</span>
             </p>
           )}
         </address>
 
-        <p class="mt-5 max-w-xl leading-relaxed text-gray-600">{text}</p>
+        <p class="mt-5 max-w-xl leading-relaxed text-ink-700">{text}</p>
 
         <div class="mt-6">
           <ButtonLink href="/contacto" variant="primary">

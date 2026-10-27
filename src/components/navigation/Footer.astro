@@ -7,8 +7,8 @@ import SocialLinks from './SocialLinks.astro'
 import { withBase } from '../../lib/url'
 ---
 
-<footer class="dark-technical-grid relative border-t border-steel-500/30 bg-navy-950">
-  <div class="absolute inset-x-0 top-0 h-px bg-gold-300/60" aria-hidden="true"></div>
+<footer class="dark-technical-grid relative border-t border-deep-700 bg-deep-950">
+  <div class="absolute inset-x-0 top-0 h-px bg-yellow-400" aria-hidden="true"></div>
   <div class="relative mx-auto flex max-w-(--content-max) flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
     <div class="flex items-center gap-6">
       <a href={withBase('/')} aria-label="Ir al inicio">
@@ -19,7 +19,7 @@ import { withBase } from '../../lib/url'
         {footerGroups.flatMap((group) => group.links).map((link) => (
           <a
             href={withBase(link.href)}
-            class="text-sm text-gray-400 transition-colors hover:text-white"
+            class="text-sm text-light-100 transition-colors hover:text-white"
           >
             {link.label}
           </a>
@@ -27,13 +27,13 @@ import { withBase } from '../../lib/url'
       </nav>
     </div>
 
-    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-400">
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-light-100">
       <ContactLinks />
       <SocialLinks />
     </div>
   </div>
 
-  <div class="border-t border-gray-800/40 py-2 text-center text-xs text-gray-500">
+  <div class="border-t border-deep-700 py-2 text-center text-xs text-light-100/70">
     &copy; {new Date().getFullYear()} {siteConfig.name}. {siteConfig.address}, {siteConfig.locality}, {siteConfig.province}.
   </div>
 </footer>

@@ -30,7 +30,7 @@ const { heading, items, intro, showAllLink = true, class: className } = Astro.pr
 <section class={`paper-grid py-section-sm sm:py-section ${className ?? ''}`}>
   <Container>
     <SectionHeading>{heading}</SectionHeading>
-    {intro && <p class="mt-5 max-w-2xl text-lg text-gray-600">{intro}</p>}
+    {intro && <p class="mt-5 max-w-2xl text-lg text-ink-700">{intro}</p>}
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {items.map((item, i) => (
         <div class={`reveal reveal-delay-${i + 1}`}>
@@ -42,15 +42,15 @@ const { heading, items, intro, showAllLink = true, class: className } = Astro.pr
                 class="aspect-[16/7] w-full"
                 imageClass="transition-transform duration-500 group-hover:scale-[1.025]"
               />
-              <ServiceIcon variant={item.icon} class="service-icon-draw absolute -bottom-8 left-6 z-10 h-16 w-16 drop-shadow-xl" />
+              <ServiceIcon variant={item.icon} class="service-icon-draw absolute -bottom-8 left-6 z-10 h-16 w-16" />
             </div>
             <div class="flex min-w-0 flex-1 flex-col px-6 pb-6 pt-12 sm:px-8 sm:pb-8">
-              <p class="technical-label text-steel-600">Área de servicio</p>
-              <h3 class="mt-2 text-2xl font-bold text-navy-900 transition-colors group-hover:text-steel-600">{item.title}</h3>
-              <p class="mt-3 flex-1 text-sm leading-relaxed text-gray-600">{item.summary}</p>
-              <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-navy-800">
+              <p class="technical-label text-blue-600">Área de servicio</p>
+              <h3 class="mt-2 text-2xl font-bold text-deep-900 transition-colors group-hover:text-blue-600">{item.title}</h3>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-700">{item.summary}</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-deep-900">
                 Conocer servicio
-                <svg class="h-4 w-4 text-gold-500 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg class="h-4 w-4 text-blue-600 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </span>

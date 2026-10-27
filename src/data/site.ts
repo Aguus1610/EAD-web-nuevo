@@ -4,6 +4,12 @@ export interface ContactPerson {
   whatsapp: string
 }
 
+export interface EmailJsConfig {
+  serviceId: string
+  templateId: string
+  publicKey: string
+}
+
 export interface SiteConfig {
   name: string
   description: string
@@ -14,7 +20,7 @@ export interface SiteConfig {
   contacts: readonly [ContactPerson, ...ContactPerson[]]
   email: string
   adminEmail: string
-  contactFormEndpoint: string
+  emailJs: EmailJsConfig
   hours: string
   openingHoursSchema: string
   instagram: string
@@ -50,7 +56,11 @@ export const siteConfig: SiteConfig = {
   ],
   email: 'hydropampa@hotmail.com',
   adminEmail: 'adm201364@gmail.com',
-  contactFormEndpoint: 'https://formspree.io/f/xqerjrnp',
+  emailJs: {
+    serviceId: 'service_oh4erk7',
+    templateId: 'template_ddtz01q',
+    publicKey: 'SHCCKv__9-9XVNQDv',
+  },
   hours: 'Lun–Vie 8:00–12:00 y 15:00–19:00',
   openingHoursSchema: 'Mo-Fr 08:00-12:00,15:00-19:00',
   instagram: 'https://instagram.com/oleohidraulica_ead',

@@ -15,15 +15,15 @@ const sectionId = `instagram-reel-${shortcode}`
 <section class="mt-12" aria-labelledby={`${sectionId}-title`} data-instagram-reel data-permalink={permalink}>
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="technical-label text-steel-600">Contenido audiovisual</p>
-      <h2 id={`${sectionId}-title`} class="mt-3 text-2xl font-semibold text-navy-900">Reel del trabajo</h2>
+      <p class="technical-label text-blue-600">Contenido audiovisual</p>
+      <h2 id={`${sectionId}-title`} class="mt-3 text-2xl font-bold text-deep-900">Reel del trabajo</h2>
     </div>
-    <a href={permalink} target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-navy-800 underline decoration-gold-400 decoration-2 underline-offset-4 hover:text-steel-600">
+    <a href={permalink} target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-deep-900 underline decoration-yellow-400 decoration-2 underline-offset-4 hover:text-blue-600">
       Abrir en Instagram
     </a>
   </div>
 
-  <div class="mt-5 overflow-hidden rounded-xl border border-steel-500/30 bg-navy-950 shadow-xl">
+  <div class="mt-5 overflow-hidden border border-light-200 bg-deep-950">
     <div data-reel-preview class="relative min-h-80">
       <img
         src={withBase(cover.src)}
@@ -35,23 +35,23 @@ const sectionId = `instagram-reel-${shortcode}`
         style={`object-position: ${cover.position ?? '50% 50%'};`}
         class="max-h-[38rem] min-h-80 w-full object-cover opacity-70"
       />
-      <div class="absolute inset-0 flex flex-col items-center justify-center bg-navy-950/45 p-6 text-center">
+      <div class="absolute inset-0 flex flex-col items-center justify-center bg-deep-950/55 p-6 text-center">
         <button
           type="button"
           data-reel-load
           aria-describedby={`${sectionId}-privacy`}
-          class="cut-corner bg-gold-300 px-6 py-3 font-bold text-navy-950 transition-colors hover:bg-white"
+          class="cut-corner bg-yellow-400 px-6 py-3 font-bold text-ink-900 transition-colors hover:bg-yellow-500"
         >
           Cargar Reel desde Instagram
         </button>
-        <p id={`${sectionId}-privacy`} class="mt-4 max-w-lg text-xs leading-relaxed text-gray-200">
+        <p id={`${sectionId}-privacy`} class="mt-4 max-w-lg text-xs leading-relaxed text-light-100">
           Al cargarlo, Instagram podrá recibir datos técnicos de su navegador. No se establece ninguna conexión antes de esta acción.
         </p>
       </div>
     </div>
     <div data-reel-target hidden class="flex min-h-96 justify-center bg-white p-3 sm:p-6"></div>
   </div>
-  <p data-reel-status class="mt-3 text-sm text-gray-600" aria-live="polite"></p>
+  <p data-reel-status class="mt-3 text-sm text-ink-700" aria-live="polite"></p>
 </section>
 
 <script>

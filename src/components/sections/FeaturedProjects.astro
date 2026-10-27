@@ -46,25 +46,25 @@ const evidenceClasses = ['col-span-2 min-h-44', 'min-h-40', 'min-h-40']
         </div>
       </>
     ) : (
-      <div class="reveal mt-10 grid overflow-hidden rounded-xl border border-steel-500/30 bg-navy-900 shadow-2xl shadow-navy-900/15 lg:grid-cols-[0.85fr_1.15fr]">
+      <div class="reveal mt-10 grid overflow-hidden border border-deep-700 bg-deep-900 lg:grid-cols-[0.85fr_1.15fr]">
         <div class="flex flex-col justify-center p-7 sm:p-10">
-          <p class="technical-label text-gold-300">Archivo en preparación</p>
-          <p class="mt-4 max-w-lg text-base leading-relaxed text-gray-200">{emptyMessage}</p>
+          <p class="technical-label text-yellow-400">Archivo en preparación</p>
+          <p class="mt-4 max-w-lg text-base leading-relaxed text-light-100">{emptyMessage}</p>
           <div class="mt-7 flex flex-wrap gap-4">
             <ButtonLink href="/trabajos" variant="primary">
               Ver archivo
             </ButtonLink>
-          <ButtonLink href="/servicios" variant="secondary" class="border-steel-300 text-white hover:border-white hover:bg-white hover:text-navy-900">
+          <ButtonLink href="/servicios" variant="secondary-light">
             Conocer servicios
           </ButtonLink>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 border-t border-white/10 bg-navy-950/60 p-3 lg:border-l lg:border-t-0 sm:p-5">
+        <div class="grid grid-cols-2 gap-2 border-t border-white/10 bg-deep-950/60 p-3 lg:border-l lg:border-t-0 sm:p-5">
           {evidenceImages.map((image, index) => (
             <PhotoFrame
               image={image}
               label={index === 0 ? 'Registro general del taller' : undefined}
-              class={`rounded-md ${evidenceClasses[index] ?? 'min-h-40'}`}
+              class={evidenceClasses[index] ?? 'min-h-40'}
             />
           ))}
         </div>

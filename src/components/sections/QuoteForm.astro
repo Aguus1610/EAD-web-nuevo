@@ -15,71 +15,68 @@ const { image } = Astro.props
   <div class="mx-auto w-full max-w-(--content-max) px-4 sm:px-6 lg:px-8">
     <div class="grid items-start gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
       <div class="quote-sidebar">
-        <p class="technical-label text-steel-600">Consulta guiada</p>
-        <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-navy-900 sm:text-5xl">Solicitar presupuesto</h2>
-        <p class="mt-5 text-sm leading-relaxed text-gray-600">
+        <p class="technical-label text-blue-600">Consulta guiada</p>
+        <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-deep-900 sm:text-5xl">Solicitar presupuesto</h2>
+        <p class="mt-5 text-sm leading-relaxed text-ink-700">
           Complete los datos para enviar su consulta por correo electrónico o abrir el mensaje en WhatsApp.
-          Formspree procesa y puede almacenar la consulta para entregarla por correo. Al abrir WhatsApp, los datos pasan a ese servicio.
+          EmailJS procesa la consulta para entregarla por correo. Al abrir WhatsApp, los datos pasan a ese servicio.
           No incluya información sensible innecesaria. La solicitud no constituye diagnóstico, aceptación del trabajo ni presupuesto definitivo.
         </p>
-        <div class="mt-8 rounded-xl bg-navy-900 p-6 text-white shadow-xl">
-          <p class="technical-label text-gold-300">Datos útiles</p>
-          <ul class="mt-4 space-y-3 text-sm text-gray-200">
-            <li class="border-l-2 border-steel-400 pl-3">Equipo o producto</li>
-            <li class="border-l-2 border-steel-400 pl-3">Marca y modelo, si están disponibles</li>
-            <li class="border-l-2 border-steel-400 pl-3">Descripción de la necesidad</li>
+        <div class="mt-8 border border-deep-700 bg-deep-900 p-6 text-white">
+          <p class="technical-label text-yellow-400">Datos útiles</p>
+          <ul class="mt-4 space-y-3 text-sm text-light-100">
+            <li class="border-l-2 border-yellow-400 pl-3">Equipo o producto</li>
+            <li class="border-l-2 border-yellow-400 pl-3">Marca y modelo, si están disponibles</li>
+            <li class="border-l-2 border-yellow-400 pl-3">Descripción de la necesidad</li>
           </ul>
         </div>
         {image && (
           <PhotoFrame
             image={image}
             label="Detalle de equipo · registro real"
-            class="mt-6 aspect-[16/10] rounded-xl shadow-xl shadow-navy-900/15"
+            class="mt-6 aspect-[16/10]"
           />
         )}
       </div>
 
       <form
         id="quote-form"
-        action={siteConfig.contactFormEndpoint}
         method="post"
         data-whatsapp={primaryContact.whatsapp}
         data-timeout-ms="12000"
-        class="industrial-form space-y-6 rounded-xl border border-steel-500/30 bg-white p-6 shadow-2xl shadow-navy-900/10 sm:p-8"
+        class="industrial-form space-y-6 border border-light-200 bg-white p-6 sm:p-8"
       >
-      <input type="hidden" name="subject" value={`Nueva consulta desde ${siteConfig.name}`} />
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" hidden />
       <div>
-        <label for="quote-name" class="block text-sm font-medium text-navy-900">Nombre *</label>
+        <label for="quote-name" class="block text-sm font-medium text-ink-900">Nombre *</label>
         <input id="quote-name" name="name" type="text" autocomplete="name" maxlength={quoteFieldLimits.name} required class="form-control" />
         <p id="error-name" data-error-for="name" class="form-error hidden" aria-live="polite"></p>
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
-          <label for="quote-locality" class="block text-sm font-medium text-navy-900">Localidad *</label>
+          <label for="quote-locality" class="block text-sm font-medium text-ink-900">Localidad *</label>
           <input id="quote-locality" name="locality" type="text" autocomplete="address-level2" maxlength={quoteFieldLimits.locality} required class="form-control" />
           <p id="error-locality" data-error-for="locality" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
-          <label for="quote-company" class="block text-sm font-medium text-navy-900">Empresa <span class="text-gray-500">(opcional)</span></label>
+          <label for="quote-company" class="block text-sm font-medium text-ink-900">Empresa <span class="text-ink-500">(opcional)</span></label>
           <input id="quote-company" name="company" type="text" autocomplete="organization" maxlength={quoteFieldLimits.company} class="form-control" />
           <p id="error-company" data-error-for="company" class="form-error hidden" aria-live="polite"></p>
         </div>
       </div>
 
       <fieldset>
-        <legend class="text-sm font-medium text-navy-900">Medio de contacto preferido *</legend>
+        <legend class="text-sm font-medium text-ink-900">Medio de contacto preferido *</legend>
         <div class="mt-2 flex flex-wrap gap-5">
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="WhatsApp" required checked /> WhatsApp</label>
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Teléfono" required /> Teléfono</label>
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="contactMethod" value="Correo" required /> Correo</label>
+          <label class="flex items-center gap-2 text-sm text-ink-700"><input type="radio" name="contactMethod" value="WhatsApp" required checked /> WhatsApp</label>
+          <label class="flex items-center gap-2 text-sm text-ink-700"><input type="radio" name="contactMethod" value="Teléfono" required /> Teléfono</label>
+          <label class="flex items-center gap-2 text-sm text-ink-700"><input type="radio" name="contactMethod" value="Correo" required /> Correo</label>
         </div>
         <p id="error-contactMethod" data-error-for="contactMethod" class="form-error hidden" aria-live="polite"></p>
       </fieldset>
 
       <div>
-        <label id="contact-detail-label" for="quote-contact-detail" class="block text-sm font-medium text-navy-900">Teléfono o correo de contacto *</label>
+        <label id="contact-detail-label" for="quote-contact-detail" class="block text-sm font-medium text-ink-900">Teléfono o correo de contacto *</label>
         <input
           id="quote-contact-detail"
           name="contactDetail"
@@ -93,18 +90,18 @@ const { image } = Astro.props
           class="form-control"
           aria-describedby="contact-detail-help"
         />
-        <p id="contact-detail-help" class="mt-1 text-xs text-gray-500">Ingrese el teléfono o correo por el que prefiere recibir la respuesta.</p>
+        <p id="contact-detail-help" class="mt-1 text-xs text-ink-500">Ingrese el teléfono o correo por el que prefiere recibir la respuesta.</p>
         <p id="error-contactDetail" data-error-for="contactDetail" class="form-error hidden" aria-live="polite"></p>
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
-          <label for="quote-equipment" class="block text-sm font-medium text-navy-900">Equipo o producto *</label>
+          <label for="quote-equipment" class="block text-sm font-medium text-ink-900">Equipo o producto *</label>
           <input id="quote-equipment" name="equipmentType" type="text" maxlength={quoteFieldLimits.equipmentType} required class="form-control" placeholder="Ej.: hidrogrúa, repuesto, sistema hidráulico" />
           <p id="error-equipmentType" data-error-for="equipmentType" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
-          <label for="quote-need" class="block text-sm font-medium text-navy-900">Necesidad principal *</label>
+          <label for="quote-need" class="block text-sm font-medium text-ink-900">Necesidad principal *</label>
           <select id="quote-need" name="need" required class="form-control">
             <option value="">Seleccione una opción</option>
             {quoteNeeds.map((need) => <option>{need}</option>)}
@@ -115,32 +112,32 @@ const { image } = Astro.props
 
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
-          <label for="quote-brand" class="block text-sm font-medium text-navy-900">Marca <span class="text-gray-500">(opcional)</span></label>
+          <label for="quote-brand" class="block text-sm font-medium text-ink-900">Marca <span class="text-ink-500">(opcional)</span></label>
           <input id="quote-brand" name="brand" type="text" maxlength={quoteFieldLimits.brand} class="form-control" />
           <p id="error-brand" data-error-for="brand" class="form-error hidden" aria-live="polite"></p>
         </div>
         <div>
-          <label for="quote-model" class="block text-sm font-medium text-navy-900">Modelo <span class="text-gray-500">(opcional)</span></label>
+          <label for="quote-model" class="block text-sm font-medium text-ink-900">Modelo <span class="text-ink-500">(opcional)</span></label>
           <input id="quote-model" name="model" type="text" maxlength={quoteFieldLimits.model} class="form-control" />
           <p id="error-model" data-error-for="model" class="form-error hidden" aria-live="polite"></p>
         </div>
       </div>
 
       <div>
-        <label for="quote-part-number" class="block text-sm font-medium text-navy-900">Número de pieza <span class="text-gray-500">(opcional)</span></label>
+        <label for="quote-part-number" class="block text-sm font-medium text-ink-900">Número de pieza <span class="text-ink-500">(opcional)</span></label>
         <input id="quote-part-number" name="partNumber" type="text" maxlength={quoteFieldLimits.partNumber} class="form-control" />
         <p id="error-partNumber" data-error-for="partNumber" class="form-error hidden" aria-live="polite"></p>
-        <p class="mt-1 text-xs text-gray-500">Si dispone de fotografías, podrá adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
+        <p class="mt-1 text-xs text-ink-500">Si dispone de fotografías, podrá adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
       </div>
 
       <div>
-        <label for="quote-description" class="block text-sm font-medium text-navy-900">Descripción *</label>
+        <label for="quote-description" class="block text-sm font-medium text-ink-900">Descripción *</label>
         <textarea id="quote-description" name="description" rows="5" maxlength={quoteFieldLimits.description} required class="form-control" placeholder="Describa el problema, la pieza buscada o el trabajo que necesita."></textarea>
         <p id="error-description" data-error-for="description" class="form-error hidden" aria-live="polite"></p>
       </div>
 
       <div>
-        <label for="quote-urgency" class="block text-sm font-medium text-navy-900">Urgencia <span class="text-gray-500">(opcional)</span></label>
+        <label for="quote-urgency" class="block text-sm font-medium text-ink-900">Urgencia <span class="text-ink-500">(opcional)</span></label>
         <select id="quote-urgency" name="urgency" class="form-control">
           <option value="">Sin especificar</option>
           <option>Equipo detenido</option>
@@ -150,43 +147,46 @@ const { image } = Astro.props
         </select>
       </div>
 
-      <div class="rounded-md border border-gold-400/60 bg-gold-100/50 p-4">
-        <label class="flex items-start gap-3 text-sm text-amber-950">
+      <div class="border border-light-200 bg-light-50 p-4">
+        <label class="flex items-start gap-3 text-sm text-ink-900">
           <input name="consent" type="checkbox" class="mt-1" required />
-          <span>Acepto enviar la consulta con los datos ingresados. Si elijo correo, Formspree los procesará; si elijo WhatsApp, se abrirán en ese servicio.</span>
+          <span>Acepto enviar la consulta con los datos ingresados. Si elijo correo, EmailJS los procesará para entregarla; si elijo WhatsApp, se abrirán en ese servicio.</span>
         </label>
         <p id="error-consent" data-error-for="consent" class="form-error hidden" aria-live="polite"></p>
       </div>
 
-      <div id="quote-status" class="hidden rounded-md border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
+      <div id="quote-status" class="hidden border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
 
       <div class="flex flex-wrap gap-3">
-        <button id="submit-quote" type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-gold-300 bg-gold-300 px-6 py-3 text-sm font-bold tracking-wide text-navy-950 shadow-lg shadow-black/10 transition-colors hover:border-gold-400 hover:bg-gold-400 disabled:cursor-wait disabled:opacity-70">
+        <button id="submit-quote" type="submit" class="cut-corner inline-flex items-center justify-center border-2 border-yellow-400 bg-yellow-400 px-6 py-3 text-sm font-bold tracking-wide text-ink-900 transition-colors hover:border-yellow-500 hover:bg-yellow-500 disabled:cursor-wait disabled:opacity-70">
           <span data-submit-label>Enviar consulta por correo</span>
         </button>
-        <button id="send-whatsapp" type="button" hidden class="cut-corner border-2 border-steel-500 px-6 py-3 text-sm font-bold tracking-wide text-steel-600 transition-colors hover:border-steel-600 hover:bg-steel-500 hover:text-white disabled:cursor-wait disabled:opacity-70">
+        <button id="send-whatsapp" type="button" hidden class="cut-corner border-2 border-blue-600 px-6 py-3 text-sm font-bold tracking-wide text-blue-600 transition-colors hover:bg-blue-600 hover:text-white disabled:cursor-wait disabled:opacity-70">
           Abrir mensaje en WhatsApp
         </button>
-        <button id="copy-quote" type="button" class="cut-corner hidden border-2 border-navy-800 px-6 py-3 text-sm font-bold text-navy-800 transition-colors hover:bg-navy-800 hover:text-white">
+        <button id="copy-quote" type="button" class="cut-corner hidden border-2 border-deep-900 px-6 py-3 text-sm font-bold text-deep-900 transition-colors hover:bg-deep-900 hover:text-white">
           Copiar mensaje
         </button>
       </div>
 
       <noscript>
-        <p class="text-sm text-gray-600">
-          Para usar WhatsApp sin JavaScript, abra el
-          <a href={`https://wa.me/${primaryContact.whatsapp}`} target="_blank" rel="noopener noreferrer" class="underline hover:text-steel-500">canal directo de {primaryContact.name}</a>.
+        <style>#submit-quote { display: none; }</style>
+        <p class="text-sm text-ink-700">
+          El envío por correo requiere JavaScript. Para consultar sin JavaScript, escriba a
+          <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-blue-600">{siteConfig.adminEmail}</a>
+          o abra el
+          <a href={`https://wa.me/${primaryContact.whatsapp}`} target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-600">canal directo de {primaryContact.name}</a>.
         </p>
       </noscript>
 
       <div id="quote-preview-wrapper" class="hidden">
-        <label for="quote-preview" class="block text-sm font-medium text-navy-900">Vista previa del mensaje</label>
+        <label for="quote-preview" class="block text-sm font-medium text-ink-900">Vista previa del mensaje</label>
         <textarea id="quote-preview" rows="9" readonly class="form-control"></textarea>
       </div>
 
-      <p id="quote-fallback" class="text-sm text-gray-600">
-        Si el envío no está disponible, puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-steel-500">{siteConfig.adminEmail}</a>
-        o llamar a {primaryContact.name} al <a href={telUrl(primaryContact.phone)} class="underline hover:text-steel-500">{primaryContact.phone}</a>.
+      <p id="quote-fallback" class="text-sm text-ink-700">
+        Si el envío no está disponible, puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-blue-600">{siteConfig.adminEmail}</a>
+        o llamar a {primaryContact.name} al <a href={telUrl(primaryContact.phone)} class="underline hover:text-blue-600">{primaryContact.phone}</a>.
       </p>
       </form>
     </div>
@@ -194,8 +194,10 @@ const { image } = Astro.props
 </section>
 
 <script>
+  import emailjs, { EmailJSResponseStatus } from '@emailjs/browser'
+  import { siteConfig } from '../../data/site'
   import {
-    createFormspreeSubmission,
+    createEmailJsParams,
     generateQuoteMessage,
     parseContactMethod,
     parseQuoteNeed,
@@ -286,18 +288,18 @@ const { image } = Astro.props
     const showStatus = (message: string, tone: 'pending' | 'success' | 'error') => {
       if (!status) return
       const toneClasses = {
-        pending: 'border-steel-300 bg-steel-50 text-steel-900',
+        pending: 'border-blue-600/40 bg-light-50 text-deep-900',
         success: 'border-green-300 bg-green-50 text-green-950',
         error: 'border-red-300 bg-red-50 text-red-950',
       }
       status.textContent = message
-      status.className = `rounded-md border px-4 py-3 text-sm ${toneClasses[tone]}`
+      status.className = `border px-4 py-3 text-sm ${toneClasses[tone]}`
     }
 
     const clearStatus = () => {
       if (!status) return
       status.textContent = ''
-      status.className = 'hidden rounded-md border px-4 py-3 text-sm'
+      status.className = 'hidden border px-4 py-3 text-sm'
     }
 
     const clearPreview = () => {
@@ -399,57 +401,54 @@ const { image } = Astro.props
       const prepared = prepareMessage()
       if (!prepared) return
 
-      const formData = new FormData(form)
-      const submission = createFormspreeSubmission(prepared.request)
-      const payload = new FormData()
-      payload.set('subject', submission.subject)
-      payload.set('name', submission.name)
-      if (submission.email) payload.set('email', submission.email)
-      payload.set('message', submission.message)
-      payload.set('_gotcha', fieldValue(formData, '_gotcha'))
+      const templateParams = createEmailJsParams(prepared.request)
 
       setSubmitting(true)
       showStatus('Enviando la consulta por correo...', 'pending')
-      const controller = new AbortController()
       const configuredTimeout = Number(form.dataset.timeoutMs)
       const timeoutMs = Number.isFinite(configuredTimeout) && configuredTimeout > 0 ? configuredTimeout : 12000
-      const timeout = window.setTimeout(() => controller.abort(), timeoutMs)
+      let timeout: number | undefined
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        timeout = window.setTimeout(() => {
+          reject(new DOMException('El envío tardó demasiado.', 'AbortError'))
+        }, timeoutMs)
+      })
 
       try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: payload,
-          headers: { Accept: 'application/json' },
-          signal: controller.signal,
-        })
+        await Promise.race([
+          emailjs.send(
+            siteConfig.emailJs.serviceId,
+            siteConfig.emailJs.templateId,
+            templateParams,
+            { publicKey: siteConfig.emailJs.publicKey },
+          ),
+          timeoutPromise,
+        ])
 
-        if (response.status === 429) {
-          showStatus('Se alcanzó el límite temporal de envíos. Espere unos minutos o utilice WhatsApp.', 'error')
-          return
-        }
-        if (response.status === 400 || response.status === 422) {
-          showStatus('Formspree no pudo procesar los datos. Revíselos o utilice WhatsApp.', 'error')
-          return
-        }
-        if (!response.ok) {
-          showStatus('El servicio de correo no está disponible en este momento. Pruebe por WhatsApp o correo directo.', 'error')
-          return
-        }
-
-        showStatus('Formspree recibió la consulta para procesarla. EAD Oleohidráulica responderá por el medio indicado.', 'success')
+        showStatus('EmailJS recibió la consulta para entregarla por correo. EAD Oleohidráulica responderá por el medio indicado.', 'success')
         form.reset()
         clearPreview()
         updateContactDetail()
       } catch (error) {
         const timedOut = error instanceof DOMException && error.name === 'AbortError'
-        showStatus(
-          timedOut
-            ? 'El envío tardó demasiado. Sus datos siguen en el formulario; reintente o utilice WhatsApp.'
-            : 'No se pudo conectar con el servicio de correo. Sus datos siguen en el formulario; pruebe por WhatsApp.',
-          'error',
-        )
+
+        if (timedOut) {
+          showStatus('El envío tardó demasiado. Sus datos siguen en el formulario; reintente o utilice WhatsApp.', 'error')
+        } else if (error instanceof EmailJSResponseStatus) {
+          if (error.status === 429) {
+            showStatus('Se alcanzó el límite temporal de envíos. Espere unos minutos o utilice WhatsApp.', 'error')
+          } else if (error.status === 400 || error.status === 422) {
+            showStatus('EmailJS no pudo procesar los datos. Revíselos o utilice WhatsApp.', 'error')
+          } else if (error.status === 401 || error.status === 403 || error.status === 451) {
+            showStatus('El servicio de correo rechazó el envío. Pruebe por WhatsApp o correo directo.', 'error')
+          } else {
+            showStatus('El servicio de correo no está disponible en este momento. Pruebe por WhatsApp o correo directo.', 'error')
+          }
+        } else {
+          showStatus('No se pudo conectar con el servicio de correo. Sus datos siguen en el formulario; pruebe por WhatsApp.', 'error')
+        }
       } finally {
-        window.clearTimeout(timeout)
+        if (timeout !== undefined) window.clearTimeout(timeout)
         setSubmitting(false)
       }
     })
