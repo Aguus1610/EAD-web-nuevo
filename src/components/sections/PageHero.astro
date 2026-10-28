@@ -27,7 +27,7 @@ const { eyebrow, title, description, image, compact = false } = Astro.props
   )}
   <span class="corner-yellow pointer-events-none absolute right-0 top-0 z-10 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
-    <div class="relative z-10 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <div class="relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
       <div class="reveal min-w-0">
         <p class="technical-label text-yellow-400">{eyebrow}</p>
         <h1 class={`text-balance mt-4 font-bold leading-tight text-white ${compact ? 'text-4xl sm:text-5xl' : 'text-4xl sm:text-6xl lg:text-7xl'}`}>

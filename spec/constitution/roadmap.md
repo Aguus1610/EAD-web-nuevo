@@ -15,7 +15,7 @@
 12. **013 · Adecuación a la identidad visual del portfolio** — paleta corporativa (azul profundo, azul intenso, amarillo, neutros), tipografía Arial, estética plana sin brillos ni partículas, esquinas rectas y detalles técnicos; logos originales intactos; contraste AA verificado; correcciones responsive 360–1440 px; `npm run quality` completo en verde (29 unitarios + 56 e2e).
 13. **014 · Renovación fotográfica del taller** — 30 fotos nuevas revisadas y orientadas por EXIF, catálogo de 32 WebP optimizados, reemplazo de 25 referencias rotas, retiro de fotos promocionales, patente legible pixelada, prueba de existencia de archivos y presupuestos en verde (4,6 MB WebP / 5,9 MB build).
 14. **015 · Envío de consultas con EmailJS** — SDK oficial en el navegador, configuración pública centralizada, plantilla con variables estructuradas, escape HTML, errores 400/403/429/451 y timeout, fallback sin JavaScript y suite e2e actualizada (30 unitarios + 58 e2e). Envío sintético aceptado con `200 OK` el 28/10/2026; recepción en `adm201364@gmail.com` pendiente de confirmar.
-15. **016 · Encabezados con fotografía inmersiva** — PageHero y Hero usan la foto como fondo a sangre completa en la mitad derecha, con degradado hacia la izquierda; sin marco ni etiqueta visible; 404 intacta; contraste AA verificado y 58 e2e aprobados.
+15. **016 · Encabezados con fotografía inmersiva** — PageHero y Hero usan la foto como fondo a sangre completa en el 60% derecho (ampliado desde el 50% para darle más visibilidad), con degradado hacia la izquierda; sin marco ni etiqueta visible; 404 intacta; contraste AA verificado y 58 e2e aprobados.
 
 ## Bloqueado
 
