@@ -182,22 +182,21 @@ textarea {
 
 @media (min-width: 64rem) {
   .hero-backdrop-image {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 26%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 26%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 8%);
   }
 
   .hero-backdrop-shade {
-    background: rgb(7 18 63 / 0.12);
+    background: rgb(7 18 63 / 0.1);
   }
 
   .hero-backdrop-fade {
     background: linear-gradient(
       90deg,
       var(--color-deep-900) 0%,
-      rgb(7 18 63 / 0.9) 14%,
-      rgb(7 18 63 / 0.55) 32%,
-      rgb(7 18 63 / 0.18) 52%,
-      rgb(7 18 63 / 0.04) 72%,
+      rgb(7 18 63 / 0.85) 4%,
+      rgb(7 18 63 / 0.35) 14%,
+      rgb(7 18 63 / 0.06) 28%,
       transparent 100%
     );
   }
