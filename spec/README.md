@@ -27,7 +27,8 @@ spec/
     ├── 012-importacion-instagram-portfolio/
     ├── 013-identidad-visual-portfolio/
     ├── 014-renovacion-fotografica/
-    └── 015-emailjs-contacto/
+    ├── 015-emailjs-contacto/
+    └── 016-encabezados-inmersivos/
 ```
 
 La constitución manda: si una feature contradice la misión, los límites comerciales, la arquitectura o las reglas de marca, se replantea la feature y no se ignora la constitución.

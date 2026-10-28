@@ -154,6 +154,54 @@ textarea {
   background-size: 3rem 3rem;
 }
 
+/* === Fondo fotográfico de encabezados === */
+
+.hero-backdrop-image {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+}
+
+.hero-backdrop-shade {
+  background: rgb(7 18 63 / 0.64);
+}
+
+.hero-backdrop-fade {
+  background: linear-gradient(
+    90deg,
+    var(--color-deep-900) 0%,
+    rgb(7 18 63 / 0.94) 18%,
+    rgb(7 18 63 / 0.55) 42%,
+    rgb(7 18 63 / 0.12) 68%,
+    transparent 100%
+  );
+}
+
+.hero-backdrop-bottom {
+  background: linear-gradient(0deg, rgb(7 18 63 / 0.8) 0%, transparent 100%);
+}
+
+@media (min-width: 64rem) {
+  .hero-backdrop-image {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+  }
+
+  .hero-backdrop-shade {
+    background: rgb(7 18 63 / 0.18);
+  }
+
+  .hero-backdrop-fade {
+    background: linear-gradient(
+      90deg,
+      var(--color-deep-900) 0%,
+      rgb(7 18 63 / 0.92) 12%,
+      rgb(7 18 63 / 0.45) 32%,
+      rgb(7 18 63 / 0.08) 52%,
+      transparent 100%
+    );
+  }
+}
+
 /* === Tarjeta industrial plana === */
 
 .industrial-card {

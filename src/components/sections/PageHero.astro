@@ -1,6 +1,6 @@
 ---
 import Container from '../ui/Container.astro'
-import PhotoFrame from '../ui/PhotoFrame.astro'
+import HeroBackdrop from '../ui/HeroBackdrop.astro'
 import type { MediaImage } from '../../data/media'
 import { withBase } from '../../lib/url'
 
@@ -9,23 +9,26 @@ interface Props {
   title: string
   description: string
   image?: MediaImage
-  imageLabel?: string
   compact?: boolean
 }
 
-const { eyebrow, title, description, image, imageLabel = 'Registro real del taller', compact = false } = Astro.props
+const { eyebrow, title, description, image, compact = false } = Astro.props
 ---
 
-<section class={`dark-technical-grid relative overflow-hidden border-b border-deep-700 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
-  <div
-    class="brand-watermark bg-center bg-no-repeat opacity-[0.06]"
-    style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
-    aria-hidden="true"
-  ></div>
-  <span class="corner-yellow pointer-events-none absolute right-0 top-0 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
+<section class={`dark-technical-grid relative isolate overflow-hidden border-b border-deep-700 ${compact ? 'py-12 sm:py-16' : 'py-16 sm:py-24'}`}>
+  {image ? (
+    <HeroBackdrop image={image} />
+  ) : (
+    <div
+      class="brand-watermark bg-center bg-no-repeat opacity-[0.06]"
+      style={`background-image: url('${withBase('/assets/brand/ead-logo-on-dark.png')}'); background-size: 36rem auto;`}
+      aria-hidden="true"
+    ></div>
+  )}
+  <span class="corner-yellow pointer-events-none absolute right-0 top-0 z-10 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
-    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)] lg:gap-16">
-      <div class="reveal relative z-10 min-w-0">
+    <div class="relative z-10 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal min-w-0">
         <p class="technical-label text-yellow-400">{eyebrow}</p>
         <h1 class={`text-balance mt-4 font-bold leading-tight text-white ${compact ? 'text-4xl sm:text-5xl' : 'text-4xl sm:text-6xl lg:text-7xl'}`}>
           {title}
@@ -36,15 +39,7 @@ const { eyebrow, title, description, image, imageLabel = 'Registro real del tall
       </div>
 
       {image ? (
-        <div class="reveal-right relative w-full min-w-0 lg:justify-self-end">
-          <span class="pointer-events-none absolute -right-3 -top-3 h-20 w-20 border-r-2 border-t-2 border-yellow-400/60" aria-hidden="true"></span>
-          <PhotoFrame
-            image={image}
-            label={imageLabel}
-            class={`w-full border border-deep-700 ${compact ? 'aspect-[16/10] lg:aspect-[4/3] lg:w-full lg:max-w-[28rem]' : 'aspect-[16/10] lg:aspect-[4/3] lg:w-full lg:max-w-[36rem]'}`}
-            priority
-          />
-        </div>
+        <div class="hidden lg:block" aria-hidden="true"></div>
       ) : (
         <div class="reveal-right flex justify-center lg:justify-self-end">
           <div class="flex aspect-square w-48 flex-col items-center justify-center border border-deep-700 bg-deep-950/60 text-center sm:w-56">

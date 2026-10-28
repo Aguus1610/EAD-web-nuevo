@@ -68,7 +68,8 @@ for (const route of routes) {
       await expect(hero.locator('.photo-frame')).toHaveCount(0)
       await expect(hero.getByText('Ruta interrumpida')).toBeVisible()
     } else {
-      const heroImage = hero.locator('.photo-frame img')
+      await expect(hero.locator('.hero-backdrop')).toHaveCount(1)
+      const heroImage = hero.locator('img[data-hero-image]')
       await expect(heroImage).toHaveCount(1)
       const attributes = await heroImage.evaluate((image) => ({
         src: image.getAttribute('src'),
