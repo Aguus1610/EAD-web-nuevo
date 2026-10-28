@@ -21,6 +21,16 @@ describe('workshop media catalog', () => {
     }
   })
 
+  it('includes the field service image used by the company hero', () => {
+    const image = media.servicioACampo
+    expect(image.src).toMatch(/^\/assets\/workshop\/.+\.webp$/)
+    expect(image.alt.trim().length).toBeGreaterThan(20)
+    expect(image.orientation).toBe('portrait')
+    expect(image.width).toBe(900)
+    expect(image.height).toBe(1600)
+    expect(existsSync(publicAssetPath(image.src))).toBe(true)
+  })
+
   it('provides enough orientations for the rotating company gallery', () => {
     expect(workshopGalleryPool.filter((image) => image.orientation === 'landscape').length).toBeGreaterThanOrEqual(4)
     expect(workshopGalleryPool.filter((image) => image.orientation === 'portrait').length).toBeGreaterThanOrEqual(2)

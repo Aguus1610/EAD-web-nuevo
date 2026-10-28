@@ -12,6 +12,9 @@ La foto se recorta al alto de la sección; no hay `PhotoFrame` en el hero.
 - `src/components/sections/PageHero.astro` — layout inmersivo y rama sin imagen para 404.
 - `src/components/sections/Hero.astro` — mismo tratamiento en inicio.
 - `src/styles/global.css` — máscara y degradados responsive.
+- `src/data/media.ts` — asignación de `grua-palfinger-tecnico` a Servicios y `servicio-a-campo` a Empresa; alta de la nueva imagen y exclusión de la galería.
+- `src/data/media.test.ts` — cobertura de la nueva imagen de servicio a campo.
+- `public/assets/workshop/servicio-a-campo.webp` — derivado 900×1600 para el encabezado de empresa.
 - `src/pages/*` — retiro de `imageLabel` de las llamadas a `PageHero`.
 - `tests/e2e/site.spec.ts` — selector del hero y cobertura de 404.
 - `spec/features/016-encabezados-inmersivos/`, `spec/constitution/roadmap.md` y `spec/README.md`.

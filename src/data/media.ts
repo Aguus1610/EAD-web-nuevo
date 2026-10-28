@@ -43,6 +43,16 @@ export const media = {
     position: '50% 50%',
   },
 
+  // ════════════════════════════ SERVICIO A CAMPO ═══════════════════════════
+
+  servicioACampo: {
+    id: 'servicio-a-campo',
+    src: '/assets/workshop/servicio-a-campo.webp',
+    alt: 'Camión de EAD con el sello de servicio técnico oficial Hidro-Grubert y Palfinger junto a un hidroelevador Hidro-Grubert en un campo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+
   // ════════════════════════════ ELEVACIÓN ══════════════════════════════════
 
   hidroelevadorTaller: {
@@ -262,7 +272,9 @@ export const media = {
 //  POOL ROTATIVO (galería de Empresa)
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const workshopGalleryPool: readonly MediaImage[] = Object.values(media)
+export const workshopGalleryPool: readonly MediaImage[] = Object.values(media).filter(
+  (image) => image.id !== 'servicio-a-campo',
+)
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  HERO POR PÁGINA
@@ -270,8 +282,8 @@ export const workshopGalleryPool: readonly MediaImage[] = Object.values(media)
 
 export const routeMedia = {
   home: media.tallerExterior,
-  company: media.tallerInteriorGeneral,
-  services: media.gruaPalfingerMontada,
+  company: media.servicioACampo,
+  services: media.gruaPalfingerTecnico,
   products: media.controlRemotoPalfinger,
   work: media.tallerGruas,
   contact: media.tallerInteriorGrua,

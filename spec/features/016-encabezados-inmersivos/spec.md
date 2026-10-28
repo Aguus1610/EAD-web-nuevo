@@ -10,6 +10,11 @@ Convierte la fotografía de cada encabezado en una capa de fondo a sangre comple
 
 Se aplica a `PageHero` (empresa, servicios, productos, trabajos y contacto) y al `Hero` de inicio. La página 404 conserva su tratamiento sin fotografía.
 
+## Encabezados asignados
+
+- **Servicios:** `grua-palfinger-tecnico`.
+- **Empresa:** `servicio-a-campo` (nueva imagen del catálogo, 900×1600, WebP). Se excluye de la rotación de la galería para conservar la selección de 014.
+
 ## Por qué
 
 La foto dentro de un recuadro pequeño competía con el texto y cortaba la continuidad visual. Usarla como fondo refuerza la identidad industrial, aprovecha mejor las fotos reales del taller y mantiene el foco en el mensaje y los CTA.
@@ -35,5 +40,7 @@ La foto dentro de un recuadro pequeño competía con el texto y cortaba la conti
 
 - Capturas revisadas en 360, 390, 768, 1024 y 1440 px.
 - Contraste mínimo P99 medido sobre el fondo: 4,89:1 en contacto 360; móvil/tablet ≥ 5,36:1 y escritorio ≥ 13,65:1.
+- Nueva imagen de Empresa: 900×1600, 112 KB; catálogo de 33 WebP, 4,7 MB y build compartido de 6,0 MB.
+- `npm run test`: 31 unitarios.
 - `npm run test:e2e`: 58 aprobados, 2 omitidos por diseño.
 - `npm run quality`: verde.
