@@ -1,6 +1,6 @@
 # 015 · Envío de consultas con EmailJS
 
-**Estado:** implementada; verificación operativa pendiente
+**Estado:** implementada; envío aceptado por EmailJS, recepción en Gmail pendiente de verificar (28/10/2026)
 
 ## Qué hace
 
@@ -53,9 +53,26 @@ La plantilla debe usar `{{subject}}` como asunto, `{{reply_to}}` como Reply-To y
 - No se configura captcha adicional; EmailJS aplica sus controles del lado del servicio.
 - No se afirma entrega en la bandeja del destinatario: sólo aceptación por parte de EmailJS.
 
+## Direcciones de correo
+
+- `siteConfig.email` (`hydropampa@hotmail.com`) es el correo público que se muestra en el sitio.
+- `siteConfig.adminEmail` (`adm201364@gmail.com`) es el destino interno del formulario y se fija en la plantilla de EmailJS. La separación es intencional.
+- El navegador no envía el destinatario en `template_params`; `reply_to` sólo define la dirección de respuesta.
+
+## Verificación operativa (28/10/2026)
+
+- Consulta sintética enviada desde `https://aguus1610.github.io/EAD-web-nuevo/contacto/`.
+- EmailJS respondió `200 OK` en ~1,7 s y la interfaz mostró el estado de éxito.
+- El correo no apareció en `adm201364@gmail.com` según la revisión de EAD.
+- Se repitió la prueba con **WhatsApp** como medio de contacto (`reply_to` = Gmail interno); EmailJS también respondió `200 OK` y la recepción sigue pendiente.
+- Si la prueba de WhatsApp llega y la de Correo no, revisar si la plantilla usa `{{reply_to}}` como destinatario en lugar de `adm201364@gmail.com`.
+- Un `200` sólo confirma que EmailJS aceptó la solicitud; no garantiza la entrega al destinatario.
+
 ## Pendiente operativo
 
-- Confirmar en el panel de EmailJS que el destino es `adm201364@gmail.com`.
-- Verificar que la plantilla usa las variables documentadas y que el asunto es `{{subject}}`.
-- Autorizar los orígenes del sitio en EmailJS (producción y desarrollo local si corresponde).
-- Realizar una consulta sintética y confirmar su recepción.
+- Revisar en el panel de EmailJS **History** el registro de la consulta sintética y el error exacto, si existe.
+- Confirmar que el campo **To Email** de la plantilla es `adm201364@gmail.com` (no `{{to_email}}` ni otro marcador vacío).
+- Verificar que la plantilla usa las variables documentadas, que el asunto es `{{subject}}` y que Reply-To es `{{reply_to}}`.
+- Revisar la conexión del servicio Gmail: si aparece `412`, `insufficient authentication scopes` o `Invalid grant`, desconectar y reconectar la cuenta aceptando “Send email on your behalf”.
+- Revisar Spam/All Mail, la lista de Suppressions y la cuota del plan.
+- Confirmar la recepción de una nueva consulta sintética antes de cerrar la feature.

@@ -38,4 +38,4 @@ Usar el SDK oficial `@emailjs/browser` en el script del formulario. El SDK const
 - `npm run check:build`
 - `npm run validate:launch`
 - `npm run test:e2e`
-- Consulta sintética manual en EmailJS antes de considerar cerrada la verificación operativa.
+- Consulta sintética manual en EmailJS antes de considerar cerrada la verificación operativa. Un `200` sólo confirma aceptación: hay que confirmar la recepción en `adm201364@gmail.com`.

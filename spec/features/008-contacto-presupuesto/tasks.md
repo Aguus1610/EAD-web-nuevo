@@ -16,7 +16,9 @@
 - [x] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
 - [x] Bloquear el servicio de correo y WhatsApp en tests automatizados y cubrir éxito, errores, timeout y fallback sin JavaScript.
 - [x] Estructurar el asunto y el contenido de la notificación para la plantilla de EmailJS.
-- [ ] Verificar en EmailJS que `adm201364@gmail.com` esté confirmado, la plantilla activa y el dominio de producción autorizado.
+- [x] Enviar una consulta sintética desde producción y confirmar la respuesta `200` de EmailJS (28/10/2026).
+- [ ] Confirmar la recepción en `adm201364@gmail.com`; si no llega, revisar History, el destinatario de la plantilla, la conexión Gmail y spam/suppressions.
+- [ ] Verificar en el panel de EmailJS que `adm201364@gmail.com` esté confirmado, la plantilla activa y el dominio de producción autorizado.
 
 ## Mantenimiento (checklist recurrente)
 

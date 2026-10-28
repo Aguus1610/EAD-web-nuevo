@@ -54,7 +54,9 @@ export const siteConfig: SiteConfig = {
       whatsapp: '5492302592703',
     },
   ],
+  /** Correo público que se muestra en el sitio. */
   email: 'hydropampa@hotmail.com',
+  /** Destino interno de las consultas del formulario; se fija en la plantilla de EmailJS. */
   adminEmail: 'adm201364@gmail.com',
   emailJs: {
     serviceId: 'service_oh4erk7',

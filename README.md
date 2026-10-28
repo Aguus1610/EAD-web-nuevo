@@ -33,6 +33,12 @@ solicitud de presupuesto por correo o WhatsApp. Construido con Astro, TypeScript
 - `tests/e2e/` — pruebas de navegación, contacto, responsive y accesibilidad
 - `spec/` — constitución, features, planes y tareas SDD
 
+## Contacto y EmailJS
+
+- Correo público del sitio: `hydropampa@hotmail.com` (`siteConfig.email`).
+- Destino interno del formulario: `adm201364@gmail.com` (`siteConfig.adminEmail`), fijado en la plantilla de EmailJS. La separación es intencional.
+- Un `200` de EmailJS confirma aceptación, no entrega. Si el correo no llega, revisar **History** del panel, el campo **To Email** de la plantilla, la conexión Gmail y spam/suppressions. El procedimiento completo está en `spec/release.md`.
+
 ## Convenciones y proceso
 
 - Proceso dirigido por especificación: cada feature se documenta en `spec/features/` (`spec.md`,

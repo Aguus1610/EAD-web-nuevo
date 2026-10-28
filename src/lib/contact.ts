@@ -197,6 +197,11 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
+/**
+ * Construye las variables de la plantilla. El destinatario no viaja en el payload:
+ * la plantilla de EmailJS lo fija en `siteConfig.adminEmail`; `reply_to` sólo define
+ * la dirección de respuesta.
+ */
 export function createEmailJsParams(req: QuoteRequest): EmailJsTemplateParams {
   const replyTo = req.contactMethod === 'Correo' ? req.contactDetail.trim() : siteConfig.adminEmail
 

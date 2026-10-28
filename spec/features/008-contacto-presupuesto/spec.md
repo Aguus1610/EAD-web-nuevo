@@ -4,6 +4,8 @@
 
 > Actualización 015: la entrega por correo usa EmailJS. Formspree quedó retirado; las menciones históricas se conservan como registro de la implementación original.
 
+> Verificación 28/10/2026: el formulario publicado envía a EmailJS y recibe `200 OK`; la recepción en `adm201364@gmail.com` todavía no se confirmó. Revisar el diagnóstico de entrega en `spec/release.md`.
+
 ## Qué hace
 
 Crea una página de contacto y un formulario guiado que organiza la consulta del cliente y la envía por correo mediante EmailJS. También permite transferir el mensaje a WhatsApp y ofrece teléfono, correo, Instagram, dirección, horario y enlace externo de ubicación cuando esos datos estén confirmados.
