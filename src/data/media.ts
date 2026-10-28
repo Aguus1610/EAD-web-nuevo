@@ -42,6 +42,34 @@ export const media = {
     width: 1200, height: 540, orientation: 'landscape',
     position: '50% 50%',
   },
+  tallerGruaPalfingerAtardecer: {
+    id: 'taller-grua-palfinger-atardecer',
+    src: '/assets/workshop/taller-grua-palfinger-atardecer.webp',
+    alt: 'Grúa Palfinger roja sobre la caja de un camión en el acceso del taller EAD, al atardecer.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 50%',
+  },
+  tallerAtardecerCamiones: {
+    id: 'taller-atardecer-camiones',
+    src: '/assets/workshop/taller-atardecer-camiones.webp',
+    alt: 'Atardecer en el acceso del taller EAD, con un camión con grúa y otro vehículo estacionado junto al edificio.',
+    width: 1600, height: 900, orientation: 'landscape',
+    position: '50% 55%',
+  },
+  tallerFachadaEad: {
+    id: 'taller-fachada-ead',
+    src: '/assets/workshop/taller-fachada-ead.webp',
+    alt: 'Fachada del taller EAD en Colonia Barón con el cartel de servicio técnico oficial Hidro-Grubert y Palfinger.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 40%',
+  },
+  tallerInteriorPalfinger: {
+    id: 'taller-interior-palfinger',
+    src: '/assets/workshop/taller-interior-palfinger.webp',
+    alt: 'Grúa Palfinger roja en el acceso del taller EAD al atardecer, con un cono de seguridad y otra grúa en el interior.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 50%',
+  },
 
   // ════════════════════════════ SERVICIO A CAMPO ═══════════════════════════
 
@@ -49,6 +77,23 @@ export const media = {
     id: 'servicio-a-campo',
     src: '/assets/workshop/servicio-a-campo.webp',
     alt: 'Camión de EAD con el sello de servicio técnico oficial Hidro-Grubert y Palfinger junto a un hidroelevador Hidro-Grubert en un campo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+  servicioCampoHidrogrubert: {
+    id: 'servicio-campo-hidrogrubert',
+    src: '/assets/workshop/servicio-campo-hidrogrubert.webp',
+    alt: 'Camioneta de servicio de EAD con el sello de servicio técnico oficial, junto a un hidroelevador Hidro-Grubert en el campo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+
+  // ═══════════════════════════ TRABAJOS EN CAMPO ═══════════════════════════
+
+  gruaElevandoBatea: {
+    id: 'grua-elevando-batea',
+    src: '/assets/workshop/grua-elevando-batea.webp',
+    alt: 'Grúa hidráulica naranja elevando una batea metálica en el acceso del taller EAD, con un camión blanco al fondo.',
     width: 900, height: 1600, orientation: 'portrait',
     position: '50% 45%',
   },
@@ -125,6 +170,27 @@ export const media = {
     id: 'grua-hidrogrubert-n7000-exterior',
     src: '/assets/workshop/grua-hidrogrubert-n7000-exterior.webp',
     alt: 'Grúa Hidro-Grubert N-7000 montada sobre un camión, con la indicación de carga máxima en el brazo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+  gruaHidroGrubertN15000Detalle: {
+    id: 'grua-hidrogrubert-n15000-detalle',
+    src: '/assets/workshop/grua-hidrogrubert-n15000-detalle.webp',
+    alt: 'Brazo de grúa Hidro-Grubert N-15000 montado sobre un camión, con el logotipo de la marca y cielo despejado.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+  gruaHidroGrubertTaller: {
+    id: 'grua-hidrogrubert-taller',
+    src: '/assets/workshop/grua-hidrogrubert-taller.webp',
+    alt: 'Camión con grúa Hidro-Grubert frente al taller EAD, con el cartel de servicio técnico oficial al fondo.',
+    width: 900, height: 1600, orientation: 'portrait',
+    position: '50% 45%',
+  },
+  gruaHidroGrubertN25000Taller: {
+    id: 'grua-hidrogrubert-n25000-taller',
+    src: '/assets/workshop/grua-hidrogrubert-n25000-taller.webp',
+    alt: 'Grúa Hidro-Grubert N-25000 montada sobre un camión frente al cartel del taller EAD.',
     width: 900, height: 1600, orientation: 'portrait',
     position: '50% 45%',
   },
@@ -335,9 +401,9 @@ export const productMedia = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const homeEvidenceMedia = [
-  media.gruaPalfingerMontada,
-  media.tallerInteriorGeneral,
-  media.hidroelevadorTaller,
+  media.tallerGruaPalfingerAtardecer,
+  media.tallerFachadaEad,
+  media.gruaHidroGrubertN25000Taller,
 ] as const
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -345,10 +411,10 @@ export const homeEvidenceMedia = [
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const workArchiveMedia = [
-  media.tallerGruas,
-  media.hidroelevadorTaller,
-  media.conjuntoEngranajesCorona,
-  media.portaescaleraTrasera,
+  media.tallerAtardecerCamiones,
+  media.gruaHidroGrubertTaller,
+  media.gruaElevandoBatea,
+  media.servicioCampoHidrogrubert,
   media.equipoBateaVolcador,
   media.diagnosticoPalfinger,
 ] as const

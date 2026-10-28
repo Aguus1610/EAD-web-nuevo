@@ -13,3 +13,8 @@
 - [x] Actualizar documentación de lanzamiento, presupuestos y roadmap.
 - [x] Ejecutar `npm run quality` completo y dejar la feature cerrada.
 - [x] Gate final: typecheck y lint 0 errores, 29 unitarios, 11 páginas, presupuestos OK, 56 e2e aprobados (2 omitidos).
+- [x] Lote 2026-10-28: revisar 17 JPG, seleccionar 9 (2 paisajes y 7 retratos) y archivar los 17 originales en `media-src/workshop/2026-10-28/`.
+- [x] Pixelar las tres patentes legibles del lote y verificar los WebP finales.
+- [x] Incorporar el lote al catálogo, a la evidencia de Inicio, al archivo de Trabajos y a la galería rotativa.
+- [x] Ampliar `media.test.ts` y actualizar presupuestos, roadmap y documentación.
+- [x] Gate del lote: 32 unitarios, 42 WebP (6,1 MB / build 7,3 MB), 58 e2e aprobados (2 omitidos) y `npm run quality` en verde.

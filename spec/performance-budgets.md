@@ -19,5 +19,5 @@ encabezado. No se descargan fuentes externas ni se carga contenido de terceros a
 Los límites de WebP y del build son holgados a propósito: el archivo de proyectos puede crecer sin
 comprometer el resto del sitio, y cada ficha individual queda acotada para no degradar la primera carga.
 
-Estado del catálogo vigente (014 + 016): 33 WebP publicados (32 en la rotación de la galería + `servicio-a-campo` para el encabezado de empresa), 4,7 MB en total y build compartido de 6,0 MB.
+Estado del catálogo vigente (014 + 016 + lote 2026-10-28): 42 WebP publicados (41 en la rotación de la galería + `servicio-a-campo` para el encabezado de empresa), 6,1 MB en total y build compartido de 7,3 MB.
 Cada derivado se limita a 1600 px de lado mayor y calidad 78; los originales JPG no se publican.

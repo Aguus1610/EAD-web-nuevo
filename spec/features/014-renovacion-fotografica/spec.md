@@ -1,24 +1,42 @@
 # 014 — Renovación fotográfica del taller
 
-**Estado:** implementada
+**Estado:** implementada; lote 2026-10-28 incorporado
 
 ## Qué hace
 
-Reemplaza el catálogo fotográfico del sitio por las 30 tomas reales incorporadas por EAD el 27 de octubre de 2026, más tres fotografías reales del taller que se conservan. Deja un catálogo de 32 WebP optimizados, sin referencias rotas, con cada imagen asignada a la página, servicio, producto o galería donde aporta evidencia concreta.
+Reemplaza el catálogo fotográfico del sitio por las 30 tomas reales incorporadas por EAD el 27 de octubre de 2026, más tres fotografías reales del taller que se conservan y nueve fotos del lote incorporado el 28 de octubre de 2026. Deja un catálogo de 42 WebP optimizados, sin referencias rotas, con cada imagen asignada a la página, servicio, producto o galería donde aporta evidencia concreta.
 
 ## Por qué
 
 El catálogo anterior tenía 25 de 35 referencias apuntando a archivos inexistentes y varias imágenes promocionales que no correspondían al taller. La web mostraba imágenes rotas y mezclaba material de catálogo con trabajo real. Las tomas nuevas documentan grúas Hidro-Grubert y Palfinger, hidroelevadores, componentes, instalaciones, diagnóstico y el taller, por lo que permiten sostener la promesa comercial con evidencia propia.
 
+## Lote 2026-10-28
+
+Se revisaron 17 originales nuevos. Se publicaron 9 derivados y se archivaron los 7 descartes por repetición más el original de `servicio-a-campo`, que ya estaba en el catálogo. La selección mantiene dos paisajes y siete retratos, con variedad de marca, contexto y encuadre:
+
+- `taller-grua-palfinger-atardecer` — grúa Palfinger roja al atardecer.
+- `taller-atardecer-camiones` — acceso del taller al atardecer.
+- `taller-fachada-ead` — fachada y cartel de servicio oficial.
+- `taller-interior-palfinger` — grúa Palfinger y cono en el taller.
+- `servicio-campo-hidrogrubert` — sello EAD e hidroelevador en el campo.
+- `grua-elevando-batea` — grúa hidráulica elevando una batea.
+- `grua-hidrogrubert-n15000-detalle` — detalle del brazo N-15000.
+- `grua-hidrogrubert-taller` — camión Hidro-Grubert frente al taller.
+- `grua-hidrogrubert-n25000-taller` — N-25000 frente al cartel EAD.
+
+Las patentes legibles en `grua-elevando-batea`, `grua-hidrogrubert-n15000-detalle` y `taller-interior-palfinger` quedaron pixeladas. Los 17 originales se conservan en `media-src/workshop/2026-10-28/`, fuera del build.
+
 ## Criterios de aceptación
 
-- [x] Las 30 fotografías nuevas fueron revisadas una por una y las referencias de nombre se usaron como guía de uso.
-- [x] El catálogo publicado contiene 32 WebP locales en `/assets/workshop/` y ninguna referencia rota.
+- [x] Las 30 fotografías nuevas y los 17 originales del lote 2026-10-28 fueron revisados uno por uno; las referencias de nombre se usaron como guía de uso.
+- [x] El catálogo publicado contiene 42 WebP locales en `/assets/workshop/` y ninguna referencia rota.
 - [x] Las fotos se auto-orientaron según EXIF, se redimensionaron a un máximo de 1600 px y se exportaron a WebP calidad 78.
 - [x] Cada archivo respeta el presupuesto de 320 KB.
-- [x] Los originales JPG se conservan fuera de `public/` en `media-src/workshop/` para no inflar el build.
+- [x] Los originales JPG se conservan fuera de `public/` en `media-src/workshop/` para no inflar el build; el lote 2026-10-28 quedó en `media-src/workshop/2026-10-28/`.
 - [x] Se retiraron del sitio las fotos de catálogo o promocionales que podían confundirse con trabajo propio.
-- [x] La patente visible en la foto de la grúa Palfinger montada quedó pixelada y no es legible.
+- [x] La patente visible en la foto de la grúa Palfinger montada y las tres patentes legibles del lote 2026-10-28 quedaron pixeladas y no son legibles.
+- [x] Del lote 2026-10-28 se publicaron 9 fotos; los 7 descartes por repetición y el original ya publicado se archivaron sin borrar evidencia.
+- [x] Inicio y Trabajos usan fotos del lote en sus registros fijos; la galería rotativa de Empresa las incorpora a la selección diaria.
 - [x] Los encabezados de Inicio, Empresa, Servicios, Productos, Trabajos y Contacto usan fotos adecuadas a su contexto.
 - [x] Las fichas de los cuatro servicios y las cuatro categorías de producto tienen imagen principal y registro de apoyo coherentes.
 - [x] La galería rotativa de Empresa mantiene seis imágenes por build y mezcla orientaciones.
@@ -32,3 +50,10 @@ El catálogo anterior tenía 25 de 35 referencias apuntando a archivos inexisten
 - No se publican fichas de proyectos ni se atribuyen las fotos a trabajos específicos sin autorización.
 - No se modifica ningún logo de EAD, Hidro-Grubert o Palfinger.
 - No se agregan imágenes de stock, ilustraciones ni fotos generadas.
+
+## Verificación
+
+- 42 WebP publicados: 41 en la rotación de la galería y `servicio-a-campo` reservada al encabezado de Empresa.
+- 6,1 MB de WebP y 7,3 MB de build compartido; presupuestos por archivo y totales en verde.
+- 32 tests unitarios y 58 e2e aprobados (2 omitidos por diseño).
+- `npm run quality` completo en verde.

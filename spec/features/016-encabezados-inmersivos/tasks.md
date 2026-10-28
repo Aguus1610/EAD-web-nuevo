@@ -10,4 +10,4 @@
 - [x] Verificar 360/390/768/1024/1440, contraste y ausencia de desbordes.
 - [x] Ejecutar `npm run quality` completo.
 - [x] Actualizar roadmap y cerrar la feature.
-- [x] Gate final: 31 unitarios, 33 WebP (4,7 MB / build 6,0 MB), 58 e2e aprobados (2 omitidos por diseño), contraste P99 ≥ 4,89:1 en móvil y ≥ 13,65:1 en escritorio; `npm run quality` en verde.
+- [x] Gate final: 31 unitarios, 33 WebP (4,7 MB / build 6,0 MB; estado al cierre de 016), 58 e2e aprobados (2 omitidos por diseño), contraste P99 ≥ 4,89:1 en móvil y ≥ 13,65:1 en escritorio; `npm run quality` en verde.

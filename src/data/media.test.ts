@@ -7,7 +7,7 @@ const publicAssetPath = (src: string) => fileURLToPath(new URL(`../../public${sr
 
 describe('workshop media catalog', () => {
   it('contains unique, dimensioned WebP images', () => {
-    expect(workshopGalleryPool.length).toBeGreaterThanOrEqual(30)
+    expect(workshopGalleryPool.length).toBeGreaterThanOrEqual(40)
     expect(new Set(workshopGalleryPool.map((image) => image.id))).toHaveLength(workshopGalleryPool.length)
     expect(new Set(workshopGalleryPool.map((image) => image.src))).toHaveLength(workshopGalleryPool.length)
 
@@ -29,6 +29,32 @@ describe('workshop media catalog', () => {
     expect(image.width).toBe(900)
     expect(image.height).toBe(1600)
     expect(existsSync(publicAssetPath(image.src))).toBe(true)
+  })
+
+  it('includes the curated October 2026 photo batch', () => {
+    const batch = [
+      media.tallerGruaPalfingerAtardecer,
+      media.tallerAtardecerCamiones,
+      media.tallerFachadaEad,
+      media.servicioCampoHidrogrubert,
+      media.gruaElevandoBatea,
+      media.gruaHidroGrubertN15000Detalle,
+      media.gruaHidroGrubertTaller,
+      media.gruaHidroGrubertN25000Taller,
+      media.tallerInteriorPalfinger,
+    ]
+
+    expect(batch).toHaveLength(9)
+    expect(batch.filter((image) => image.orientation === 'landscape')).toHaveLength(2)
+    expect(batch.filter((image) => image.orientation === 'portrait')).toHaveLength(7)
+
+    for (const image of batch) {
+      expect(image.src).toMatch(/^\/assets\/workshop\/.+\.webp$/)
+      expect(image.alt.trim().length).toBeGreaterThan(20)
+      expect(image.width).toBeGreaterThan(0)
+      expect(image.height).toBeGreaterThan(0)
+      expect(existsSync(publicAssetPath(image.src))).toBe(true)
+    }
   })
 
   it('provides enough orientations for the rotating company gallery', () => {

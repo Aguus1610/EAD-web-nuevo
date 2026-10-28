@@ -17,15 +17,25 @@ La fotografía es evidencia del taller real: grúas, elevadores, componentes, in
 9. Ajustar textos visibles que no coincidían con la foto (etiqueta del héroe de Contacto y alt de la vista lateral del portaescalera).
 10. Validar visualmente todas las rutas en 1440 y 360/390 px y ejecutar el gate completo.
 
+## Ampliación 2026-10-28
+
+1. Descomprimir el lote de 17 JPG y revisar orientación EXIF, encuadre, patentes y repetición.
+2. Seleccionar 9 fotos: 2 paisajes y 7 retratos; descartar 7 variantes casi idénticas y conservar el original de `servicio-a-campo` que ya estaba publicado.
+3. Convertir a WebP con máximo 1600 px y calidad 78; pixelar las 3 patentes legibles con un mosaic de bloques de 6 px.
+4. Archivar los 17 originales en `media-src/workshop/2026-10-28/`, fuera de `public/`.
+5. Incorporar las 9 entradas a `src/data/media.ts`; actualizar `homeEvidenceMedia` y `workArchiveMedia` para que el lote tenga presencia fija además de la galería rotativa.
+6. Ampliar `media.test.ts` con la verificación del lote y el mínimo de 40 imágenes en la rotación.
+7. Actualizar presupuestos, roadmap y documentación de la feature; ejecutar `npm run quality`.
+
 ## Decisiones
 
 - **Originales fuera del build** — `media-src/workshop/` queda como archivo de trabajo; `public/` sólo contiene derivados optimizados.
-- **32 imágenes** — se conservan 3 fotos reales previas irremplazables (interiores y N-15000); se descartan tomas casi duplicadas de control remoto y las WebP promocionales.
+- **42 imágenes** — se conservan 3 fotos reales previas irremplazables (interiores y N-15000); se descartan tomas casi duplicadas de control remoto y las WebP promocionales. El lote 2026-10-28 suma 9 fotos y archiva sus 7 variantes repetidas.
 - **Nombres semánticos** — slugs en kebab-case que describen marca, equipo o componente (`grua-hidrogrubert-n7000`, `portaescalera-palfinger-pb13`, etc.).
 - **Un archivo por contexto** — una misma foto puede reaparecer en galería o archivo, pero los héroes de ruta no se repiten entre sí salvo evidencia puntual.
 - **Recorte controlado** — `position` se define por imagen para que los bloques 16/7 no corten el sujeto principal.
 - **Privacidad** — se revisan rostros, patentes y documentos; la única patente legible se pixeló en el derivado publicado.
-- **Presupuesto intacto** — no se amplían límites: el catálogo final pesa ~4,6 MB de WebP y el build compartido ~5,9 MB.
+- **Presupuesto intacto** — no se amplían límites: el catálogo final pesa ~6,1 MB de WebP y el build compartido ~7,3 MB, por debajo de 8,5 MB y 10 MB respectivamente.
 
 ## Riesgos
 
