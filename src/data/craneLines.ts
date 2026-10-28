@@ -21,17 +21,17 @@ export interface CraneLineSection {
 export const craneLineSection: CraneLineSection = {
   heading: 'Línea de productos y equipos',
   intro:
-    'Las líneas de grúas articuladas que trabajamos son Hidro-Grubert y Palfinger. Modelos, disponibilidad y repuestos se confirman bajo consulta.',
+    'Trabajamos las líneas de grúas articuladas Hidro-Grubert y Palfinger: instalación, integración, diagnóstico, reparación, mantenimiento y repuestos originales. Modelos, disponibilidad y plazos se confirman bajo consulta.',
   items: [
     {
       brand: 'hidro-grubert',
       title: 'Grúas articuladas Hidro-Grubert',
       badge: 'Línea Hidro-Grubert',
       description:
-        'Grúas articuladas Hidro-Grubert para montaje vehicular. Repuestos originales y consultas sobre equipos de la línea.',
+        'Grúas articuladas e hidroelevadores Hidro-Grubert para montaje vehicular. Instalación, integración, diagnóstico y repuestos originales de la línea.',
       image: media.gruaHidroGrubertN15000,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
-      ctaLabel: 'Consultar por Hidro-Grubert',
+      ctaLabel: 'Consultá por Hidro-Grubert',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Hidro-Grubert',
     },
     {
@@ -39,10 +39,10 @@ export const craneLineSection: CraneLineSection = {
       title: 'Grúas articuladas Palfinger',
       badge: 'Línea Palfinger',
       description:
-        'Grúas articuladas Palfinger para transporte, construcción y agroindustria. Repuestos originales y consultas bajo pedido.',
+        'Grúas articuladas Palfinger para transporte, construcción y agroindustria. Repuestos originales, diagnóstico y reparaciones de la línea, con software oficial.',
       image: media.gruaPalfingerPkk26000,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
-      ctaLabel: 'Consultar por Palfinger',
+      ctaLabel: 'Consultá por Palfinger',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Palfinger',
     },
   ],

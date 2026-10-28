@@ -185,7 +185,7 @@ describe('validateQuoteRequest', () => {
 
   it('validates the contact detail according to the selected channel', () => {
     expect(validateQuoteRequest({ ...validRequest, contactDetail: 'correo-invalido' }).contactDetail).toBe(
-      'Ingrese un correo electrónico válido.',
+      'Ingresá un correo electrónico válido.',
     )
     expect(
       validateQuoteRequest({
@@ -193,14 +193,14 @@ describe('validateQuoteRequest', () => {
         contactMethod: 'WhatsApp',
         contactDetail: 'sin número',
       }).contactDetail,
-    ).toBe('Ingrese un número de teléfono válido.')
+    ).toBe('Ingresá un número de teléfono válido.')
     expect(
       validateQuoteRequest({
         ...validRequest,
         contactMethod: 'Teléfono',
         contactDetail: '......',
       }).contactDetail,
-    ).toBe('Ingrese un número de teléfono válido.')
+    ).toBe('Ingresá un número de teléfono válido.')
   })
 
   it('rejects unsupported options parsed from untrusted form data', () => {

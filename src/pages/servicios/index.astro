@@ -7,7 +7,7 @@ import { services } from '../../data/services'
 import { routeMedia, serviceMedia } from '../../data/media'
 
 const metaDescription =
-  'Reparación integral, instalaciones, mantenimiento y repuestos oleohidráulicos en Colonia Barón, La Pampa. Conocé todos los servicios de EAD Oleohidráulica.'
+  'Reparación integral, instalaciones, mantenimiento y repuestos oleohidráulicos en Colonia Barón, La Pampa. Conocé los servicios de EAD Oleohidráulica.'
 
 const serviceItems = services.map(({ title, summary, slug, icon }) => ({
   title,
@@ -29,21 +29,21 @@ const serviceItems = services.map(({ title, summary, slug, icon }) => ({
   <PageHero
     eyebrow="Servicios"
     title="Servicios oleohidráulicos"
-    description="Organizamos cada consulta según el equipo y la necesidad. El alcance se confirma antes de iniciar el trabajo."
+    description="Organizamos cada consulta según el equipo y la necesidad: revisamos, presupuestamos por escrito y recién después trabajamos."
     image={routeMedia.services}
   />
 
   <ServiceHighlights
     heading="Áreas de trabajo"
-    intro="Reparación, instalación, mantenimiento y provisión de componentes con alcance definido para cada caso."
+    intro="Cuatro áreas para mantener tu equipo en marcha, con alcance definido en cada presupuesto."
     items={serviceItems}
     showAllLink={false}
     class="reveal"
   />
 
   <FinalCta
-    heading="Cuéntenos qué necesita resolver"
-    text="Envíenos los datos del equipo para orientar la consulta y definir el próximo paso."
+    heading="Contanos qué necesitás resolver"
+    text="Envianos los datos del equipo para orientar la consulta y definir el próximo paso."
     cta={{ label: 'Solicitar presupuesto', href: '/contacto' }}
   />
 </BaseLayout>

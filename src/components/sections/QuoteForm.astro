@@ -18,9 +18,9 @@ const { image } = Astro.props
         <p class="technical-label text-blue-600">Consulta guiada</p>
         <h2 id="quote-form-heading" class="section-title mt-3 text-4xl font-bold text-deep-900 sm:text-5xl">Solicitar presupuesto</h2>
         <p class="mt-5 text-sm leading-relaxed text-ink-700">
-          Complete los datos para enviar su consulta por correo electrónico o abrir el mensaje en WhatsApp.
+          Completá tus datos para enviar la consulta por correo o abrir el mensaje en WhatsApp.
           EmailJS procesa la consulta para entregarla por correo. Al abrir WhatsApp, los datos pasan a ese servicio.
-          No incluya información sensible innecesaria. La solicitud no constituye diagnóstico, aceptación del trabajo ni presupuesto definitivo.
+          No incluyas información sensible innecesaria. La solicitud no constituye diagnóstico, aceptación del trabajo ni presupuesto definitivo.
         </p>
         <div class="mt-8 border border-deep-700 bg-deep-900 p-6 text-white">
           <p class="technical-label text-yellow-400">Datos útiles</p>
@@ -85,12 +85,12 @@ const { image } = Astro.props
           autocomplete="tel"
           maxlength={quoteFieldLimits.contactDetail}
           pattern="(?:[^\s@]+@[^\s@]+\.[^\s@]+|\+?(?=(?:\D*\d){6,15}\D*$)(?:\d|\s|\.|-|\(|\))+)"
-          title="Ingrese un correo válido o un teléfono con entre 6 y 15 dígitos."
+          title="Ingresá un correo válido o un teléfono con entre 6 y 15 dígitos."
           required
           class="form-control"
           aria-describedby="contact-detail-help"
         />
-        <p id="contact-detail-help" class="mt-1 text-xs text-ink-500">Ingrese el teléfono o correo por el que prefiere recibir la respuesta.</p>
+        <p id="contact-detail-help" class="mt-1 text-xs text-ink-500">Ingresá el teléfono o correo por el que preferís recibir la respuesta.</p>
         <p id="error-contactDetail" data-error-for="contactDetail" class="form-error hidden" aria-live="polite"></p>
       </div>
 
@@ -103,7 +103,7 @@ const { image } = Astro.props
         <div>
           <label for="quote-need" class="block text-sm font-medium text-ink-900">Necesidad principal *</label>
           <select id="quote-need" name="need" required class="form-control">
-            <option value="">Seleccione una opción</option>
+            <option value="">Seleccioná una opción</option>
             {quoteNeeds.map((need) => <option>{need}</option>)}
           </select>
           <p id="error-need" data-error-for="need" class="form-error hidden" aria-live="polite"></p>
@@ -127,12 +127,12 @@ const { image } = Astro.props
         <label for="quote-part-number" class="block text-sm font-medium text-ink-900">Número de pieza <span class="text-ink-500">(opcional)</span></label>
         <input id="quote-part-number" name="partNumber" type="text" maxlength={quoteFieldLimits.partNumber} class="form-control" />
         <p id="error-partNumber" data-error-for="partNumber" class="form-error hidden" aria-live="polite"></p>
-        <p class="mt-1 text-xs text-ink-500">Si dispone de fotografías, podrá adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
+        <p class="mt-1 text-xs text-ink-500">Si tenés fotografías, podés adjuntarlas directamente en WhatsApp después de abrir el mensaje.</p>
       </div>
 
       <div>
         <label for="quote-description" class="block text-sm font-medium text-ink-900">Descripción *</label>
-        <textarea id="quote-description" name="description" rows="5" maxlength={quoteFieldLimits.description} required class="form-control" placeholder="Describa el problema, la pieza buscada o el trabajo que necesita."></textarea>
+        <textarea id="quote-description" name="description" rows="5" maxlength={quoteFieldLimits.description} required class="form-control" placeholder="Contanos el problema, la pieza buscada o el trabajo que necesitás."></textarea>
         <p id="error-description" data-error-for="description" class="form-error hidden" aria-live="polite"></p>
       </div>
 
@@ -150,7 +150,7 @@ const { image } = Astro.props
       <div class="border border-light-200 bg-light-50 p-4">
         <label class="flex items-start gap-3 text-sm text-ink-900">
           <input name="consent" type="checkbox" class="mt-1" required />
-          <span>Acepto enviar la consulta con los datos ingresados. Si elijo correo, EmailJS los procesará para entregarla; si elijo WhatsApp, se abrirán en ese servicio.</span>
+          <span>Acepto enviar la consulta con los datos que ingresé. Si elijo correo, EmailJS los procesa para entregarla; si elijo WhatsApp, se abren en ese servicio.</span>
         </label>
         <p id="error-consent" data-error-for="consent" class="form-error hidden" aria-live="polite"></p>
       </div>
@@ -172,9 +172,9 @@ const { image } = Astro.props
       <noscript>
         <style>#submit-quote { display: none; }</style>
         <p class="text-sm text-ink-700">
-          El envío por correo requiere JavaScript. Para consultar sin JavaScript, escriba a
+          El envío por correo requiere JavaScript. Para consultar sin JavaScript, escribí a
           <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-blue-600">{siteConfig.adminEmail}</a>
-          o abra el
+          o abrí el
           <a href={`https://wa.me/${primaryContact.whatsapp}`} target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-600">canal directo de {primaryContact.name}</a>.
         </p>
       </noscript>
@@ -185,7 +185,7 @@ const { image } = Astro.props
       </div>
 
       <p id="quote-fallback" class="text-sm text-ink-700">
-        Si el envío no está disponible, puede escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-blue-600">{siteConfig.adminEmail}</a>
+        Si el envío no está disponible, podés escribir a <a href={`mailto:${siteConfig.adminEmail}`} class="underline hover:text-blue-600">{siteConfig.adminEmail}</a>
         o llamar a {primaryContact.name} al <a href={telUrl(primaryContact.phone)} class="underline hover:text-blue-600">{primaryContact.phone}</a>.
       </p>
       </form>
@@ -356,8 +356,8 @@ const { image } = Astro.props
       if (contactDetailLabel) contactDetailLabel.textContent = usesEmail ? 'Correo electrónico *' : 'Teléfono de contacto *'
       if (contactDetailHelp) {
         contactDetailHelp.textContent = usesEmail
-          ? 'Ingrese el correo en el que prefiere recibir la respuesta.'
-          : 'Ingrese el número por el que prefiere recibir la respuesta.'
+          ? 'Ingresá el correo en el que preferís recibir la respuesta.'
+          : 'Ingresá el número por el que preferís recibir la respuesta.'
       }
     }
 
@@ -433,19 +433,19 @@ const { image } = Astro.props
         const timedOut = error instanceof DOMException && error.name === 'AbortError'
 
         if (timedOut) {
-          showStatus('El envío tardó demasiado. Sus datos siguen en el formulario; reintente o utilice WhatsApp.', 'error')
+          showStatus('El envío tardó demasiado. Tus datos siguen en el formulario; reintentá o usá WhatsApp.', 'error')
         } else if (error instanceof EmailJSResponseStatus) {
           if (error.status === 429) {
-            showStatus('Se alcanzó el límite temporal de envíos. Espere unos minutos o utilice WhatsApp.', 'error')
+            showStatus('Se alcanzó el límite temporal de envíos. Esperá unos minutos o usá WhatsApp.', 'error')
           } else if (error.status === 400 || error.status === 422) {
-            showStatus('EmailJS no pudo procesar los datos. Revíselos o utilice WhatsApp.', 'error')
+            showStatus('EmailJS no pudo procesar los datos. Revisalos o usá WhatsApp.', 'error')
           } else if (error.status === 401 || error.status === 403 || error.status === 451) {
-            showStatus('El servicio de correo rechazó el envío. Pruebe por WhatsApp o correo directo.', 'error')
+            showStatus('El servicio de correo rechazó el envío. Probá por WhatsApp o correo directo.', 'error')
           } else {
-            showStatus('El servicio de correo no está disponible en este momento. Pruebe por WhatsApp o correo directo.', 'error')
+            showStatus('El servicio de correo no está disponible en este momento. Probá por WhatsApp o correo directo.', 'error')
           }
         } else {
-          showStatus('No se pudo conectar con el servicio de correo. Sus datos siguen en el formulario; pruebe por WhatsApp.', 'error')
+          showStatus('No se pudo conectar con el servicio de correo. Tus datos siguen en el formulario; probá por WhatsApp.', 'error')
         }
       } finally {
         if (timeout !== undefined) window.clearTimeout(timeout)
@@ -459,17 +459,17 @@ const { image } = Astro.props
 
       const whatsappNumber = form.dataset.whatsapp?.trim()
       if (!whatsappNumber) {
-        showStatus('WhatsApp no está disponible. Use el envío por correo o teléfono.', 'error')
+        showStatus('WhatsApp no está disponible. Usá el envío por correo o teléfono.', 'error')
         return
       }
 
       const popup = window.open(whatsappUrl(prepared.message, whatsappNumber), '_blank')
       if (!popup) {
-        showStatus('El navegador bloqueó la apertura de WhatsApp. Habilite las ventanas emergentes o copie el mensaje.', 'error')
+        showStatus('El navegador bloqueó la apertura de WhatsApp. Habilitá las ventanas emergentes o copiá el mensaje.', 'error')
         return
       }
       popup.opener = null
-      showStatus('Se abrió WhatsApp. Revise el mensaje y envíelo desde la aplicación.', 'success')
+      showStatus('Se abrió WhatsApp. Revisá el mensaje y envialo desde la aplicación.', 'success')
     })
 
     copyButton?.addEventListener('click', async () => {
@@ -480,7 +480,7 @@ const { image } = Astro.props
       } catch {
         preview.focus()
         preview.select()
-        showStatus('No se pudo copiar automáticamente. Seleccione y copie el mensaje.', 'error')
+        showStatus('No se pudo copiar automáticamente. Seleccioná y copiá el mensaje.', 'error')
       }
     })
 

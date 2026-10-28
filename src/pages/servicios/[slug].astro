@@ -54,7 +54,7 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
         </article>
 
         <aside class="industrial-card p-6 sm:p-8" aria-labelledby="service-scope-title">
-          <p class="technical-label text-blue-600">Incluye según evaluación</p>
+          <p class="technical-label text-blue-600">Qué incluye según el caso</p>
           <h2 id="service-scope-title" class="mt-3 text-2xl font-bold text-deep-900">Alcance del servicio</h2>
           <ul class="mt-6 space-y-4">
             {service.scope.map((item) => (
@@ -74,10 +74,10 @@ const relatedSlugs = services.filter((entry) => entry.slug !== service.slug).map
       </div>
 
       <section class="mt-14 border-t border-light-200 pt-10" aria-labelledby="service-photos-title">
-        <p class="technical-label text-blue-600">Registro del taller</p>
+        <p class="technical-label text-blue-600">Registro real del taller</p>
         <h2 id="service-photos-title" class="mt-3 text-3xl font-bold text-deep-900">Capacidades en imágenes</h2>
         <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-700">
-          Las fotografías muestran equipos, componentes y tareas del taller como referencia general. El alcance de cada intervención se confirma después de evaluar el caso.
+          Las fotos muestran equipos, componentes y tareas reales del taller como referencia general. El alcance de cada intervención se confirma después de evaluar el caso.
         </p>
         <PhotoStrip
           images={serviceMedia[service.icon].supporting}

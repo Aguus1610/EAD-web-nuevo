@@ -78,20 +78,20 @@ export function validateQuoteRequest(request: QuoteRequest): QuoteRequestErrors 
   const equipmentType = request.equipmentType.trim()
   const description = request.description.trim()
 
-  if (!name) errors.name = 'Ingrese su nombre.'
+  if (!name) errors.name = 'Ingresá tu nombre.'
   else if (name.length > quoteFieldLimits.name) errors.name = `El nombre no puede superar ${quoteFieldLimits.name} caracteres.`
 
-  if (!locality) errors.locality = 'Ingrese su localidad.'
+  if (!locality) errors.locality = 'Ingresá tu localidad.'
   else if (locality.length > quoteFieldLimits.locality) errors.locality = `La localidad no puede superar ${quoteFieldLimits.locality} caracteres.`
 
-  if (!request.contactMethod) errors.contactMethod = 'Seleccione un medio de contacto.'
+  if (!request.contactMethod) errors.contactMethod = 'Seleccioná un medio de contacto.'
 
   if (!contactDetail) {
-    errors.contactDetail = 'Ingrese un teléfono o correo de contacto.'
+    errors.contactDetail = 'Ingresá un teléfono o correo de contacto.'
   } else if (contactDetail.length > quoteFieldLimits.contactDetail) {
     errors.contactDetail = `El dato de contacto no puede superar ${quoteFieldLimits.contactDetail} caracteres.`
   } else if (request.contactMethod === 'Correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactDetail)) {
-    errors.contactDetail = 'Ingrese un correo electrónico válido.'
+    errors.contactDetail = 'Ingresá un correo electrónico válido.'
   } else if (
     (request.contactMethod === 'WhatsApp' || request.contactMethod === 'Teléfono')
     && (
@@ -100,22 +100,22 @@ export function validateQuoteRequest(request: QuoteRequest): QuoteRequestErrors 
       || contactDigits.length > 15
     )
   ) {
-    errors.contactDetail = 'Ingrese un número de teléfono válido.'
+    errors.contactDetail = 'Ingresá un número de teléfono válido.'
   }
 
-  if (!equipmentType) errors.equipmentType = 'Indique el tipo de equipo o producto.'
+  if (!equipmentType) errors.equipmentType = 'Indicá el tipo de equipo o producto.'
   else if (equipmentType.length > quoteFieldLimits.equipmentType) errors.equipmentType = `El equipo o producto no puede superar ${quoteFieldLimits.equipmentType} caracteres.`
 
-  if (!request.need) errors.need = 'Seleccione la necesidad principal.'
+  if (!request.need) errors.need = 'Seleccioná la necesidad principal.'
 
-  if (!description) errors.description = 'Describa brevemente la consulta.'
+  if (!description) errors.description = 'Describí brevemente la consulta.'
   else if (description.length > quoteFieldLimits.description) errors.description = `La descripción no puede superar ${quoteFieldLimits.description} caracteres.`
 
   if (request.company && request.company.trim().length > quoteFieldLimits.company) errors.company = `La empresa no puede superar ${quoteFieldLimits.company} caracteres.`
   if (request.brand && request.brand.trim().length > quoteFieldLimits.brand) errors.brand = `La marca no puede superar ${quoteFieldLimits.brand} caracteres.`
   if (request.model && request.model.trim().length > quoteFieldLimits.model) errors.model = `El modelo no puede superar ${quoteFieldLimits.model} caracteres.`
   if (request.partNumber && request.partNumber.trim().length > quoteFieldLimits.partNumber) errors.partNumber = `El número de pieza no puede superar ${quoteFieldLimits.partNumber} caracteres.`
-  if (!request.consent) errors.consent = 'Debe aceptar el envío de la consulta con estos datos.'
+  if (!request.consent) errors.consent = 'Tenés que aceptar el envío de la consulta con estos datos.'
 
   return errors
 }

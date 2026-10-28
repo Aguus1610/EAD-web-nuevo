@@ -23,7 +23,7 @@ import { siteConfig } from '../data/site'
   <PageHero
     eyebrow="Productos y marcas"
     title="Repuestos y componentes hidráulicos"
-    description="Comercializamos repuestos originales de las marcas representadas y componentes hidráulicos. Toda disponibilidad, compatibilidad y plazo se confirman bajo consulta."
+    description="Gestionamos repuestos originales de las marcas representadas, componentes hidráulicos e implementos. Compatibilidad, disponibilidad y plazos se confirman en cada consulta."
     image={routeMedia.products}
   />
 
@@ -31,7 +31,7 @@ import { siteConfig } from '../data/site'
     <Container>
       <div class="reveal">
       <p class="technical-label text-blue-600">Marcas</p>
-      <SectionHeading class="mt-3">Representaciones oficiales</SectionHeading>
+      <SectionHeading class="mt-3">Marcas representadas</SectionHeading>
       <p class="mt-5 max-w-2xl text-lg text-ink-700">{siteConfig.commercialRelationshipText}</p>
       </div>
       <div class="mt-10 grid gap-6 sm:grid-cols-2">
@@ -57,8 +57,7 @@ import { siteConfig } from '../data/site'
       <p class="technical-label text-blue-600">Líneas de consulta</p>
       <SectionHeading class="mt-3">Categorías de productos</SectionHeading>
       <p class="mt-4 text-sm text-ink-500">
-        La disponibilidad de cada producto se confirma al momento de la consulta.
-        No comercializamos en línea; trabajamos con presupuesto personalizado.
+        No vendemos en línea: cada consulta se cotiza por separado y la disponibilidad se confirma al momento de la consulta.
       </p>
       </div>
 
@@ -80,8 +79,8 @@ import { siteConfig } from '../data/site'
   </section>
 
   <FinalCta
-    heading="¿Necesita un repuesto o componente?"
-    text="Indíquenos marca, modelo y pieza buscada para consultar compatibilidad y disponibilidad."
+    heading="¿Necesitás un repuesto o componente?"
+    text="Pasanos marca, modelo y pieza buscada (o una foto) y te confirmamos compatibilidad y disponibilidad."
     cta={{ label: 'Consultar disponibilidad', href: '/contacto' }}
     secondaryCta={{ label: 'Ver servicios', href: '/servicios' }}
   />
