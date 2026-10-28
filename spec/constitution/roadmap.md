@@ -17,6 +17,7 @@
 14. **015 · Envío de consultas con EmailJS** — SDK oficial en el navegador, configuración pública centralizada, plantilla con variables estructuradas, escape HTML, errores 400/403/429/451 y timeout, fallback sin JavaScript y suite e2e actualizada (30 unitarios + 58 e2e). Envío sintético aceptado con `200 OK` el 28/10/2026; recepción en `adm201364@gmail.com` pendiente de confirmar.
 15. **016 · Encabezados con fotografía inmersiva** — PageHero y Hero usan la foto como fondo a sangre completa en el 55% derecho, con un degradado corto que libera el contenido del borde izquierdo; sin marco ni etiqueta visible; 404 intacta; encabezados de Servicios (`grua-palfinger-tecnico`) y Empresa (`servicio-a-campo`, nueva imagen 900×1600); contraste AA verificado, 31 unitarios y 58 e2e aprobados.
 16. **017 · Redacción integral de contenidos** — reescritura completa en voseo rioplatense: Empresa expandida (historia, instalaciones, proceso, cobertura y garantía), servicios con alcances concretos, ejemplos por categoría de producto, formulario y mensajes en voseo; datos confirmados por EAD: más de 25 años y «Servicio técnico oficial de Hidro-Grubert y Palfinger».
+17. **018 · Encabezado de inicio compacto** — el hero de Inicio pasa a presentar logo grande, «EAD Oleohidráulica» y «Enzo A. Deux» en menor tamaño, con subtítulo y CTA conservados; se retira el listado de áreas y se reduce el alto del encabezado.
 
 ## Bloqueado
 

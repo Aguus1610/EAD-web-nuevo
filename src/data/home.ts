@@ -4,6 +4,7 @@ import { services as serviceEntries } from './services'
 export interface HomeContent {
   hero: {
     title: string
+    owner: string
     subtitle: string
     ctaPrimary: { label: string; href: string }
     ctaSecondary: { label: string; href: string }
@@ -36,7 +37,8 @@ export interface HomeContent {
 
 export const homeContent: HomeContent = {
   hero: {
-    title: 'Soluciones oleohidráulicas para tu equipo de trabajo',
+    title: 'EAD Oleohidráulica',
+    owner: 'Enzo A. Deux',
     subtitle:
       `Diagnóstico, reparación, instalación y mantenimiento de sistemas hidráulicos. ${siteConfig.commercialRelationshipText}`,
     ctaPrimary: { label: 'Solicitar presupuesto', href: '/contacto' },

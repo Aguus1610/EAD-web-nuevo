@@ -7,6 +7,7 @@ import type { MediaImage } from '../../data/media'
 
 interface Props {
   title: string
+  owner: string
   subtitle: string
   ctaPrimary: { label: string; href: string }
   ctaSecondary: { label: string; href: string }
@@ -14,24 +15,24 @@ interface Props {
   class?: string
 }
 
-const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
+const { title, owner, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
 ---
 
-<section class={`dark-technical-grid relative isolate overflow-hidden border-b border-deep-700 py-16 sm:py-24 ${className ?? ''}`}>
+<section class={`dark-technical-grid relative isolate overflow-hidden border-b border-deep-700 py-12 sm:py-16 ${className ?? ''}`}>
   <HeroBackdrop image={image} />
-  <span class="corner-yellow pointer-events-none absolute right-0 top-0 z-10 h-28 w-28 bg-yellow-400/15" aria-hidden="true"></span>
+  <span class="corner-yellow pointer-events-none absolute right-0 top-0 z-10 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
   <Container>
     <div class="relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
       <div class="reveal min-w-0">
-        <BrandLogo brand="ead" variant="light" class="mb-5 h-20 sm:h-24" />
-        <p class="technical-label text-yellow-400">Oleohidráulica · Colonia Barón</p>
-        <h1 class="text-balance mt-4 text-4xl font-bold leading-tight text-white sm:text-6xl xl:text-7xl">
+        <BrandLogo brand="ead" variant="light" class="mb-4 h-24 w-auto sm:h-28" />
+        <h1 class="text-balance mt-2 text-4xl font-bold leading-tight text-white sm:text-5xl xl:text-6xl">
           {title}
         </h1>
-        <p class="mt-6 max-w-2xl border-l-2 border-yellow-400 pl-5 text-lg leading-relaxed text-light-100 sm:text-xl">
+        <p class="mt-2 text-xl font-medium tracking-wide text-light-100 sm:text-2xl">{owner}</p>
+        <p class="mt-5 max-w-2xl border-l-2 border-yellow-400 pl-5 text-base leading-relaxed text-light-100 sm:text-lg">
           {subtitle}
         </p>
-        <div class="mt-7 flex flex-wrap gap-4">
+        <div class="mt-6 flex flex-wrap gap-4">
           <ButtonLink href={ctaPrimary.href} variant="primary">
             {ctaPrimary.label}
           </ButtonLink>
@@ -39,12 +40,6 @@ const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = A
             {ctaSecondary.label}
           </ButtonLink>
         </div>
-        <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/20 pt-5 text-sm text-light-100" aria-label="Áreas principales">
-          <li>Reparación</li>
-          <li>Instalación</li>
-          <li>Mantenimiento</li>
-          <li>Repuestos</li>
-        </ul>
       </div>
 
       <div class="hidden lg:block" aria-hidden="true"></div>
