@@ -1,33 +1,43 @@
 ---
 import BrandLogo from '../ui/BrandLogo.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
+import ThemeToggle from '../ui/ThemeToggle.astro'
 import DesktopNav from './DesktopNav.astro'
 import MobileNav from './MobileNav.astro'
 import { withBase } from '../../lib/url'
 
 interface Props {
   currentPath?: string
-  logoVariant?: 'light' | 'dark'
 }
 
-const { currentPath = '/', logoVariant = 'dark' } = Astro.props
+const { currentPath = '/' } = Astro.props
 ---
 
-<header id="site-header" class="sticky top-0 z-50 border-b border-deep-700 bg-deep-900 transition-all duration-300">
-  <div class="mx-auto flex h-24 lg:h-28 max-w-(--content-max) items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300 is-scrolled:h-[4.5rem] lg:is-scrolled:h-20">
+<header id="site-header" class="site-header sticky top-0 z-50" data-header>
+  <div class="brand-bar" aria-hidden="true"></div>
+  <div class="mx-auto flex h-20 max-w-(--content-max) items-center justify-between px-4 sm:px-6 lg:h-24 lg:px-8">
     <a href={withBase('/')} class="flex-shrink-0" aria-label="Ir al inicio">
-      <BrandLogo brand="ead" variant={logoVariant} class="header-logo h-20 lg:h-24 transition-all duration-300 is-scrolled:h-14 lg:is-scrolled:h-16" />
+      <span class="theme-logo theme-logo--on-light">
+        <BrandLogo brand="ead" variant="dark" alt="" class="h-12 lg:h-14" />
+      </span>
+      <span class="theme-logo theme-logo--on-dark">
+        <BrandLogo brand="ead" variant="light" alt="" class="h-20 lg:h-24" />
+      </span>
     </a>
 
     <DesktopNav currentPath={currentPath} />
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
+      <ThemeToggle />
       <div class="hidden sm:block">
-        <ButtonLink href="/contacto" variant="primary" class="py-2">
+        <ButtonLink href="/contacto" variant="primary" class="py-2.5">
           Presupuesto
         </ButtonLink>
       </div>
       <MobileNav currentPath={currentPath} />
     </div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true">
+    <span class="scroll-progress__bar" data-scroll-progress></span>
   </div>
 </header>

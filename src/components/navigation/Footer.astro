@@ -7,33 +7,53 @@ import SocialLinks from './SocialLinks.astro'
 import { withBase } from '../../lib/url'
 ---
 
-<footer class="dark-technical-grid relative border-t border-deep-700 bg-deep-950">
-  <div class="absolute inset-x-0 top-0 h-px bg-yellow-400" aria-hidden="true"></div>
-  <div class="relative mx-auto flex max-w-(--content-max) flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-    <div class="flex items-center gap-6">
-      <a href={withBase('/')} aria-label="Ir al inicio">
-        <BrandLogo brand="ead" variant="light" loading="lazy" class="h-10 w-auto" />
-      </a>
+<footer class="site-footer dark-technical-grid text-white">
+  <div class="brand-bar" aria-hidden="true"></div>
+  <span class="footer-mark" aria-hidden="true">EAD</span>
+  <div class="footer-content mx-auto max-w-(--content-max) px-4 py-12 sm:px-6 lg:px-8" data-reveal>
+    <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr_1fr_1fr]">
+      <div>
+        <a href={withBase('/')} aria-label="Ir al inicio" class="inline-flex">
+          <BrandLogo brand="ead" variant="light" loading="lazy" class="h-20 w-auto" />
+        </a>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-gray-300">
+          Oleohidráulica en Colonia Barón, La Pampa.
+        </p>
+      </div>
 
-      <nav aria-label="Footer" class="hidden items-center gap-5 lg:flex">
-        {footerGroups.flatMap((group) => group.links).map((link) => (
-          <a
-            href={withBase(link.href)}
-            class="text-sm text-light-100 transition-colors hover:text-white"
-          >
-            {link.label}
-          </a>
-        ))}
-      </nav>
-    </div>
+      {footerGroups.map((group) => (
+        <nav aria-label={`Footer: ${group.label}`}>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-gold-400">{group.label}</p>
+          <ul class="mt-4 space-y-2.5">
+            {group.links.map((link) => (
+              <li>
+                <a
+                  href={withBase(link.href)}
+                  class="text-sm text-gray-300 transition-colors hover:text-gold-400"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
 
-    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-light-100">
-      <ContactLinks />
-      <SocialLinks />
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-gold-400">Contacto</p>
+        <div class="mt-4">
+          <ContactLinks class="flex-col items-start gap-2.5" />
+        </div>
+        <div class="mt-4">
+          <SocialLinks />
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="border-t border-deep-700 py-2 text-center text-xs text-light-100/70">
-    &copy; {new Date().getFullYear()} {siteConfig.name}. {siteConfig.address}, {siteConfig.locality}, {siteConfig.province}.
+  <div class="border-t border-white/10">
+    <div class="mx-auto max-w-(--content-max) px-4 py-4 text-center text-xs leading-relaxed text-gray-400 sm:px-6 lg:px-8">
+      &copy; {new Date().getFullYear()} {siteConfig.name}. {siteConfig.address}, {siteConfig.locality}, {siteConfig.province}.
+    </div>
   </div>
 </footer>

@@ -4,7 +4,6 @@ import { services as serviceEntries } from './services'
 export interface HomeContent {
   hero: {
     title: string
-    owner: string
     subtitle: string
     ctaPrimary: { label: string; href: string }
     ctaSecondary: { label: string; href: string }
@@ -37,15 +36,14 @@ export interface HomeContent {
 
 export const homeContent: HomeContent = {
   hero: {
-    title: 'EAD Oleohidráulica',
-    owner: 'Enzo A. Deux',
+    title: 'Soluciones oleohidráulicas profesionales',
     subtitle:
-      `Diagnóstico, reparación, instalación y mantenimiento de sistemas hidráulicos. ${siteConfig.commercialRelationshipText}`,
+      `Reparación, instalación y mantenimiento de sistemas hidráulicos. ${siteConfig.commercialRelationshipText}`,
     ctaPrimary: { label: 'Solicitar presupuesto', href: '/contacto' },
     ctaSecondary: { label: 'Ver servicios', href: '/servicios' },
   },
   trust: {
-    text: `Más de ${siteConfig.yearsExperience} años en el rubro oleohidráulico, con atención en taller y a campo en ${siteConfig.areaServed}.`,
+    text: `Más de ${siteConfig.yearsExperience} años de experiencia en el rubro oleohidráulico, con atención en ${siteConfig.areaServed}.`,
   },
   services: {
     heading: 'Servicios especializados',
@@ -57,21 +55,21 @@ export const homeContent: HomeContent = {
     })),
   },
   brands: {
-    heading: 'Servicio técnico oficial',
-    note: 'Consultá disponibilidad y compatibilidad de repuestos; te lo confirmamos en cada consulta.',
+    heading: 'Representaciones oficiales',
+    note: 'Disponibilidad y compatibilidad de repuestos se confirman bajo consulta.',
   },
   projects: {
     heading: 'Trabajos realizados',
     emptyMessage:
-      'Estamos preparando el portfolio con trabajos reales autorizados. Mientras tanto, mirá nuestros servicios o escribinos directamente.',
+      'Estamos preparando el portfolio con imágenes de trabajos reales. Mientras tanto, conocé nuestros servicios o consultanos directamente.',
   },
   location: {
     heading: 'Colonia Barón, La Pampa',
-    text: `Atendemos consultas de ${siteConfig.areaServed}, en taller y a campo. Cada trabajo se coordina según el equipo y la necesidad planteada.`,
+    text: `Atendemos consultas de ${siteConfig.areaServed}. Cada trabajo se coordina según el equipo y la necesidad planteada.`,
   },
   finalCta: {
-    heading: '¿Necesitás una solución hidráulica?',
-    text: 'Escribinos por WhatsApp, llamanos o mandanos un correo: te asesoramos y te pasamos un presupuesto sin compromiso.',
-    cta: { label: 'Escribinos por WhatsApp', href: '/contacto' },
+    heading: '¿Necesita una solución hidráulica?',
+    text: 'Contáctenos por WhatsApp, teléfono o correo para recibir asesoramiento personalizado.',
+    cta: { label: 'Escribirnos por WhatsApp', href: '/contacto' },
   },
 }

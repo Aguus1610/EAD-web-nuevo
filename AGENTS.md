@@ -1,67 +1,47 @@
-# EAD Oleohidráulica — Sitio institucional y comercial
+# EAD Oleohidráulica — guía para agentes
 
-Sitio estático en Astro 7 + TypeScript estricto + Tailwind v4 (plugin de Vite, sin archivo de config) para EAD Oleohidráulica (Colonia Barón, La Pampa). Convierte visitas en consultas por WhatsApp, correo o formulario (EmailJS). Contenido visible en español rioplatense.
+Sitio institucional estático de EAD Oleohidráulica (Colonia Barón, La Pampa). Astro 7 + TypeScript estricto + Tailwind 4, contenido en español rioplatense.
 
-## Comandos
+## Setup y comandos
 
-Requiere Node >= 22.12 (`engines`). Astro 7 no arranca con versiones anteriores.
+- Requiere Node >=22.12 (CI usa Node 22). Instalar con `npm ci`; no hay monorepo ni workspaces.
+- `npm run dev` sirve en `http://localhost:4321/EAD-web-nuevo/`, no en la raíz.
+- `npm run quality` es el pipeline de CI, en este orden: `typecheck` (`astro check`) → `lint` (otro `astro check`) → `test` (Vitest) → `build` → `check:build` → `validate:launch` → `test:e2e`.
+- `npm run lint` y `npm run format:check` son alias de `astro check`; no hay ESLint, Prettier ni formateador. No inventes un paso de formato.
+- `npm test` corre todos los unitarios; uno solo con `npx vitest run src/lib/contact.test.ts`. Vitest solo incluye `src/**/*.test.ts(x)`, no `tests/e2e/`.
+- Un e2e: `npx playwright test tests/e2e/site.spec.ts -g "texto del test" --project=desktop-chromium`. Playwright levanta el dev server en `127.0.0.1:4321`; instalar Chromium con `npx playwright install chromium`. Usar `PLAYWRIGHT_REUSE_SERVER=1` si ya hay un dev server.
+- `check:build` y `validate:launch` leen `dist/`: ejecutar `npm run build` antes si se corren por separado.
 
-- `npm run dev` — servidor local en `http://127.0.0.1:4321/EAD-web-nuevo/`
-- `npm test` — Vitest; solo recoge `src/**/*.test.ts` (tests colocalizados junto al código)
-- `npm run test:e2e` — Playwright en desktop-chromium + Pixel 5; levanta solo el dev server (puerto 4321); `PLAYWRIGHT_REUSE_SERVER=1` para reutilizar uno ya corriendo
-- `npm run lint` y `npm run format:check` — ambos ejecutan `astro check`; no existe ESLint ni Prettier
-- `npm run check:build` — presupuestos de tamaño por archivo/tipo sobre `dist/`
-- `npm run validate:launch` — reglas de lanzamiento (ver abajo)
-- `npm run quality` — gate completo (typecheck + lint + test + build + check:build + validate:launch + test:e2e); es exactamente lo que corre CI en cada push/PR
-- `npm run instagram:import -- <url>` — genera un borrador de proyecto desde una publicación de Instagram; requiere `.env.local` con `INSTAGRAM_ACCESS_TOKEN` (ver `.env.example`)
+## Arquitectura y rutas
 
-## Gotchas que un agente fallaría sin ayuda
+- `astro.config.mjs` publica como proyecto de GitHub Pages en `/EAD-web-nuevo/` (`site` + `base`), con salida 100% estática. No agregar SSR, adapter, base de datos, auth ni CMS.
+- Todo enlace o asset interno debe pasar por `withBase()` (`src/lib/url.ts`) o por componentes que ya lo aplican (`ButtonLink`, `PhotoFrame`, etc.). Un `href="/..."` o `src="/..."` sin base rompe `validate:launch` y el e2e.
+- `siteConfig.siteUrl` en `src/data/site.ts` debe coincidir con `site + base`; los canonical y los tests (`src/lib/seo.test.ts`, `tests/e2e/site.spec.ts`) dependen de esa URL. Si cambia el dominio o el base, actualizá config, datos y tests juntos.
+- `src/layouts/BaseLayout.astro` centraliza canonical, Open Graph y JSON-LD. Cada página debe renderizar exactamente un `<main>` y un `<h1>`; `validate:launch` lo exige.
 
-- **Base path**: el sitio vive en `https://aguus1610.github.io/EAD-web-nuevo` (`base: '/EAD-web-nuevo'` en `astro.config.mjs`, deploy automático a GitHub Pages solo desde `main`). Todo enlace/asset interno debe respetar el base (usar utilidades de `src/lib/url.ts`); `validate:launch` falla si un HTML contiene rutas absolutas fuera de `/EAD-web-nuevo`. Si cambia el host, actualizar `base`, `siteUrl` en `src/data/site.ts` y los tests e2e.
-- **Reglas de lanzamiento** (`scripts/validate-launch.mjs`, corre en CI): cada página debe tener exactamente 1 `<main>`, 1 `<h1>` y `rel="canonical"`; no puede quedar `PENDING_CONFIRMATION` en el build; `siteUrl` y `mapUrl` de `src/data/site.ts` no pueden estar pendientes.
-- **Proyectos** (`src/content/projects/`): el build falla si un proyecto no tiene `publicationApproved: true`. Los assets deben ser locales en `/assets/projects/<slug>/*.webp`; están prohibidas URLs de CDN de Instagram como assets y `mediaId` duplicados. Archivos que empiezan con `_` se ignoran (borradores).
-- **Datos comerciales**: única fuente de verdad en `src/data/site.ts` (contactos, horarios, configuración pública de EmailJS, coordenadas, años de experiencia). No duplicar ni inventar valores en componentes; todo CTA necesita destino real y configurable (`src/lib/contact.ts` para WhatsApp/correo/teléfono).
-- **EmailJS**: el envío usa el SDK en el navegador con service ID, template ID y public key. Nunca versionar una private key; los orígenes permitidos y el destino se configuran en el panel de EmailJS. `siteConfig.email` (`hydropampa@hotmail.com`) es el correo público; `siteConfig.adminEmail` (`adm201364@gmail.com`) es el destino interno del formulario y se fija en la plantilla. La separación es intencional. Un `200` sólo confirma aceptación, no entrega: si el correo no llega, revisar History, el campo To Email de la plantilla, la conexión Gmail y spam/suppressions. Sin JavaScript se oculta el envío y quedan WhatsApp/correo/teléfono.
-- **Instagram**: el import nunca corre durante el build; las respuestas se validan con contratos en `src/lib/instagram.ts`.
-- **Tests e2e** bloquean la red externa (api.emailjs.com, wa.me, api.whatsapp.com); no esperes llamadas reales en ellos.
+## Contenido y activos
 
-## Estructura
+- Datos comerciales, contactos, horarios y redes: solo en `src/data/site.ts`. No duplicar teléfonos, correos ni dirección en componentes.
+- El portfolio vive en `src/content/projects/*.{md,mdx}` con el esquema de `src/content.config.ts`; el nombre del archivo es el slug. Solo se renderiza, enlaza y agrega al sitemap si `publicationApproved: true`.
+- Imágenes de proyectos: WebP locales en `public/assets/projects/<slug>/<archivo>.webp`, con `alt`, `width` y `height`. `validate:launch` falla ante assets faltantes, URLs de CDN de Instagram/Facebook o `mediaId` duplicado.
+- Fotos del taller: catalogarlas en `src/data/media.ts` con `id`/`src` únicos, WebP, dimensiones y `alt`; `src/data/media.test.ts` valida el catálogo.
+- No dejes borradores `.md`/`.mdx` que no empiecen con `_` en `src/content/projects/`: `validate:launch` exige `publicationApproved: true` en cada uno. Los borradores van en `.sync-temp/`.
+- `npm run instagram:import -- <url>` requiere `.env.local` (`INSTAGRAM_ACCESS_TOKEN`, `INSTAGRAM_EXPECTED_USERNAME`) y solo escribe borradores en `.sync-temp/instagram-drafts/`; nunca publica ni modifica `src/content/` o `public/`. No commitear `.env.local`.
+- `PENDING_CONFIRMATION` es el centinela de datos sin confirmar. Si queda en HTML, `siteUrl` o `mapUrl`, `validate:launch` bloquea el build.
+- `check:build` aplica presupuestos estrictos (320 KB por WebP, 1,4 MB por proyecto): optimizá las imágenes en vez de subir los límites.
+- No modificar, recortar, recolorear ni recrear los logos de `public/assets/brand/`; usar los archivos originales en la variante clara u oscura correspondiente.
 
-- `src/data/` — datos del negocio, contactos, marcas, líneas de grúas, navegación
-- `src/content/` — colecciones validadas por `src/content.config.ts` (proyectos con frontmatter tipado)
-- `src/lib/` — utilidades puras: url, seo, contact, instagram, projects, gallery
-- `src/components/`, `src/layouts/`, `src/pages/`, `src/styles/` — estándar Astro
-- `public/assets/brand/` — logos originales suministrados; no redibujar ni recolorear
-- `public/assets/projects/` y `public/assets/workshop/` — fotos reales optimizadas que se publican (WebP)
-- `media-src/workshop/` — originales JPG y descartes fuera del build; no moverlos a `public/`
-- `tests/e2e/` — recorridos de navegación, contacto, responsive y accesibilidad
-- `spec/` — SDD: constitution (mission, tech-stack, roadmap), features y decisiones de release
+## Reglas de contenido
 
-## Convenciones
+- No inventar proyectos, testimonios, certificaciones, especificaciones, precios, stock, cobertura ni relaciones comerciales; usar solo datos aprobados por EAD.
+- No usar imágenes de stock presentadas como trabajos reales ni publicar datos personales, patentes o nombres de clientes sin autorización.
+- No publicar CTAs, formularios o enlaces con destinos ficticios. El formulario envía a Formspree o abre WhatsApp; el e2e intercepta ambos servicios y no envía mensajes reales.
+- Mantener el tono en español rioplatense, HTML semántico y accesibilidad: `alt` en imágenes informativas, labels en controles, foco visible y cero overflow horizontal en desktop y Pixel 5.
+- No habilitar analítica, cookies no esenciales, mapas embebidos ni scripts de terceros sin consentimiento y documentación.
+- El sitio no es tienda, portal de clientes, sistema de gestión ni catálogo con stock.
 
-- `PascalCase` para componentes y tipos; `camelCase` para el resto; slugs en `kebab-case`.
-- HTML semántico antes que componentes genéricos; jerarquía de encabezados correcta.
-- Mobile-first; verificar cada feature en 360 / 768 / 1024 / 1440 px.
-- Sin `any` en TypeScript; componentes pequeños, tipados y reutilizables.
+## Proceso
 
-## No hagas
-
-- No modificar, recrear ni recolorear los logos de EAD, Hidro-Grubert o Palfinger.
-- No inventar proyectos, testimonios, certificaciones, precios, stock, coberturas ni relaciones comerciales.
-- No añadir base de datos, auth, CMS o dependencias grandes sin justificación y aprobación.
-- No subir `.env*`, credenciales ni datos personales al repo.
-- No usar imágenes de stock que puedan confundirse con trabajos reales.
-- No publicar originales pesados ni patentes/rostros legibles; optimizar a WebP y archivar en `media-src/`.
-- No habilitar tracking, cookies no esenciales ni scripts de terceros sin consentimiento y documentación.
-
-## Flujo de trabajo
-
-- Antes de una tarea no trivial, proponer un plan y esperar el OK; una tarea a la vez y reportar los cambios al terminar.
-- Spec-driven: cada feature nueva va a `spec/features/NNN-nombre/` con `spec.md` + `plan.md` + `tasks.md`, y se actualiza `spec/constitution/roadmap.md` (ver `spec/README.md`).
-- Si no hay certeza al 80%, preguntar antes que inventar.
-
-## Documentación de referencia
-
-- `spec/constitution/mission.md` — propósito, público y límites del producto
-- `spec/constitution/tech-stack.md` — arquitectura, convenciones y reglas visuales
-- `spec/performance-budgets.md` y `spec/release.md` — presupuestos y criterios de release
+- Trabajo dirigido por spec: antes de una feature no trivial, leer `spec/constitution/` y crear o actualizar `spec/features/NNN-nombre/{spec,plan,tasks}.md` antes de tocar código.
+- Proponer un plan y esperar OK para tareas no triviales; una tarea a la vez. Si hay menos de 80% de certeza, preguntar antes de inventar.
+- CI: `.github/workflows/pages.yml` corre `npm run quality` en PR y push a `main`; solo `main` despliega `dist/` a GitHub Pages. No hay deploy manual.

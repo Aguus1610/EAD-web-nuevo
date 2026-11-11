@@ -20,10 +20,10 @@ function isActive(linkHref: string): boolean {
       <li>
         <a
           href={withBase(link.href)}
-          class={`relative px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400
+          class={`nav-link relative px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] transition-colors
             ${isActive(link.href)
-              ? 'text-white after:absolute after:inset-x-3 after:-bottom-1 after:h-0.5 after:bg-yellow-400'
-              : 'text-light-100 hover:text-white'
+              ? 'is-active text-navy-950'
+              : 'text-gray-600 hover:text-steel-600'
             }
           `}
           aria-current={isActive(link.href) ? 'page' : undefined}

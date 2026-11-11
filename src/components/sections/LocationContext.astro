@@ -14,44 +14,47 @@ const { heading, paragraphs } = Astro.props
 
 <section class="paper-grid py-16 sm:py-24">
   <Container>
-    <SectionHeading>{heading}</SectionHeading>
+    <SectionHeading index="06">{heading}</SectionHeading>
 
     <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1fr]">
-      <div class="reveal-left border border-deep-700 bg-deep-900 p-7 text-white sm:p-9">
-        <p class="technical-label text-yellow-400">Base operativa</p>
-        {paragraphs.map((p) => (
-          <p class="mt-4 text-lg leading-relaxed text-light-100">{p}</p>
-        ))}
+      <div class="relative overflow-hidden bg-navy-950 p-7 text-white sm:p-9" data-reveal>
+        <div class="brand-diagonal brand-diagonal--soft" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <p class="technical-label">Base operativa</p>
+          {paragraphs.map((p) => (
+            <p class="mt-4 text-lg leading-relaxed text-gray-200">{p}</p>
+          ))}
+        </div>
       </div>
 
-      <div class="reveal-right industrial-card p-6 sm:p-8">
+      <div class="industrial-card p-6 pt-6 sm:p-8 sm:pt-8" data-reveal>
         <dl class="space-y-4 text-sm">
           <div>
-            <dt class="technical-label text-blue-600">Dirección</dt>
-            <dd class="mt-1 text-ink-700">{siteConfig.address}, {siteConfig.locality}</dd>
+            <dt class="technical-label">Dirección</dt>
+            <dd class="mt-2 text-gray-600">{siteConfig.address}, {siteConfig.locality}</dd>
           </div>
           <div>
-            <dt class="technical-label text-blue-600">Provincia</dt>
-            <dd class="mt-1 text-ink-700">{siteConfig.province}, {siteConfig.country}</dd>
+            <dt class="technical-label">Provincia</dt>
+            <dd class="mt-2 text-gray-600">{siteConfig.province}, {siteConfig.country}</dd>
           </div>
           <div>
-            <dt class="technical-label text-blue-600">Horario</dt>
-            <dd class="mt-1 text-ink-700">{siteConfig.hours}</dd>
+            <dt class="technical-label">Horario</dt>
+            <dd class="mt-2 text-gray-600">{siteConfig.hours}</dd>
           </div>
           <div>
-            <dt class="technical-label text-blue-600">Teléfonos</dt>
-            <dd class="mt-2 space-y-3">
+            <dt class="technical-label">Teléfonos</dt>
+            <dd class="mt-3 space-y-3">
               {siteConfig.contacts.map((contact) => (
                 <div>
-                  <p class="font-semibold text-deep-900">{contact.name}</p>
+                  <p class="font-semibold text-navy-950">{contact.name}</p>
                   <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1">
-                    <a href={telUrl(contact.phone)} aria-label={`Llamar a ${contact.name} al ${contact.phone}`} class="text-ink-700 underline decoration-blue-600/40 underline-offset-4 hover:text-blue-600">{contact.phone}</a>
+                    <a href={telUrl(contact.phone)} aria-label={`Llamar a ${contact.name} al ${contact.phone}`} class="text-gray-700 underline decoration-steel-400 underline-offset-4 hover:text-steel-600">{contact.phone}</a>
                     <a
-                      href={whatsappUrl('Hola, vi la web de EAD Oleohidráulica y quiero hacer una consulta.', contact.whatsapp)}
+                      href={whatsappUrl('Hola, vi la web de EAD Oleohidráulica y quería hacer una consulta.', contact.whatsapp)}
                       aria-label={`Abrir WhatsApp de ${contact.name} al ${contact.phone}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="font-semibold text-blue-600 underline decoration-blue-600/40 underline-offset-4 hover:text-blue-700"
+                      class="font-semibold text-steel-600 underline decoration-steel-400 underline-offset-4 hover:text-navy-950"
                     >
                       WhatsApp
                     </a>

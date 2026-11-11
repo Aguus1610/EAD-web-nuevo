@@ -10,22 +10,28 @@ interface Props {
 const { heading, steps } = Astro.props
 ---
 
-<section class="dark-technical-grid border-y border-deep-700 py-16 sm:py-24">
+<section class="process-section dark-technical-grid" aria-labelledby="process-heading">
   <Container>
-    <p class="technical-label text-yellow-400">Proceso de trabajo</p>
-    <SectionHeading light class="mt-3">{heading}</SectionHeading>
+    <div class="process-layout">
+      <div class="process-aside" data-reveal>
+        <p class="technical-label">Proceso de trabajo</p>
+        <SectionHeading id="process-heading" light index="03" class="mt-4">{heading}</SectionHeading>
+        <div class="process-meter" data-process-track aria-hidden="true">
+          <span class="process-meter__fill"></span>
+        </div>
+      </div>
 
-    <ol class="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {steps.map((step, i) => (
-        <li class={`reveal reveal-delay-${i + 1} relative border border-white/15 border-t-2 border-t-yellow-400 bg-deep-800 p-6 transition-colors hover:border-white/40`}>
-          <span class="technical-label text-yellow-400">
-            Etapa {String(i + 1).padStart(2, '0')}
-          </span>
-          <div class="my-5 h-px bg-white/20" aria-hidden="true"></div>
-          <h3 class="text-xl font-bold text-white">{step.title}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-light-100">{step.description}</p>
-        </li>
-      ))}
-    </ol>
+      <ol class="process-steps">
+        {steps.map((step, i) => (
+          <li class={`process-step ${i === 0 ? 'is-active' : ''}`} data-process-step>
+            <span class="process-step__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold text-white sm:text-2xl">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-gray-300 sm:text-base">{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
   </Container>
 </section>

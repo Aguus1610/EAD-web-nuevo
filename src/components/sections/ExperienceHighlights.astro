@@ -14,27 +14,29 @@ const { heading, years, yearsLabel, highlights } = Astro.props
 
 <section class="paper-grid py-16 sm:py-24">
   <Container>
-    <SectionHeading>{heading}</SectionHeading>
+    <p class="technical-label">Trayectoria</p>
+    <SectionHeading index="02" class="mt-4">{heading}</SectionHeading>
 
-    <div class="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+    <div class="experience-layout">
       {years !== null && yearsLabel && (
-        <div class="relative flex min-h-72 flex-col justify-center overflow-hidden border border-deep-700 bg-deep-900 p-8 text-white">
-          <span class="corner-yellow pointer-events-none absolute right-0 top-0 h-20 w-20 bg-yellow-400/15" aria-hidden="true"></span>
-          <p class="technical-label relative text-yellow-400">Experiencia en el rubro</p>
-          <span class="relative mt-2 text-8xl font-bold leading-none text-white sm:text-9xl"><span data-count-target={String(years)} id="years-counter">0</span><span class="text-yellow-400">+</span></span>
-          <span class="relative mt-3 max-w-xs text-lg text-light-100">{yearsLabel}</span>
+        <div data-reveal>
+          <p class="technical-label">Experiencia en el rubro</p>
+          <p class="experience-number mt-5">
+            {years}<span>+</span>
+          </p>
+          <p class="mt-6 max-w-xs border-t border-navy-950/20 pt-4 text-lg text-navy-900">{yearsLabel}</p>
         </div>
       )}
 
       {highlights.length > 0 && (
-        <ul class="grid gap-4 sm:grid-cols-2">
+        <ul class="experience-list" data-stagger>
           {highlights.map((item) => (
-            <li class="industrial-card flex min-h-32 items-start gap-4 p-5 sm:p-6">
-              <svg class="mt-0.5 h-9 w-9 shrink-0 text-blue-600" fill="none" viewBox="0 0 32 32" stroke="currentColor" aria-hidden="true">
-                <circle cx="16" cy="16" r="13" stroke-width="2" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 16l4 4 8-9" />
+            <li class="experience-item" data-reveal>
+              <svg class="mt-0.5 h-8 w-8 shrink-0 text-steel-600" fill="none" viewBox="0 0 32 32" stroke="currentColor" aria-hidden="true">
+                <circle cx="16" cy="16" r="13" stroke-width="1.5" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 16l4 4 8-9" />
               </svg>
-              <span class="font-medium leading-relaxed text-ink-700">{item}</span>
+              <span class="font-medium leading-relaxed text-gray-700">{item}</span>
             </li>
           ))}
         </ul>

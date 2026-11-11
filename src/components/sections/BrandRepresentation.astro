@@ -14,29 +14,36 @@ interface Props {
 const { heading, note, class: className } = Astro.props
 ---
 
-<section class={`border-y border-light-200 bg-white py-12 sm:py-16 ${className ?? ''}`}>
+<section class={`dark-technical-grid relative overflow-hidden border-y border-navy-700 py-16 sm:py-24 ${className ?? ''}`}>
+  <div class="brand-diagonal brand-diagonal--soft" aria-hidden="true"></div>
   <Container>
-    <div class="reveal relative text-center">
-      <p class="technical-label text-blue-600">Marcas representadas</p>
-      <SectionHeading class="mt-3">{heading}</SectionHeading>
-      <p class="mx-auto mt-5 max-w-2xl text-lg text-ink-700">{siteConfig.commercialRelationshipText}</p>
-      <div class="mx-auto mt-9 flex max-w-xl flex-wrap items-center justify-center gap-x-12 gap-y-8">
-        <a
-          href={withBase('/productos')}
-          class="group flex items-center justify-center transition-opacity hover:opacity-70"
-          aria-label="Ver repuestos Hidro-Grubert"
-        >
-          <BrandLogo brand="hidro-grubert" class="h-auto max-h-12 w-auto max-w-full" loading="lazy" />
-        </a>
-        <a
-          href={withBase('/productos')}
-          class="group flex items-center justify-center transition-opacity hover:opacity-70"
-          aria-label="Ver repuestos Palfinger"
-        >
-          <BrandLogo brand="palfinger" class="h-auto max-h-12 w-auto max-w-full" loading="lazy" />
-        </a>
+    <div class="relative z-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">
+      <div>
+        <p class="technical-label">Marcas representadas</p>
+        <SectionHeading light index="03" class="mt-4">{heading}</SectionHeading>
       </div>
-      <p class="mt-7 inline-block border-l-2 border-yellow-400 pl-4 text-left text-sm text-ink-700">{note}</p>
+      <p class="max-w-2xl text-lg leading-relaxed text-gray-200">{siteConfig.commercialRelationshipText}</p>
     </div>
+
+    <div class="brand-rail relative z-10" data-stagger>
+      <a
+        href={withBase('/productos')}
+        class="brand-rail__link group"
+        aria-label="Ver repuestos Hidro-Grubert"
+        data-reveal
+      >
+        <BrandLogo brand="hidro-grubert" class="h-auto max-h-14 max-w-full" loading="lazy" />
+      </a>
+      <a
+        href={withBase('/productos')}
+        class="brand-rail__link group"
+        aria-label="Ver repuestos Palfinger"
+        data-reveal
+      >
+        <BrandLogo brand="palfinger" class="h-auto max-h-14 max-w-full" loading="lazy" />
+      </a>
+    </div>
+
+    <p class="relative z-10 mt-7 max-w-2xl border-l border-gold-400 pl-4 text-sm leading-relaxed text-steel-100">{note}</p>
   </Container>
 </section>

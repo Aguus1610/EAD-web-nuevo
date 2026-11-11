@@ -1,13 +1,11 @@
 ---
-import Container from '../ui/Container.astro'
 import ButtonLink from '../ui/ButtonLink.astro'
 import BrandLogo from '../ui/BrandLogo.astro'
-import HeroBackdrop from '../ui/HeroBackdrop.astro'
+import PhotoFrame from '../ui/PhotoFrame.astro'
 import type { MediaImage } from '../../data/media'
 
 interface Props {
   title: string
-  owner: string
   subtitle: string
   ctaPrimary: { label: string; href: string }
   ctaSecondary: { label: string; href: string }
@@ -15,34 +13,47 @@ interface Props {
   class?: string
 }
 
-const { title, owner, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
+const { title, subtitle, ctaPrimary, ctaSecondary, image, class: className } = Astro.props
 ---
 
-<section class={`dark-technical-grid relative isolate overflow-hidden border-b border-deep-700 py-12 sm:py-16 ${className ?? ''}`}>
-  <HeroBackdrop image={image} />
-  <span class="corner-yellow pointer-events-none absolute right-0 top-0 z-10 h-24 w-24 bg-yellow-400/15" aria-hidden="true"></span>
-  <Container>
-    <div class="relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-      <div class="reveal min-w-0">
-        <BrandLogo brand="ead" variant="light" class="mb-4 h-24 w-auto sm:h-28" />
-        <h1 class="text-balance mt-2 text-4xl font-bold leading-tight text-white sm:text-5xl xl:text-6xl">
-          {title}
-        </h1>
-        <p class="mt-2 text-xl font-medium tracking-wide text-light-100 sm:text-2xl">{owner}</p>
-        <p class="mt-5 max-w-2xl border-l-2 border-yellow-400 pl-5 text-base leading-relaxed text-light-100 sm:text-lg">
-          {subtitle}
-        </p>
-        <div class="mt-6 flex flex-wrap gap-4">
-          <ButtonLink href={ctaPrimary.href} variant="primary">
-            {ctaPrimary.label}
-          </ButtonLink>
-          <ButtonLink href={ctaSecondary.href} variant="secondary-light">
-            {ctaSecondary.label}
-          </ButtonLink>
-        </div>
+<section class={`hero-section dark-technical-grid relative overflow-hidden ${className ?? ''}`} data-scroll-hero>
+  <div class="brand-diagonal" aria-hidden="true"></div>
+
+  <svg class="hero-trace" viewBox="0 0 1200 800" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <path class="hero-trace__line" d="M0 650H210L250 610H470L510 650H780" />
+    <path class="hero-trace__line hero-trace__line--soft" d="M0 150H120L160 190H360L400 150H600" />
+    <circle class="hero-trace__node" cx="250" cy="610" r="3" />
+    <circle class="hero-trace__node" cx="510" cy="650" r="3" />
+  </svg>
+
+  <div class="hero-layout relative z-10">
+    <div class="hero-copy" data-reveal>
+      <BrandLogo brand="ead" variant="light" class="mb-8 h-16 w-auto self-start sm:h-20" />
+      <p class="technical-label">Oleohidráulica · Colonia Barón</p>
+      <h1 class="hero-title mt-6 font-bold uppercase text-white">{title}</h1>
+      <p class="hero-lead mt-7 max-w-2xl text-lg leading-relaxed text-gray-200 sm:text-xl">{subtitle}</p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <ButtonLink href={ctaPrimary.href} variant="primary">
+          {ctaPrimary.label}
+        </ButtonLink>
+        <ButtonLink href={ctaSecondary.href} variant="inverse">
+          {ctaSecondary.label}
+        </ButtonLink>
       </div>
 
-      <div class="hidden lg:block" aria-hidden="true"></div>
+      <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-5 text-xs font-bold uppercase tracking-[0.1em] text-steel-100" aria-label="Áreas principales">
+        <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 bg-gold-400" aria-hidden="true"></span>Reparación</li>
+        <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 bg-gold-400" aria-hidden="true"></span>Instalación</li>
+        <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 bg-gold-400" aria-hidden="true"></span>Mantenimiento</li>
+        <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 bg-gold-400" aria-hidden="true"></span>Repuestos</li>
+      </ul>
     </div>
-  </Container>
+
+    <div class="hero-media" data-parallax="0.05" data-parallax-range="54">
+      <PhotoFrame image={image} class="h-full min-h-full w-full" priority />
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">Explorar</div>
 </section>

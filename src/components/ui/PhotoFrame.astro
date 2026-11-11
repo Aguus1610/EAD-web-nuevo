@@ -15,13 +15,12 @@ const {
   image,
   class: className,
   imageClass,
-  label,
   loading = 'lazy',
   priority = false,
 } = Astro.props
 ---
 
-<div class={`photo-frame relative isolate overflow-hidden bg-deep-950 ${className ?? ''}`}>
+<div class={`photo-frame relative isolate overflow-hidden ${className ?? ''}`} data-reveal="media">
   <img
     src={withBase(image.src)}
     alt={image.alt}
@@ -33,22 +32,4 @@ const {
     style={`object-position: ${image.position ?? '50% 50%'};`}
     class={`h-full w-full object-cover ${imageClass ?? ''}`}
   />
-  <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-deep-950/45 via-transparent to-deep-950/10" aria-hidden="true"></span>
-  <span class="pointer-events-none absolute right-3 top-3 h-7 w-7 border-r-2 border-t-2 border-yellow-400" aria-hidden="true"></span>
-  <span class="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-white/60" aria-hidden="true"></span>
-  {label && (
-    <span class="absolute bottom-3 left-5 max-w-[calc(100%-3rem)] break-words bg-deep-950/90 px-3 py-2 font-sans text-[0.6875rem] font-bold uppercase leading-[1.3] tracking-[0.16em] text-yellow-400">
-      {label}
-    </span>
-  )}
 </div>
-
-<style>
-  .photo-frame::after {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    pointer-events: none;
-    content: '';
-  }
-</style>

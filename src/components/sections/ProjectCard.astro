@@ -18,9 +18,9 @@ const { slug, title, summary, category, date, image, class: className } = Astro.
 const href = `/trabajos/${slug}`
 ---
 
-<article data-project-card data-category={category} class={`industrial-card flex h-full flex-col ${className ?? ''}`}>
+<article data-project-card data-category={category} class={`group flex h-full flex-col ${className ?? ''}`} data-reveal>
   {image && (
-    <a href={withBase(href)} aria-label={`Ver trabajo: ${title}`} class="block overflow-hidden bg-deep-950">
+    <a href={withBase(href)} aria-label={`Ver trabajo: ${title}`} class="project-card-media service-tile__media block" data-pointer-media>
       <img
         src={withBase(image.src)}
         alt={image.alt}
@@ -29,19 +29,19 @@ const href = `/trabajos/${slug}`
         loading="lazy"
         decoding="async"
         style={`object-position: ${image.position ?? '50% 50%'};`}
-        class="aspect-[16/9] h-auto w-full object-cover transition-transform duration-500 hover:scale-[1.025]"
+        class="aspect-[16/10] h-auto w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       />
     </a>
   )}
-  <div class="flex flex-1 flex-col p-6">
+  <div class={`flex flex-1 flex-col ${image ? 'pt-5' : 'pt-5'} border-t border-navy-950/15`}>
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-      <span class="technical-label text-blue-600">{category}</span>
-      <time datetime={date} class="text-xs font-semibold uppercase tracking-wider text-ink-500">{formatProjectDate(date)}</time>
+      <span class="technical-label">{category}</span>
+      <time datetime={date} class="text-xs font-bold uppercase tracking-[0.08em] text-gray-500">{formatProjectDate(date)}</time>
     </div>
-    <h3 class="mt-3 text-xl font-bold text-deep-900">
-      <a href={withBase(href)} class="text-inherit no-underline hover:text-blue-600">{title}</a>
+    <h3 class="mt-4 text-xl font-bold text-navy-950">
+      <a href={withBase(href)} class="text-inherit no-underline hover:text-steel-600">{title}</a>
     </h3>
-    <p class="mt-3 text-sm leading-relaxed text-ink-700">{summary}</p>
+    <p class="mt-3 text-sm leading-relaxed text-gray-600">{summary}</p>
     <div class="mt-auto pt-5">
       <ButtonLink href={href} variant="ghost">Ver trabajo →</ButtonLink>
     </div>

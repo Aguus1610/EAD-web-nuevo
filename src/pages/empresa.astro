@@ -16,13 +16,14 @@ import { selectGalleryImages } from '../lib/gallery'
 
 const { intro, experience, process, gallery, location, finalCta } = aboutContent
 const gallerySeed = import.meta.env.PHOTO_ROTATION_SEED || new Date().toISOString().slice(0, 10)
+const galleryPool = workshopGalleryPool.filter((image) => image.galleryEligible !== false)
 const landscapeImages = selectGalleryImages(
-  workshopGalleryPool.filter((image) => image.orientation === 'landscape'),
+  galleryPool.filter((image) => image.orientation === 'landscape'),
   4,
   `${gallerySeed}:landscape`,
 )
 const portraitImages = selectGalleryImages(
-  workshopGalleryPool.filter((image) => image.orientation === 'portrait'),
+  galleryPool.filter((image) => image.orientation === 'portrait'),
   2,
   `${gallerySeed}:portrait`,
 )
@@ -37,7 +38,7 @@ const workshopImages = [
 
 <BaseLayout
   title="Empresa"
-  description="EAD Oleohidráulica: taller especializado en sistemas oleohidráulicos en Colonia Barón, La Pampa. Más de 25 años reparando, instalando y manteniendo grúas articuladas, hidroelevadores y componentes hidráulicos."
+  description="EAD Oleohidráulica, taller especializado en Colonia Barón, La Pampa. Experiencia en reparación, instalación y mantenimiento de sistemas oleohidráulicos."
   currentPath="/empresa"
   crumbs={[
     { label: 'Empresa' },
@@ -48,18 +49,19 @@ const workshopImages = [
     title={intro.title}
     description={intro.paragraphs[0]}
     image={routeMedia.company}
+    imageLabel="Taller EAD · Colonia Barón"
   />
 
   <section class="bg-white py-16 sm:py-24">
     <Container>
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
-        <div class="reveal">
-          <p class="technical-label text-blue-600">Actividad</p>
-          <SectionHeading class="mt-3">Qué hacemos</SectionHeading>
+        <div>
+          <p class="technical-label">Actividad</p>
+          <SectionHeading index="01" class="mt-4">Qué hacemos</SectionHeading>
         </div>
-        <div class="space-y-5 border-l border-light-200 pl-6 sm:pl-8">
-          {intro.paragraphs.slice(1).map((paragraph, i) => (
-            <p class={`reveal reveal-delay-${i + 1} text-lg leading-relaxed text-ink-700`}>{paragraph}</p>
+        <div class="space-y-5 border-l border-gold-400 pl-6 sm:pl-8" data-reveal>
+          {intro.paragraphs.slice(1).map((paragraph) => (
+            <p class="text-lg leading-relaxed text-gray-700">{paragraph}</p>
           ))}
         </div>
       </div>
@@ -86,6 +88,7 @@ const workshopImages = [
     description={gallery.description}
     emptyMessage={gallery.emptyMessage}
     images={workshopImages}
+    index="05"
   />
 
   <LocationContext heading={location.heading} paragraphs={location.paragraphs} />

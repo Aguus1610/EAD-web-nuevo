@@ -11,12 +11,12 @@ const related = services.filter((service) => slugs.includes(service.slug))
 ---
 
 {related.length > 0 && (
-  <section aria-labelledby="related-services-title" class="mt-14 border-t border-light-200 pt-10">
-    <p class="technical-label text-blue-600">Continuar explorando</p>
-    <h2 id="related-services-title" class="mt-2 text-2xl font-bold text-deep-900">Servicios relacionados</h2>
-    <ul class="mt-5 flex flex-wrap gap-3">
+  <section aria-labelledby="related-services-title" class="mt-14 border-t border-gray-200 pt-10">
+    <p class="technical-label">Continuar explorando</p>
+    <h2 id="related-services-title" class="mt-3 text-2xl font-bold text-navy-950">Servicios relacionados</h2>
+    <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
       {related.map((service) => (
-        <li><a href={withBase(`/servicios/${service.slug}`)} class="cut-corner inline-flex border border-light-200 bg-white px-4 py-2 text-sm font-bold text-deep-900 no-underline transition-colors hover:border-deep-900 hover:bg-deep-900 hover:text-white">{service.title}</a></li>
+        <li><a href={withBase(`/servicios/${service.slug}`)} class="inline-flex border-b border-gray-300 py-1 text-sm font-bold text-navy-800 no-underline transition-colors hover:border-gold-400 hover:text-steel-600">{service.title}</a></li>
       ))}
     </ul>
   </section>

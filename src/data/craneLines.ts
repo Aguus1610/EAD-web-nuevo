@@ -21,17 +21,17 @@ export interface CraneLineSection {
 export const craneLineSection: CraneLineSection = {
   heading: 'Línea de productos y equipos',
   intro:
-    'Trabajamos las líneas de grúas articuladas Hidro-Grubert y Palfinger: instalación, integración, diagnóstico, reparación, mantenimiento y repuestos originales. Modelos, disponibilidad y plazos se confirman bajo consulta.',
+    'Las líneas de grúas articuladas que trabajamos son Hidro-Grubert y Palfinger. Modelos, disponibilidad y repuestos se confirman bajo consulta.',
   items: [
     {
       brand: 'hidro-grubert',
       title: 'Grúas articuladas Hidro-Grubert',
       badge: 'Línea Hidro-Grubert',
       description:
-        'Grúas articuladas e hidroelevadores Hidro-Grubert para montaje vehicular. Instalación, integración, diagnóstico y repuestos originales de la línea.',
-      image: media.gruaHidroGrubertN15000,
+        'Grúas articuladas Hidro-Grubert para montaje vehicular. Repuestos originales y consultas sobre equipos de la línea.',
+      image: media.hidrogrubert97,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
-      ctaLabel: 'Consultá por Hidro-Grubert',
+      ctaLabel: 'Consultar por Hidro-Grubert',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Hidro-Grubert',
     },
     {
@@ -39,10 +39,10 @@ export const craneLineSection: CraneLineSection = {
       title: 'Grúas articuladas Palfinger',
       badge: 'Línea Palfinger',
       description:
-        'Grúas articuladas Palfinger para transporte, construcción y agroindustria. Repuestos originales, diagnóstico y reparaciones de la línea, con software oficial.',
-      image: media.gruaPalfingerPkk26000,
+        'Grúas articuladas Palfinger para transporte, construcción y agroindustria. Repuestos originales y consultas bajo pedido.',
+      image: media.pk61502Title,
       websiteUrl: 'https://www.palfinger.com/ar/es/nuestros-productos/gruas/gruas-articuladas.html',
-      ctaLabel: 'Consultá por Palfinger',
+      ctaLabel: 'Consultar por Palfinger',
       ctaHref: '/contacto?tipo=Repuesto%20o%20componente&marca=Palfinger',
     },
   ],
